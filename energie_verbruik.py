@@ -21,7 +21,11 @@ totaal_verbruik_ele_2021 = df['vrbr_ele_2021']
 #
 
 # Vast verbruik gas per maand
-vast_gas_mnd = 20
+# Bepaal aan de hand van zomerverbruik
+sum_zomerverbruik = 0
+for i in range(5,9):
+   sum_zomerverbruik += df['vrbr_gas_2021'][i]
+vast_gas_mnd = sum_zomerverbruik / 4
 vast_gas_jr = vast_gas_mnd*12
 
 # Bereken gemiddelde graaddagen per maand voor afgelopen drie jaar
@@ -78,7 +82,6 @@ combinatie_verbruik_elektriciteit = ((gemiddelde_elektriciteit +
 
 # Toevoegen nieuwe meetgegevens 2022
 # maand 0=jan, 11=dec
-
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
@@ -102,8 +105,8 @@ totaal_verbruik_gas = 0
 totaal_verbruik_elektriciteit = 0
 
 # Bereken schatting verbruik gas en elektriciteit voor 2022
-schatting_verbruik_gas_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-schatting_verbruik_elektriciteit_2022 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+schatting_verbruik_gas_2022 = [0] * 12
+schatting_verbruik_elektriciteit_2022 = [0] * 12
 verbruik_gas_2022 = 0
 verbruik_elektriciteit_2022 = 0
 # Als alleen eerste maand bekend is
