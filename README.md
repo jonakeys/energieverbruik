@@ -1,7 +1,8 @@
 #
 # energie_verbruik.py
 #
-# Jonathan van der Steege, januari 2022
+# Jonathan van der Steege
+# januari 2022
 #
 # jonathan@jonakeys.nl
 #
