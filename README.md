@@ -25,15 +25,15 @@ $ python energie_verbruik.py
 
 // DATABESTAND
 Voor invoer van data wordt het bestand 'energiedata.csv' gebruikt. Indeling van de velden:
-maand = naam van maand
-grddg_2019, = gegevens graaddagen van de jaren 2019-2021
-grddg_2020,
-grddg_2021
-vrbr_gas_2021	= gasverbruik van 2021
-gem_ele = weging verbruik elektriciteit per maand
-vrbr_ele_2021	= elektriciteitsverbruik 2021
-vrbr_gas_2022	= gasverbruik 2022 [handmatig invoer]
-vrbr_ele_2022	= elektriciteitsverbruik 2022 [handmatige invoer]
+- maand = naam van maand
+- grddg_2019, = gegevens graaddagen van de jaren 2019-2021
+	grddg_2020,
+	grddg_2021
+- vrbr_gas_2021	= gasverbruik van 2021
+- gem_ele = weging verbruik elektriciteit per maand
+- vrbr_ele_2021	= elektriciteitsverbruik 2021
+- vrbr_gas_2022	= gasverbruik 2022 [handmatig invoer]
+- vrbr_ele_2022	= elektriciteitsverbruik 2022 [handmatige invoer]
 
 
 // GEBRUIKEN
