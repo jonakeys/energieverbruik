@@ -18,6 +18,7 @@ Pythonscript om het energieverbruik van het vorige en huidige jaar te vergelijke
 Benodigd:
 - python 3
 - pandas (Python Data Analysis Library) - pandas.pydata.org
+- matplotlib
 
 Uitvoeren:
 $ python energie_verbruik.py
@@ -42,3 +43,5 @@ In het bestand 'energiedata.csv' moet je de kolommen vrbr_gas_2021 en vrbr_ele_2
 Tijdens uitvoeren van het script wordt gevraagd om de maand (januari=0, december=11), dag van de maand, aantal dagen van de maand, verbruik gas en elektriciteit (van begin van de maand tot nu).
 
 Het overzicht van de gegevens wordt getoond. Daarnaast wordt het naar het bestand 'energieverbruik_2022.txt' geschreven.
+
+Er worden twee grafieken getoond. Eén met verbruik van gas en de andere van elektriciteit.
