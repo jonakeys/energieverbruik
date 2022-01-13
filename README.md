@@ -1,5 +1,5 @@
 #
-# energie_verbruik.py
+# energieverbruik.py
 #
 # Jonathan van der Steege
 # januari 2022
