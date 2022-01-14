@@ -99,10 +99,10 @@ dagen_in_maand = int(dagen_in_maand)
 verbruik_gas = int(verbruik_gas)
 verbruik_elektriciteit = int(verbruik_elektriciteit)'''
 maand = 0
-dag_van_maand = 12
+dag_van_maand = 13
 dagen_in_maand = 31
-verbruik_gas = 83
-verbruik_elektriciteit = 56
+verbruik_gas = 90
+verbruik_elektriciteit = 62
 
 percentage_maand = dag_van_maand / dagen_in_maand
 verbruik_gas_maand = (verbruik_gas / percentage_maand) - vast_gas_mnd
@@ -191,23 +191,27 @@ f.close()
 # Toon grafieken
 maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
            "okt", "nov", "dec"]
+plt.figure(facecolor="black")
 plot_gas = plt.subplot2grid((2, 1), (0, 0))
-plot_gas.plot(maanden, schatting_verbruik_gas_2022, color='tab:orange', label="2022")
-plot_gas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021")
+plot_gas.plot(maanden, schatting_verbruik_gas_2022, color='tab:orange', label="2022", linewidth=3)
+plot_gas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021", linewidth=3)
 plot_gas.set_title("Gasverbruik")
 plot_gas.set_xlabel("maand")
-plot_gas.set_ylabel("gasverbruik (in m3)")
+plot_gas.set_ylabel("verbruik (in m3)")
 plot_gas.grid()
 plot_gas.legend()
+plot_gas.set_facecolor("black")
 
 plot_ele = plt.subplot2grid((2,1), (1, 0))
-plot_ele.plot(maanden, schatting_verbruik_elektriciteit_2022, color='tab:orange', label="2022")
-plot_ele.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021")
+plot_ele.plot(maanden, schatting_verbruik_elektriciteit_2022, color='tab:orange', label="2022", linewidth=3)
+plot_ele.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021", linewidth=3)
 plot_ele.set_title("Elektriciteitsverbruik")
 plot_ele.set_xlabel("maand")
-plot_ele.set_ylabel("elektriciteitsverbruik (in kWh)")
+plot_ele.set_ylabel("verbruik (in kWh)")
 plot_ele.grid()
 plot_ele.legend()
+plot_ele.set_facecolor("black")
 
 plt.tight_layout()
+plt.savefig('energieverbruik.png', dpi=300)
 plt.show()
