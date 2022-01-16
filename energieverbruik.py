@@ -103,8 +103,8 @@ verbruik_elektriciteit = int(verbruik_elektriciteit)'''
 maand = 0
 dag_van_maand = 15
 dagen_in_maand = 31
-verbruik_gas = 102
-verbruik_elektriciteit = 73
+verbruik_gas = 103
+verbruik_elektriciteit = 74
 
 percentage_maand = dag_van_maand / dagen_in_maand
 verbruik_gas_maand = (verbruik_gas / percentage_maand) - vast_gas_mnd
@@ -169,7 +169,8 @@ schema = {"maand": df['maand'],
           "vrsch_ele": (schatting_verbruik_elektriciteit_2022 -
                         totaal_verbruik_ele_2021)}
 overzicht = pd.DataFrame(schema)
-str_output = (str(overzicht) + "\n\n" + "2021\n" +
+str_overzicht = str(overzicht) + "\n"
+str_output = ("2021\n" +
               ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
               ("\tVerbruik elektriciteit: %d kWh\n\n" % sum_verbruik_elektriciteit_2021) +
               "2022\n" +
@@ -183,6 +184,7 @@ str_output = (str(overzicht) + "\n\n" + "2021\n" +
                (prijs_gas, prijs_elektriciteit)))
 
 # Toon uitvoer overzicht en totalen
+#print(str_overzicht)
 print(str_output)
 
 # Schrijf uitvoer naar bestand
@@ -190,42 +192,40 @@ f = open("energieverbruik_2022.txt", "w")
 f.write(str_output)
 f.close()
 
+# Schrijf overzicht naar bestand
+f = open("energieverbruik_2022_overzicht.txt", "w")
+f.write(str_overzicht)
+f.close()
+
 # Toon grafieken
 maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
            "okt", "nov", "dec"]
 #plt.figure(facecolor="white")
 rcParams['axes.edgecolor'] = 'White'
-rcParams['figure.figsize'] = [7.9, 3.8]
-#plot_gas = plt.subplot2grid((2, 1), (0, 0))
+rcParams['figure.figsize'] = [7.9, 4.3]
+
+plot_gas.figure()
 plot_gas.plot(maanden, schatting_verbruik_gas_2022, color='tab:orange', label="2022", linewidth=5)
 plot_gas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021", linewidth=5)
-#plot_gas.set_title("Gas", color='White')
-#plot_gas.set_xlabel("maand", color='White')
-#plot_gas.set_ylabel("verbruik (in m3)", color='White')
 plot_gas.title("Gas", color='White')
 plot_gas.xlabel("maand", color='White')
 plot_gas.ylabel("verbruik (in m3)", color='White')
 plot_gas.tick_params(colors='White')
 plot_gas.grid()
 plot_gas.legend()
-#plot_gas.set_facecolor("grey")
 plot_gas.tight_layout()
 plot_gas.savefig('gasverbruik.png', dpi=100, transparent=True)
 plot_gas.show()
 
-#plot_ele = plt.subplot2grid((2, 1), (1, 0))
+plot_ele.figure()
 plot_ele.plot(maanden, schatting_verbruik_elektriciteit_2022, color='tab:orange', label="2022", linewidth=5)
 plot_ele.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021", linewidth=5)
-#plot_ele.set_title("Elektriciteit", color='White')
-#plot_ele.set_xlabel("maand", color='White')
-#plot_ele.set_ylabel("verbruik (in kWh)", color='White')
 plot_ele.title("Elektriciteit", color='White')
 plot_ele.xlabel("maand", color='White')
 plot_ele.ylabel("verbruik (in kWh)", color='White')
 plot_ele.tick_params(colors='White')
 plot_ele.grid()
 plot_ele.legend()
-#plot_ele.set_facecolor("grey")
 plot_ele.tight_layout()
 plot_ele.savefig('elektriciteitsverbruik.png', dpi=100, transparent=True)
 plot_ele.show()
