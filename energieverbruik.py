@@ -200,9 +200,8 @@ f.close()
 # Toon grafieken
 maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
            "okt", "nov", "dec"]
-#plt.figure(facecolor="white")
 rcParams['axes.edgecolor'] = 'White'
-rcParams['figure.figsize'] = [7.9, 4.3]
+rcParams['figure.figsize'] = [7.8, 4.2]
 
 plot_gas.figure()
 plot_gas.plot(maanden, schatting_verbruik_gas_2022, color='tab:orange', label="2022", linewidth=5)
