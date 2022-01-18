@@ -172,10 +172,10 @@ overzicht = pd.DataFrame(schema)
 str_overzicht = str(overzicht) + "\n"
 str_output = ("2021\n" +
               ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
-              ("\tVerbruik elektriciteit: %d kWh\n\n" % sum_verbruik_elektriciteit_2021) +
+              ("\tVerbruik elektriciteit: %d kWh\n" % sum_verbruik_elektriciteit_2021) +
               "2022\n" +
               ("\tGeschat gas: %d m3\n" % (schatting_totaal_gas + vast_gas_jr)) +
-              ("\tGeschat elektriciteit: %d kWh\n\n" % schatting_totaal_elektriciteit) +
+              ("\tGeschat elektriciteit: %d kWh\n" % schatting_totaal_elektriciteit) +
               "Verschil verbruik\n" +
               ("\tGas: %d m3 (EUR %d)\n" % (verschil_gas, (verschil_gas * prijs_gas))) +
               ("\tElektriciteit: %d kWh (EUR %d)\n" %
