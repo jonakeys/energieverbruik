@@ -233,7 +233,7 @@ str_output = ("2021\n" +
               ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n" %
                (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
 
-str_csv_data =("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar\n" +
+str_csv_data = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar\n" +
                str("%d" % sum_verbruik_gas_2021) +
                str(",%d" % (schatting_totaal_gas + vast_gas_jr)) +
                str(",%d" % verschil_gas) +
