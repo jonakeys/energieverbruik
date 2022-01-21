@@ -101,10 +101,10 @@ dagen_in_maand = int(dagen_in_maand)
 verbruik_gas = int(verbruik_gas)
 verbruik_elektriciteit = int(verbruik_elektriciteit)'''
 maand = 0
-dag_van_maand = 15
+dag_van_maand = 19
 dagen_in_maand = 31
-verbruik_gas = 103
-verbruik_elektriciteit = 74
+verbruik_gas = 128
+verbruik_elektriciteit = 95
 
 percentage_maand = dag_van_maand / dagen_in_maand
 verbruik_gas_maand = (verbruik_gas / percentage_maand) - vast_gas_mnd
