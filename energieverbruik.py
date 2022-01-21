@@ -19,6 +19,11 @@ DAGEN_IN_MAAND = 31
 VERBRUIK_GAS = 128
 VERBRUIK_ELEKTRICITEIT = 95
 VERBRUIK_WATER = 5
+PRIJS_GAS = 1.43
+PRIJS_ELEKTRICITEIT = 0.47
+PRIJS_WATER = 1.021
+
+
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
@@ -81,6 +86,8 @@ percentage_verbruik_elektriciteit_2021 = (totaal_verbruik_ele_2021 /
 #
 # BEREKENINGEN WATER
 #
+# Gemiddelde verbruik water voor een jaar
+gemiddelde_water = df['gem_wat']
 
 # Bereken percentage verbruik per maand voor waterverbruik 2021
 sum_verbruik_water_2021 = 0
@@ -103,7 +110,8 @@ combinatie_verbruik_elektriciteit = ((gemiddelde_elektriciteit +
                                       percentage_verbruik_elektriciteit_2021) / 2)
 
 # Combineer gemiddeld waterverbruik 2021 als basis voor verwachting
-combinatie_verbruik_water = percentage_verbruik_water_2021
+combinatie_verbruik_water = ((gemiddelde_water +
+                              percentage_verbruik_water_2021) /2)
 
 # Toevoegen nieuwe meetgegevens 2022
 # maand 0=jan, 11=dec
@@ -143,6 +151,7 @@ schatting_verbruik_water_2022 = 0
 verbruik_gas_2022 = 0
 verbruik_elektriciteit_2022 = 0
 verbruik_water_2022 = 0
+
 # Als alleen eerste maand bekend is
 if MAAND == 0:
     verbruik_gas_2022 = verbruik_gas_maand / combinatie_verbruik_gas[0]
@@ -193,10 +202,6 @@ verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
 # WEERGEVEN DATA
 #
 
-prijs_gas = 1.43
-prijs_elektriciteit = 0.47
-prijs_water = 0.667
-
 # Toon overzicht, verbruik 2021 en schatting 2022
 schema = {"maand": df['maand'],
           "vrbr_g_2021": totaal_verbruik_gas_2021,
@@ -211,6 +216,7 @@ schema = {"maand": df['maand'],
           "vrsch_wat": schatting_verbruik_water_2022 - totaal_verbruik_wat_2021}
 overzicht = pd.DataFrame(schema)
 str_overzicht = str(overzicht) + "\n"
+
 str_output = ("2021\n" +
               ("\tVerbruik gas: %d m3\t" % sum_verbruik_gas_2021) +
               ("Verbruik water: %d m3\n" % sum_verbruik_water_2021) +
@@ -220,12 +226,29 @@ str_output = ("2021\n" +
               ("Geschat water: %d m3\n" % schatting_totaal_water) +
               ("\tGeschat elektriciteit: %d kWh\n" % schatting_totaal_elektriciteit) +
               "Verschil verbruik\n" +
-              ("\tGas: %d m3 (EUR %d)\t" % (verschil_gas, (verschil_gas * prijs_gas))) +
-              ("Water: %d m3 (EUR %d)\n" % (verschil_water, (verschil_water * prijs_water))) +
+              ("\tGas: %d m3 (EUR %d)\t" % (verschil_gas, (verschil_gas * PRIJS_GAS))) +
+              ("Water: %d m3 (EUR %d)\n" % (verschil_water, (verschil_water * PRIJS_WATER))) +
               ("\tElektriciteit: %d kWh (EUR %d)\n" %
-               (verschil_elektriciteit, (verschil_elektriciteit * prijs_elektriciteit))) +
+               (verschil_elektriciteit, (verschil_elektriciteit * PRIJS_ELEKTRICITEIT))) +
               ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n" %
-               (prijs_gas, prijs_elektriciteit, prijs_water)))
+               (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
+
+str_csv_data =("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar\n" +
+               str("%d" % sum_verbruik_gas_2021) +
+               str(",%d" % (schatting_totaal_gas + vast_gas_jr)) +
+               str(",%d" % verschil_gas) +
+               str(",%d" % (verschil_gas * PRIJS_GAS)) +
+               str(",%.2f\n" % PRIJS_GAS) +
+               str("%d" % sum_verbruik_water_2021) +
+               str(",%d" % schatting_totaal_water) +
+               str(",%d" % verschil_water) +
+               str(",%d" % (verschil_water * PRIJS_WATER)) +
+               str(",%.2f\n" % PRIJS_WATER) +
+               str("%d" % sum_verbruik_elektriciteit_2021) +
+               str(",%d" % schatting_totaal_elektriciteit) +
+               str(",%d" % verschil_elektriciteit) +
+               str(",%d" % (verschil_elektriciteit * PRIJS_ELEKTRICITEIT)) +
+               str(",%.2f\n" % PRIJS_ELEKTRICITEIT))
 
 # Toon uitvoer overzicht en totalen
 #print(str_overzicht)
@@ -239,6 +262,11 @@ f.close()
 # Schrijf overzicht naar bestand
 f = open("energieverbruik_2022_overzicht.txt", "w")
 f.write(str_overzicht)
+f.close()
+
+# Schrijf csv-data naar bestand
+f = open("energie_hubrpi.csv", "w")
+f.write(str_csv_data)
 f.close()
 
 # Toon grafieken
