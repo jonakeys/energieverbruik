@@ -13,11 +13,19 @@ import matplotlib.pyplot as plot_gas
 import matplotlib.pyplot as plot_ele
 from matplotlib import rcParams
 
+MAAND = 0
+DAG_VAN_MAAND = 19
+DAGEN_IN_MAAND = 31
+VERBRUIK_GAS = 128
+VERBRUIK_ELEKTRICITEIT = 95
+VERBRUIK_WATER = 5
+
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
 
 totaal_verbruik_gas_2021 = df['vrbr_gas_2021']
 totaal_verbruik_ele_2021 = df['vrbr_ele_2021']
+totaal_verbruik_wat_2021 = df['vrbr_wat_2021']
 
 #
 # BEREKENINGEN GAS
@@ -71,6 +79,17 @@ percentage_verbruik_elektriciteit_2021 = (totaal_verbruik_ele_2021 /
                                           sum_verbruik_elektriciteit_2021)
 
 #
+# BEREKENINGEN WATER
+#
+
+# Bereken percentage verbruik per maand voor waterverbruik 2021
+sum_verbruik_water_2021 = 0
+for i in totaal_verbruik_wat_2021:
+    sum_verbruik_water_2021 += i
+percentage_verbruik_water_2021 = (totaal_verbruik_wat_2021 /
+                                  sum_verbruik_water_2021)
+
+#
 # BEREKENINGEN SCHATTING VERBRUIK
 #
 
@@ -82,6 +101,9 @@ combinatie_verbruik_gas = ((percentage_graaddagen +
 # Combineer gemiddeld elektriciteit en verbruik 2021 als basis voor verwachting
 combinatie_verbruik_elektriciteit = ((gemiddelde_elektriciteit +
                                       percentage_verbruik_elektriciteit_2021) / 2)
+
+# Combineer gemiddeld waterverbruik 2021 als basis voor verwachting
+combinatie_verbruik_water = percentage_verbruik_water_2021
 
 # Toevoegen nieuwe meetgegevens 2022
 # maand 0=jan, 11=dec
@@ -99,26 +121,30 @@ maand = int(maand)
 dag_van_maand = int(dag_van_maand)
 dagen_in_maand = int(dagen_in_maand)
 verbruik_gas = int(verbruik_gas)
-verbruik_elektriciteit = int(verbruik_elektriciteit)'''
+verbruik_elektriciteit = int(verbruik_elektriciteit)
 maand = 0
 dag_van_maand = 19
 dagen_in_maand = 31
 verbruik_gas = 128
-verbruik_elektriciteit = 95
+verbruik_elektriciteit = 95'''
 
-percentage_maand = dag_van_maand / dagen_in_maand
-verbruik_gas_maand = (verbruik_gas / percentage_maand) - vast_gas_mnd
-verbruik_elektriciteit_maand = verbruik_elektriciteit / percentage_maand
+percentage_maand = DAG_VAN_MAAND / DAGEN_IN_MAAND
+verbruik_gas_maand = (VERBRUIK_GAS / percentage_maand) - vast_gas_mnd
+verbruik_elektriciteit_maand = VERBRUIK_ELEKTRICITEIT / percentage_maand
+verbruik_water_maand = VERBRUIK_WATER / percentage_maand
 totaal_verbruik_gas = 0
 totaal_verbruik_elektriciteit = 0
+totaal_verbruik_water = 0
 
 # Bereken schatting verbruik gas en elektriciteit voor 2022
-schatting_verbruik_gas_2022 = [0] * 12
-schatting_verbruik_elektriciteit_2022 = [0] * 12
+schatting_verbruik_gas_2022 = 0
+schatting_verbruik_elektriciteit_2022 = 0
+schatting_verbruik_water_2022 = 0
 verbruik_gas_2022 = 0
 verbruik_elektriciteit_2022 = 0
+verbruik_water_2022 = 0
 # Als alleen eerste maand bekend is
-if maand == 0:
+if MAAND == 0:
     verbruik_gas_2022 = verbruik_gas_maand / combinatie_verbruik_gas[0]
     schatting_verbruik_gas_2022 = ((combinatie_verbruik_gas *
                                     verbruik_gas_2022) + vast_gas_mnd).round(2)
@@ -126,31 +152,42 @@ if maand == 0:
                                    combinatie_verbruik_elektriciteit[0])
     schatting_verbruik_elektriciteit_2022 = (combinatie_verbruik_elektriciteit *
                                              verbruik_elektriciteit_2022).round(2)
+    verbruik_water_2022 = verbruik_water_maand / combinatie_verbruik_water[0]
+    schatting_verbruik_water_2022 = (combinatie_verbruik_water *
+                                      verbruik_water_2022).round(2)
+
 # Als een of meerdere maanden afgerond zijn
 else:
-    for i in range(0,maand):
+    for i in range(0, MAAND):
         schatting_verbruik_gas_2022[i] = df['vrbr_gas_2022'][i]
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
         schatting_verbruik_elektriciteit_2022[i] = df['vrbr_ele_2022'][i]
         verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
-    for i in range(maand, 12):
+        schatting_verbruik_water_2022[i] = df['vrbr_wat_2022'][i]
+        verbruik_water_2022 += schatting_verbruik_water_2022[i]
+    for i in range(MAAND, 12):
         schatting_verbruik_gas_2022[i] = ((verbruik_gas_maand /
-                                          combinatie_verbruik_gas[maand]) *
+                                          combinatie_verbruik_gas[MAAND]) *
                                           combinatie_verbruik_gas[i])
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
         schatting_verbruik_elektriciteit_2022[i] = ((verbruik_elektriciteit_maand /
                                                      combinatie_verbruik_elektriciteit[maand]) *
                                                     combinatie_verbruik_elektriciteit[i])
         verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
+        schatting_verbruik_water_2022[i] = ((verbruik_water_maand /
+                                             combinatie_verbruik_water[maand]) *
+                                            combinatie_verbruik_water[i])
 
 # Schatting totaal verbruik
 schatting_totaal_gas = verbruik_gas_2022
 schatting_totaal_elektriciteit = verbruik_elektriciteit_2022
+schatting_totaal_water = verbruik_water_2022
 
 # Bereken verschil 2021 - 2022
 verschil_gas = (schatting_totaal_gas + vast_gas_jr) - sum_verbruik_gas_2021
 verschil_elektriciteit = (schatting_totaal_elektriciteit -
                           sum_verbruik_elektriciteit_2021)
+verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
 
 #
 # WEERGEVEN DATA
@@ -158,6 +195,7 @@ verschil_elektriciteit = (schatting_totaal_elektriciteit -
 
 prijs_gas = 1.43
 prijs_elektriciteit = 0.47
+prijs_water = 0.667
 
 # Toon overzicht, verbruik 2021 en schatting 2022
 schema = {"maand": df['maand'],
@@ -167,21 +205,27 @@ schema = {"maand": df['maand'],
           "vrbr_e_2021": totaal_verbruik_ele_2021,
           "vrw_e_2022": schatting_verbruik_elektriciteit_2022,
           "vrsch_ele": (schatting_verbruik_elektriciteit_2022 -
-                        totaal_verbruik_ele_2021)}
+                        totaal_verbruik_ele_2021),
+          "vrbr_w_2021": totaal_verbruik_wat_2021,
+          "vrw_w_2022": schatting_verbruik_water_2022,
+          "vrsch_wat": schatting_verbruik_water_2022 - totaal_verbruik_wat_2021}
 overzicht = pd.DataFrame(schema)
 str_overzicht = str(overzicht) + "\n"
 str_output = ("2021\n" +
-              ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
+              ("\tVerbruik gas: %d m3\t" % sum_verbruik_gas_2021) +
+              ("Verbruik water: %d m3\n" % sum_verbruik_water_2021) +
               ("\tVerbruik elektriciteit: %d kWh\n" % sum_verbruik_elektriciteit_2021) +
               "2022\n" +
-              ("\tGeschat gas: %d m3\n" % (schatting_totaal_gas + vast_gas_jr)) +
+              ("\tGeschat gas: %d m3\t" % (schatting_totaal_gas + vast_gas_jr)) +
+              ("Geschat water: %d m3\n" % schatting_totaal_water) +
               ("\tGeschat elektriciteit: %d kWh\n" % schatting_totaal_elektriciteit) +
               "Verschil verbruik\n" +
-              ("\tGas: %d m3 (EUR %d)\n" % (verschil_gas, (verschil_gas * prijs_gas))) +
+              ("\tGas: %d m3 (EUR %d)\t" % (verschil_gas, (verschil_gas * prijs_gas))) +
+              ("Water: %d m3 (EUR %d)\n" % (verschil_water, (verschil_water * prijs_water))) +
               ("\tElektriciteit: %d kWh (EUR %d)\n" %
                (verschil_elektriciteit, (verschil_elektriciteit * prijs_elektriciteit))) +
-              ("\tTarieven: [gas %.2f / m3] [elektriciteit %.2f / kWh]\n" %
-               (prijs_gas, prijs_elektriciteit)))
+              ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n" %
+               (prijs_gas, prijs_elektriciteit, prijs_water)))
 
 # Toon uitvoer overzicht en totalen
 #print(str_overzicht)
@@ -227,4 +271,17 @@ plot_ele.grid()
 plot_ele.legend()
 plot_ele.tight_layout()
 plot_ele.savefig('elektriciteitsverbruik.png', dpi=100, transparent=True)
+plot_ele.show()
+
+plot_ele.figure()
+plot_ele.plot(maanden, schatting_verbruik_water_2022, color='tab:orange', label="2022", linewidth=5)
+plot_ele.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021", linewidth=5)
+plot_ele.title("Water", color='White')
+plot_ele.xlabel("maand", color='White')
+plot_ele.ylabel("verbruik (in m3)", color='White')
+plot_ele.tick_params(colors='White')
+plot_ele.grid()
+plot_ele.legend()
+plot_ele.tight_layout()
+plot_ele.savefig('waterverbruik.png', dpi=100, transparent=True)
 plot_ele.show()
