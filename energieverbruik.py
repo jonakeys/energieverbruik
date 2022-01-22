@@ -218,18 +218,18 @@ overzicht = pd.DataFrame(schema)
 str_overzicht = str(overzicht) + "\n"
 
 str_output = ("2021\n" +
-              ("\tVerbruik gas: %d m3\t" % sum_verbruik_gas_2021) +
-              ("Verbruik water: %d m3\n" % sum_verbruik_water_2021) +
+              ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
               ("\tVerbruik elektriciteit: %d kWh\n" % sum_verbruik_elektriciteit_2021) +
+              ("\tVerbruik water: %d m3\n" % sum_verbruik_water_2021) +
               "2022\n" +
-              ("\tGeschat gas: %d m3\t" % (schatting_totaal_gas + vast_gas_jr)) +
-              ("Geschat water: %d m3\n" % schatting_totaal_water) +
+              ("\tGeschat gas: %d m3\n" % (schatting_totaal_gas + vast_gas_jr)) +
               ("\tGeschat elektriciteit: %d kWh\n" % schatting_totaal_elektriciteit) +
+              ("\tGeschat water: %d m3\n" % schatting_totaal_water) +
               "Verschil verbruik\n" +
-              ("\tGas: %d m3 (EUR %d)\t" % (verschil_gas, (verschil_gas * PRIJS_GAS))) +
-              ("Water: %d m3 (EUR %d)\n" % (verschil_water, (verschil_water * PRIJS_WATER))) +
+              ("\tGas: %d m3 (EUR %d)\n" % (verschil_gas, (verschil_gas * PRIJS_GAS))) +
               ("\tElektriciteit: %d kWh (EUR %d)\n" %
                (verschil_elektriciteit, (verschil_elektriciteit * PRIJS_ELEKTRICITEIT))) +
+              ("\tWater: %d m3 (EUR %d)\n" % (verschil_water, (verschil_water * PRIJS_WATER))) +
               ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n" %
                (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
 
