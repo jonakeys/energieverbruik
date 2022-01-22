@@ -14,11 +14,11 @@ import matplotlib.pyplot as plot_ele
 from matplotlib import rcParams
 
 MAAND = 0
-DAG_VAN_MAAND = 19
+DAG_VAN_MAAND = 21
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 128
-VERBRUIK_ELEKTRICITEIT = 95
-VERBRUIK_WATER = 5
+VERBRUIK_GAS = 144
+VERBRUIK_ELEKTRICITEIT = 105
+VERBRUIK_WATER = 6
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
@@ -234,21 +234,21 @@ str_output = ("2021\n" +
                (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
 
 str_csv_data = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar\n" +
-               str("%d" % sum_verbruik_gas_2021) +
-               str(",%d" % (schatting_totaal_gas + vast_gas_jr)) +
-               str(",%d" % verschil_gas) +
-               str(",%d" % (verschil_gas * PRIJS_GAS)) +
-               str(",%.2f\n" % PRIJS_GAS) +
-               str("%d" % sum_verbruik_water_2021) +
-               str(",%d" % schatting_totaal_water) +
-               str(",%d" % verschil_water) +
-               str(",%d" % (verschil_water * PRIJS_WATER)) +
-               str(",%.2f\n" % PRIJS_WATER) +
-               str("%d" % sum_verbruik_elektriciteit_2021) +
-               str(",%d" % schatting_totaal_elektriciteit) +
-               str(",%d" % verschil_elektriciteit) +
-               str(",%d" % (verschil_elektriciteit * PRIJS_ELEKTRICITEIT)) +
-               str(",%.2f\n" % PRIJS_ELEKTRICITEIT))
+                str("%d" % sum_verbruik_gas_2021) +
+                str(",%d" % (schatting_totaal_gas + vast_gas_jr)) +
+                str(",%d" % verschil_gas) +
+                str(",%d" % (verschil_gas * PRIJS_GAS)) +
+                str(",%.2f\n" % PRIJS_GAS) +
+                str("%d" % sum_verbruik_elektriciteit_2021) +
+                str(",%d" % schatting_totaal_elektriciteit) +
+                str(",%d" % verschil_elektriciteit) +
+                str(",%d" % (verschil_elektriciteit * PRIJS_ELEKTRICITEIT)) +
+                str(",%.2f\n" % PRIJS_ELEKTRICITEIT) +
+                str("%d" % sum_verbruik_water_2021) +
+                str(",%d" % schatting_totaal_water) +
+                str(",%d" % verschil_water) +
+                str(",%d" % (verschil_water * PRIJS_WATER)) +
+                str(",%.2f\n" % PRIJS_WATER))
 
 # Toon uitvoer overzicht en totalen
 #print(str_overzicht)
@@ -275,6 +275,7 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 4.2]
 
+# Grafiek gasverbruik
 plot_gas.figure()
 plot_gas.plot(maanden, schatting_verbruik_gas_2022, color='tab:orange', label="2022", linewidth=5)
 plot_gas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021", linewidth=5)
@@ -288,6 +289,7 @@ plot_gas.tight_layout()
 plot_gas.savefig('gasverbruik.png', dpi=100, transparent=True)
 plot_gas.show()
 
+# Grafiek elektriciteitsverbruik
 plot_ele.figure()
 plot_ele.plot(maanden, schatting_verbruik_elektriciteit_2022, color='tab:orange', label="2022", linewidth=5)
 plot_ele.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021", linewidth=5)
@@ -301,6 +303,7 @@ plot_ele.tight_layout()
 plot_ele.savefig('elektriciteitsverbruik.png', dpi=100, transparent=True)
 plot_ele.show()
 
+# Grafiek waterverbruik
 plot_ele.figure()
 plot_ele.plot(maanden, schatting_verbruik_water_2022, color='tab:orange', label="2022", linewidth=5)
 plot_ele.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021", linewidth=5)
