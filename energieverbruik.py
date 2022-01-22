@@ -1,8 +1,8 @@
 #
 # energie_verbruik.py
 #
-# Programma om verbruik van energie (gas + elektriciteit) te meten en een
-# schatting te maken voor het verdere verloop van het jaar.
+# Programma om verbruik van energie (gas + elektriciteit + water) te meten en
+# een schatting te maken voor het verdere verloop van het jaar.
 # Er wordt gebruikgemaakt van graaddagen van drie voorgaande jaren en van het
 # verbruik van het voorgaande jaar voor een zo realistisch mogelijke schatting.
 #
@@ -14,11 +14,11 @@ import matplotlib.pyplot as plot_ele
 from matplotlib import rcParams
 
 MAAND = 0
-DAG_VAN_MAAND = 21
+DAG_VAN_MAAND = 22
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 144
-VERBRUIK_ELEKTRICITEIT = 105
-VERBRUIK_WATER = 6
+VERBRUIK_GAS = 149
+VERBRUIK_ELEKTRICITEIT = 109
+VERBRUIK_WATER = 5.8
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
