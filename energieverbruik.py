@@ -220,9 +220,9 @@ schema_w = {"maand": df['maand'],
 overzicht_g = pd.DataFrame(schema_g)
 overzicht_e = pd.DataFrame(schema_e)
 overzicht_w = pd.DataFrame(schema_w)
-str_overzicht = "{sch_g}\n\n{sch_e}\n\n{sch_w}\n\n".format(sch_g=overzicht_g,
-                                                           sch_e=overzicht_e,
-                                                           sch_w=overzicht_w)
+str_overzicht = "Gas\n{sch_g}\n\nElektriciteit\n{sch_e}\n\nWater\n{sch_w}\n\n".format(sch_g=overzicht_g,
+                                                sch_e=overzicht_e,
+                                                sch_w=overzicht_w)
 
 str_output = ("2021\n" +
               ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
