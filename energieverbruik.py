@@ -203,19 +203,26 @@ verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
 #
 
 # Toon overzicht, verbruik 2021 en schatting 2022
-schema = {"maand": df['maand'],
-          "vrbr_g_2021": totaal_verbruik_gas_2021,
-          "vrw_g_2022": schatting_verbruik_gas_2022,
-          "vrsch_gas": schatting_verbruik_gas_2022 - totaal_verbruik_gas_2021,
-          "vrbr_e_2021": totaal_verbruik_ele_2021,
-          "vrw_e_2022": schatting_verbruik_elektriciteit_2022,
-          "vrsch_ele": (schatting_verbruik_elektriciteit_2022 -
-                        totaal_verbruik_ele_2021),
-          "vrbr_w_2021": totaal_verbruik_wat_2021,
-          "vrw_w_2022": schatting_verbruik_water_2022,
-          "vrsch_wat": schatting_verbruik_water_2022 - totaal_verbruik_wat_2021}
-overzicht = pd.DataFrame(schema)
-str_overzicht = str(overzicht) + "\n"
+schema_g = {"maand": df['maand'],
+            "vrbr_g_2021": totaal_verbruik_gas_2021,
+            "vrw_g_2022": schatting_verbruik_gas_2022,
+            "vrsch_gas": schatting_verbruik_gas_2022 - totaal_verbruik_gas_2021}
+schema_e = {"maand": df['maand'],
+            "vrbr_e_2021": totaal_verbruik_ele_2021,
+            "vrw_e_2022": schatting_verbruik_elektriciteit_2022,
+            "vrsch_ele": (schatting_verbruik_elektriciteit_2022 -
+                          totaal_verbruik_ele_2021)}
+schema_w = {"maand": df['maand'],
+            "vrbr_w_2021": totaal_verbruik_wat_2021,
+            "vrw_w_2022": schatting_verbruik_water_2022,
+            "vrsch_wat": (schatting_verbruik_water_2022 -
+                          totaal_verbruik_wat_2021)}
+overzicht_g = pd.DataFrame(schema_g)
+overzicht_e = pd.DataFrame(schema_e)
+overzicht_w = pd.DataFrame(schema_w)
+str_overzicht = "{sch_g}\n\n{sch_e}\n\n{sch_w}\n\n".format(sch_g=overzicht_g,
+                                                           sch_e=overzicht_e,
+                                                           sch_w=overzicht_w)
 
 str_output = ("2021\n" +
               ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
