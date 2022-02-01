@@ -19,7 +19,7 @@ from multiprocessing import Process
 MAAND = 1
 DAG_VAN_MAAND = 1
 DAGEN_IN_MAAND = 28
-VERBRUIK_GAS = 7
+VERBRUIK_GAS = 6
 VERBRUIK_ELEKTRICITEIT = 5
 VERBRUIK_WATER = 0.25
 PRIJS_GAS = 1.43
@@ -179,7 +179,7 @@ else:
     for i in range(MAAND, 12):
         schatting_verbruik_gas_2022[i] = ((verbruik_gas_maand /
                                           combinatie_verbruik_gas[MAAND]) *
-                                          combinatie_verbruik_gas[i])
+                                          combinatie_verbruik_gas[i] + vast_gas_mnd).round(2)
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
         schatting_verbruik_elektriciteit_2022[i] = ((verbruik_elektriciteit_maand /
                                                      combinatie_verbruik_elektriciteit[MAAND]) *
@@ -188,6 +188,7 @@ else:
         schatting_verbruik_water_2022[i] = ((verbruik_water_maand /
                                              combinatie_verbruik_water[MAAND]) *
                                             combinatie_verbruik_water[i])
+        verbruik_water_2022 += schatting_verbruik_water_2022[i]
 
 # Schatting totaal verbruik
 schatting_totaal_gas = verbruik_gas_2022
