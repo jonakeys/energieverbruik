@@ -109,7 +109,7 @@ combinatie_verbruik_gas = ((percentage_graaddagen +
 
 # Combineer gemiddeld elektriciteit en verbruik 2021 als basis voor verwachting
 combinatie_verbruik_elektriciteit = ((gemiddelde_elektriciteit +
-                                      percentage_verbruik_elektriciteit_2021) / 2)
+                                    percentage_verbruik_elektriciteit_2021) / 2)
 
 # Combineer gemiddeld waterverbruik 2021 als basis voor verwachting
 combinatie_verbruik_water = ((gemiddelde_water +
@@ -162,7 +162,7 @@ if MAAND == 0:
     verbruik_elektriciteit_2022 = (verbruik_elektriciteit_maand /
                                    combinatie_verbruik_elektriciteit[0])
     schatting_verbruik_elektriciteit_2022 = (combinatie_verbruik_elektriciteit *
-                                             verbruik_elektriciteit_2022).round(2)
+                                        verbruik_elektriciteit_2022).round(2)
     verbruik_water_2022 = verbruik_water_maand / combinatie_verbruik_water[0]
     schatting_verbruik_water_2022 = (combinatie_verbruik_water *
                                       verbruik_water_2022).round(2)
@@ -179,15 +179,16 @@ else:
     for i in range(MAAND, 12):
         schatting_verbruik_gas_2022[i] = ((verbruik_gas_maand /
                                           combinatie_verbruik_gas[MAAND]) *
-                                          combinatie_verbruik_gas[i] + vast_gas_mnd).round(2)
+                                          combinatie_verbruik_gas[i] +
+                                          vast_gas_mnd).round(2)
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
         schatting_verbruik_elektriciteit_2022[i] = ((verbruik_elektriciteit_maand /
-                                                     combinatie_verbruik_elektriciteit[MAAND]) *
-                                                    combinatie_verbruik_elektriciteit[i])
+                                combinatie_verbruik_elektriciteit[MAAND]) *
+                                combinatie_verbruik_elektriciteit[i]).round(2)
         verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
         schatting_verbruik_water_2022[i] = ((verbruik_water_maand /
                                              combinatie_verbruik_water[MAAND]) *
-                                            combinatie_verbruik_water[i])
+                                        combinatie_verbruik_water[i]).round(2)
         verbruik_water_2022 += schatting_verbruik_water_2022[i]
 
 # Schatting totaal verbruik
@@ -224,9 +225,8 @@ def ToonOverzicht():
     overzicht_g = pd.DataFrame(schema_g)
     overzicht_e = pd.DataFrame(schema_e)
     overzicht_w = pd.DataFrame(schema_w)
-    str_overzicht = "Gas\n{sch_g}\n\nElektriciteit\n{sch_e}\n\nWater\n{sch_w}\n\n".format(sch_g=overzicht_g,
-                    sch_e=overzicht_e,
-                    sch_w=overzicht_w)
+    str_overzicht = ("Gas\n{sch_g}\n\nElektriciteit\n{sch_e}\n\nWater\n{sch_w}\n\n".format(
+        sch_g=overzicht_g, sch_e=overzicht_e, sch_w=overzicht_w))
     # Schrijf overzicht naar bestand
     f = open("energieverbruik_2022_overzicht.txt", "w")
     f.write(str_overzicht)
@@ -236,19 +236,25 @@ def ToonOverzicht():
 def PrintOutput():
     str_output = ("2021\n" +
                   ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
-                  ("\tVerbruik elektriciteit: %d kWh\n" % sum_verbruik_elektriciteit_2021) +
+                  ("\tVerbruik elektriciteit: %d kWh\n" %
+                   sum_verbruik_elektriciteit_2021) +
                   ("\tVerbruik water: %d m3\n" % sum_verbruik_water_2021) +
                   "2022\n" +
-                  ("\tGeschat gas: %d m3\n" % (schatting_totaal_gas + vast_gas_jr)) +
-                  ("\tGeschat elektriciteit: %d kWh\n" % schatting_totaal_elektriciteit) +
+                  ("\tGeschat gas: %d m3\n" %
+                   (schatting_totaal_gas + vast_gas_jr)) +
+                  ("\tGeschat elektriciteit: %d kWh\n" %
+                   schatting_totaal_elektriciteit) +
                   ("\tGeschat water: %d m3\n" % schatting_totaal_water) +
                   "Verschil verbruik\n" +
-                  ("\tGas: %d m3 (EUR %d)\n" % (verschil_gas, (verschil_gas * PRIJS_GAS))) +
+                  ("\tGas: %d m3 (EUR %d)\n" %
+                   (verschil_gas, (verschil_gas * PRIJS_GAS))) +
                   ("\tElektriciteit: %d kWh (EUR %d)\n" %
-                   (verschil_elektriciteit, (verschil_elektriciteit * PRIJS_ELEKTRICITEIT))) +
-                  ("\tWater: %d m3 (EUR %d)\n" % (verschil_water, (verschil_water * PRIJS_WATER))) +
-                  ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n" %
-                   (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
+                   (verschil_elektriciteit, (verschil_elektriciteit *
+                                             PRIJS_ELEKTRICITEIT))) +
+                  ("\tWater: %d m3 (EUR %d)\n" % (verschil_water,
+                                            (verschil_water * PRIJS_WATER))) +
+                  ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n"
+                   % (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
     # Toon uitvoer overzicht en totalen
     #print(str_overzicht)
     print(str_output)
