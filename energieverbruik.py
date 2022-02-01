@@ -11,16 +11,17 @@
 import pandas as pd
 import matplotlib.pyplot as plot_gas
 import matplotlib.pyplot as plot_ele
+import matplotlib.pyplot as plot_wat
 from matplotlib import rcParams
 from multiprocessing import Process
 
 
 MAAND = 0
-DAG_VAN_MAAND = 26
+DAG_VAN_MAAND = 31
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 175
-VERBRUIK_ELEKTRICITEIT = 131
-VERBRUIK_WATER = 7
+VERBRUIK_GAS = 205
+VERBRUIK_ELEKTRICITEIT = 155
+VERBRUIK_WATER = 9
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
@@ -299,6 +300,7 @@ def GrafiekGas():
     plot_gas.xlabel("maand", color='White')
     plot_gas.ylabel("verbruik (in m3)", color='White')
     plot_gas.tick_params(colors='White')
+    plot_gas.ylim(bottom=0)
     plot_gas.grid()
     plot_gas.legend()
     plot_gas.tight_layout()
@@ -317,6 +319,7 @@ def GrafiekElektriciteit():
     plot_ele.xlabel("maand", color='White')
     plot_ele.ylabel("verbruik (in kWh)", color='White')
     plot_ele.tick_params(colors='White')
+    plot_ele.ylim(bottom=0)
     plot_ele.grid()
     plot_ele.legend()
     plot_ele.tight_layout()
@@ -326,19 +329,20 @@ def GrafiekElektriciteit():
 
 def GrafiekWater():
     # Grafiek waterverbruik
-    plot_ele.figure()
-    plot_ele.plot(maanden, schatting_verbruik_water_2022, color='tab:orange',
+    plot_wat.figure()
+    plot_wat.plot(maanden, schatting_verbruik_water_2022, color='tab:orange',
                   label="2022", linewidth=5)
-    plot_ele.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021",
+    plot_wat.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021",
                   linewidth=5)
-    plot_ele.title("Water", color='White')
-    plot_ele.xlabel("maand", color='White')
-    plot_ele.ylabel("verbruik (in m3)", color='White')
-    plot_ele.tick_params(colors='White')
-    plot_ele.grid()
-    plot_ele.legend()
-    plot_ele.tight_layout()
-    plot_ele.savefig('waterverbruik.png', dpi=100, transparent=True)
+    plot_wat.title("Water", color='White')
+    plot_wat.xlabel("maand", color='White')
+    plot_wat.ylabel("verbruik (in m3)", color='White')
+    plot_wat.tick_params(colors='White')
+    plot_wat.ylim(bottom=0)
+    plot_wat.grid()
+    plot_wat.legend()
+    plot_wat.tight_layout()
+    plot_wat.savefig('waterverbruik.png', dpi=100, transparent=True)
     #plot_ele.show()
 
 
