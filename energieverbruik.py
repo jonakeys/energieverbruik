@@ -16,12 +16,12 @@ from matplotlib import rcParams
 from multiprocessing import Process
 
 
-MAAND = 0
-DAG_VAN_MAAND = 31
-DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 205
-VERBRUIK_ELEKTRICITEIT = 155
-VERBRUIK_WATER = 9
+MAAND = 1
+DAG_VAN_MAAND = 1
+DAGEN_IN_MAAND = 28
+VERBRUIK_GAS = 6
+VERBRUIK_ELEKTRICITEIT = 5
+VERBRUIK_WATER = 0.25
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
@@ -147,9 +147,9 @@ totaal_verbruik_elektriciteit = 0
 totaal_verbruik_water = 0
 
 # Bereken schatting verbruik gas en elektriciteit voor 2022
-schatting_verbruik_gas_2022 = 0
-schatting_verbruik_elektriciteit_2022 = 0
-schatting_verbruik_water_2022 = 0
+schatting_verbruik_gas_2022 = [0] * 12
+schatting_verbruik_elektriciteit_2022 = [0] * 12
+schatting_verbruik_water_2022 = [0] * 12
 verbruik_gas_2022 = 0
 verbruik_elektriciteit_2022 = 0
 verbruik_water_2022 = 0
@@ -182,11 +182,11 @@ else:
                                           combinatie_verbruik_gas[i])
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
         schatting_verbruik_elektriciteit_2022[i] = ((verbruik_elektriciteit_maand /
-                                                     combinatie_verbruik_elektriciteit[maand]) *
+                                                     combinatie_verbruik_elektriciteit[MAAND]) *
                                                     combinatie_verbruik_elektriciteit[i])
         verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
         schatting_verbruik_water_2022[i] = ((verbruik_water_maand /
-                                             combinatie_verbruik_water[maand]) *
+                                             combinatie_verbruik_water[MAAND]) *
                                             combinatie_verbruik_water[i])
 
 # Schatting totaal verbruik
