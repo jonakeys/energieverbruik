@@ -15,17 +15,37 @@ import matplotlib.pyplot as plot_wat
 from matplotlib import rcParams
 from multiprocessing import Process
 
-
+#
+# INVOEREN GEGEVENS HUIDIGE JAAR
+#
+# jan=0, feb=1 ... dec=11
+#
 MAAND = 1
-DAG_VAN_MAAND = 1
+DAG_VAN_MAAND = 10
 DAGEN_IN_MAAND = 28
-VERBRUIK_GAS = 6
-VERBRUIK_ELEKTRICITEIT = 5
-VERBRUIK_WATER = 0.25
+VERBRUIK_GAS = 63
+VERBRUIK_ELEKTRICITEIT = 41
+VERBRUIK_WATER = 2
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
 
+print("Energieverbruik 2022")
+'''maand = input("Welke maand (jan=0, dec=11)? ")
+dag_van_maand = input("Welke dag? ")
+dagen_in_maand = input("Hoeveel dagen in de maand? ")
+verbruik_gas = input("Gasverbruik? ")
+verbruik_elektriciteit = input("Elektriciteitsverbruik? ")
+maand = int(maand)
+dag_van_maand = int(dag_van_maand)
+dagen_in_maand = int(dagen_in_maand)
+verbruik_gas = int(verbruik_gas)
+verbruik_elektriciteit = int(verbruik_elektriciteit)
+maand = 0
+dag_van_maand = 19
+dagen_in_maand = 31
+verbruik_gas = 128
+verbruik_elektriciteit = 95'''
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
@@ -115,29 +135,6 @@ combinatie_verbruik_elektriciteit = ((gemiddelde_elektriciteit +
 combinatie_verbruik_water = ((gemiddelde_water +
                               percentage_verbruik_water_2021) /2)
 
-# Toevoegen nieuwe meetgegevens 2022
-# maand 0=jan, 11=dec
-#
-# INVOEREN GEGEVENS HUIDIGE JAAR
-#
-
-print("Energieverbruik 2022")
-'''maand = input("Welke maand (jan=0, dec=11)? ")
-dag_van_maand = input("Welke dag? ")
-dagen_in_maand = input("Hoeveel dagen in de maand? ")
-verbruik_gas = input("Gasverbruik? ")
-verbruik_elektriciteit = input("Elektriciteitsverbruik? ")
-maand = int(maand)
-dag_van_maand = int(dag_van_maand)
-dagen_in_maand = int(dagen_in_maand)
-verbruik_gas = int(verbruik_gas)
-verbruik_elektriciteit = int(verbruik_elektriciteit)
-maand = 0
-dag_van_maand = 19
-dagen_in_maand = 31
-verbruik_gas = 128
-verbruik_elektriciteit = 95'''
-
 percentage_maand = DAG_VAN_MAAND / DAGEN_IN_MAAND
 verbruik_gas_maand = (VERBRUIK_GAS / percentage_maand) - vast_gas_mnd
 verbruik_elektriciteit_maand = VERBRUIK_ELEKTRICITEIT / percentage_maand
@@ -197,7 +194,7 @@ schatting_totaal_elektriciteit = verbruik_elektriciteit_2022
 schatting_totaal_water = verbruik_water_2022
 
 # Bereken verschil 2021 - 2022
-verschil_gas = (schatting_totaal_gas + vast_gas_jr) - sum_verbruik_gas_2021
+verschil_gas = (schatting_totaal_gas - sum_verbruik_gas_2021)
 verschil_elektriciteit = (schatting_totaal_elektriciteit -
                           sum_verbruik_elektriciteit_2021)
 verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
@@ -241,7 +238,7 @@ def PrintOutput():
                   ("\tVerbruik water: %d m3\n" % sum_verbruik_water_2021) +
                   "2022\n" +
                   ("\tGeschat gas: %d m3\n" %
-                   (schatting_totaal_gas + vast_gas_jr)) +
+                   (schatting_totaal_gas) +
                   ("\tGeschat elektriciteit: %d kWh\n" %
                    schatting_totaal_elektriciteit) +
                   ("\tGeschat water: %d m3\n" % schatting_totaal_water) +
