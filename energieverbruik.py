@@ -238,7 +238,7 @@ def PrintOutput():
                   ("\tVerbruik water: %d m3\n" % sum_verbruik_water_2021) +
                   "2022\n" +
                   ("\tGeschat gas: %d m3\n" %
-                   (schatting_totaal_gas) +
+                   (schatting_totaal_gas)) +
                   ("\tGeschat elektriciteit: %d kWh\n" %
                    schatting_totaal_elektriciteit) +
                   ("\tGeschat water: %d m3\n" % schatting_totaal_water) +
