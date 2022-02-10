@@ -265,7 +265,7 @@ def PrintOutput():
 def SchrijfCsvData():
     str_csv_data = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar\n" +
                     str("%d" % sum_verbruik_gas_2021) +
-                    str(",%d" % (schatting_totaal_gas + vast_gas_jr)) +
+                    str(",%d" % (schatting_totaal_gas)) +
                     str(",%d" % verschil_gas) +
                     str(",%d" % (verschil_gas * PRIJS_GAS)) +
                     str(",%.2f\n" % PRIJS_GAS) +
