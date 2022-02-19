@@ -21,11 +21,11 @@ from multiprocessing import Process
 # jan=0, feb=1 ... dec=11
 #
 MAAND = 1
-DAG_VAN_MAAND = 10
+DAG_VAN_MAAND = 15
 DAGEN_IN_MAAND = 28
-VERBRUIK_GAS = 63
-VERBRUIK_ELEKTRICITEIT = 41
-VERBRUIK_WATER = 2
+VERBRUIK_GAS = 95
+VERBRUIK_ELEKTRICITEIT = 64
+VERBRUIK_WATER = 4
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
@@ -290,7 +290,7 @@ def SchrijfCsvData():
 maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
            "okt", "nov", "dec"]
 rcParams['axes.edgecolor'] = 'White'
-rcParams['figure.figsize'] = [7.8, 4.2]
+rcParams['figure.figsize'] = [7.8, 3.8]
 
 
 def GrafiekGas():
@@ -300,8 +300,8 @@ def GrafiekGas():
                   label="2022", linewidth=5)
     plot_gas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021",
                   linewidth=5)
-    plot_gas.title("Gas", color='White')
-    plot_gas.xlabel("maand", color='White')
+    #plot_gas.title("Gas", color='White')
+    #plot_gas.xlabel("maand", color='White')
     plot_gas.ylabel("verbruik (in m3)", color='White')
     plot_gas.tick_params(colors='White')
     plot_gas.ylim(bottom=0)
@@ -319,8 +319,8 @@ def GrafiekElektriciteit():
                   color='tab:orange', label="2022", linewidth=5)
     plot_ele.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021",
                   linewidth=5)
-    plot_ele.title("Elektriciteit", color='White')
-    plot_ele.xlabel("maand", color='White')
+    #plot_ele.title("Elektriciteit", color='White')
+    #plot_ele.xlabel("maand", color='White')
     plot_ele.ylabel("verbruik (in kWh)", color='White')
     plot_ele.tick_params(colors='White')
     plot_ele.ylim(bottom=0)
@@ -338,8 +338,8 @@ def GrafiekWater():
                   label="2022", linewidth=5)
     plot_wat.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021",
                   linewidth=5)
-    plot_wat.title("Water", color='White')
-    plot_wat.xlabel("maand", color='White')
+    #plot_wat.title("Water", color='White')
+    #plot_wat.xlabel("maand", color='White')
     plot_wat.ylabel("verbruik (in m3)", color='White')
     plot_wat.tick_params(colors='White')
     plot_wat.ylim(bottom=0)
