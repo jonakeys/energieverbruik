@@ -21,11 +21,11 @@ from multiprocessing import Process
 # jan=0, feb=1 ... dec=11
 #
 MAAND = 1
-DAG_VAN_MAAND = 15
+DAG_VAN_MAAND = 20
 DAGEN_IN_MAAND = 28
-VERBRUIK_GAS = 95
-VERBRUIK_ELEKTRICITEIT = 64
-VERBRUIK_WATER = 4
+VERBRUIK_GAS = 128
+VERBRUIK_ELEKTRICITEIT = 89
+VERBRUIK_WATER = 5
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
@@ -208,17 +208,24 @@ def ToonOverzicht():
     schema_g = {"maand": df['maand'],
                 "vrbr_g_2021": totaal_verbruik_gas_2021,
                 "vrw_g_2022": schatting_verbruik_gas_2022,
-                "vrsch_gas": schatting_verbruik_gas_2022 - totaal_verbruik_gas_2021}
+                "vrsch_gas": schatting_verbruik_gas_2022 -
+                totaal_verbruik_gas_2021,
+                "perc": ((1 - (schatting_verbruik_gas_2022 /
+                               totaal_verbruik_gas_2021)) * -100).round(1)}
     schema_e = {"maand": df['maand'],
                 "vrbr_e_2021": totaal_verbruik_ele_2021,
                 "vrw_e_2022": schatting_verbruik_elektriciteit_2022,
                 "vrsch_ele": (schatting_verbruik_elektriciteit_2022 -
-                              totaal_verbruik_ele_2021)}
+                              totaal_verbruik_ele_2021),
+                "perc": ((1 - (schatting_verbruik_elektriciteit_2022 /
+                               totaal_verbruik_ele_2021)) * -100).round(1)}
     schema_w = {"maand": df['maand'],
                 "vrbr_w_2021": totaal_verbruik_wat_2021,
                 "vrw_w_2022": schatting_verbruik_water_2022,
                 "vrsch_wat": (schatting_verbruik_water_2022 -
-                              totaal_verbruik_wat_2021)}
+                              totaal_verbruik_wat_2021),
+                "perc": ((1 - (schatting_verbruik_water_2022 /
+                               totaal_verbruik_wat_2021)) * -100).round(1)}
     overzicht_g = pd.DataFrame(schema_g)
     overzicht_e = pd.DataFrame(schema_e)
     overzicht_w = pd.DataFrame(schema_w)
