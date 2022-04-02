@@ -53,7 +53,7 @@ De rijen bevatten respectievelijk data voor gas, elektriciteit en water.
 // GEBRUIKEN
 In het bestand 'energiedata.csv' moet je de kolommen vrbr_gas_2021, vrbr_ele_2021 en vrbr_wat_2021 invullen met eigen data van het afgelopen jaar.
 
-Tijdens uitvoeren van het script wordt gevraagd om de maand (januari=0, december=11), dag van de maand, aantal dagen van de maand, verbruik gas en elektriciteit (van begin van de maand tot nu).
+Tijdens uitvoeren van het script wordt gevraagd om de maand (jan tot dec), dag van de maand, aantal dagen van de maand, verbruik gas, elektriciteit en water (van begin van de maand tot nu).
 
 Het overzicht van de gegevens wordt getoond. Daarnaast wordt het naar het bestand 'energieverbruik_2022.txt' geschreven.
 
