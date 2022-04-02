@@ -12,20 +12,35 @@ import pandas as pd
 import matplotlib.pyplot as plot_gas
 import matplotlib.pyplot as plot_ele
 import matplotlib.pyplot as plot_wat
+from enum import IntEnum
 from matplotlib import rcParams
 from multiprocessing import Process
+
+
+class Month(IntEnum):
+    jan = 0
+    feb = 1
+    mrt = 2
+    apr = 3
+    mei = 4
+    jun = 5
+    jul = 6
+    aug = 7
+    sep = 8
+    okt = 9
+    nov = 10
+    dec = 11
+
 
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-# jan=0, feb=1 ... dec=11
-#
-MAAND = 2
-DAG_VAN_MAAND = 6
-DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 33
-VERBRUIK_ELEKTRICITEIT = 26
-VERBRUIK_WATER = 1.4
+MAAND = Month.apr
+DAG_VAN_MAAND = 2
+DAGEN_IN_MAAND = 30
+VERBRUIK_GAS = 13
+VERBRUIK_ELEKTRICITEIT = 5
+VERBRUIK_WATER = 0.5
 PRIJS_GAS = 1.43
 PRIJS_ELEKTRICITEIT = 0.47
 PRIJS_WATER = 1.021
@@ -309,7 +324,7 @@ def GrafiekGas():
                   linewidth=5)
     #plot_gas.title("Gas", color='White')
     #plot_gas.xlabel("maand", color='White')
-    plot_gas.ylabel("verbruik (in m3)", color='White')
+    plot_gas.ylabel("verbruik (m3)", color='White')
     plot_gas.tick_params(colors='White')
     plot_gas.ylim(bottom=0)
     plot_gas.grid()
@@ -328,7 +343,7 @@ def GrafiekElektriciteit():
                   linewidth=5)
     #plot_ele.title("Elektriciteit", color='White')
     #plot_ele.xlabel("maand", color='White')
-    plot_ele.ylabel("verbruik (in kWh)", color='White')
+    plot_ele.ylabel("verbruik (kWh)", color='White')
     plot_ele.tick_params(colors='White')
     plot_ele.ylim(bottom=0)
     plot_ele.grid()
@@ -347,7 +362,7 @@ def GrafiekWater():
                   linewidth=5)
     #plot_wat.title("Water", color='White')
     #plot_wat.xlabel("maand", color='White')
-    plot_wat.ylabel("verbruik (in m3)", color='White')
+    plot_wat.ylabel("verbruik (m3)", color='White')
     plot_wat.tick_params(colors='White')
     plot_wat.ylim(bottom=0)
     plot_wat.grid()
