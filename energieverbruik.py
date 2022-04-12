@@ -36,13 +36,13 @@ class Month(IntEnum):
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
 MAAND = Month.apr
-DAG_VAN_MAAND = 2
+DAG_VAN_MAAND = 12
 DAGEN_IN_MAAND = 30
-VERBRUIK_GAS = 13
-VERBRUIK_ELEKTRICITEIT = 5
-VERBRUIK_WATER = 0.5
-PRIJS_GAS = 1.43
-PRIJS_ELEKTRICITEIT = 0.47
+VERBRUIK_GAS = 60
+VERBRUIK_ELEKTRICITEIT = 41
+VERBRUIK_WATER = 3
+PRIJS_GAS = 1.63326
+PRIJS_ELEKTRICITEIT = 0.53264
 PRIJS_WATER = 1.021
 
 print("Energieverbruik 2022")
@@ -167,7 +167,7 @@ verbruik_elektriciteit_2022 = 0
 verbruik_water_2022 = 0
 
 # Als alleen eerste maand bekend is
-if MAAND == 0:
+if MAAND == Month.jan:
     verbruik_gas_2022 = verbruik_gas_maand / combinatie_verbruik_gas[0]
     schatting_verbruik_gas_2022 = ((combinatie_verbruik_gas *
                                     verbruik_gas_2022) + vast_gas_mnd).round(2)
