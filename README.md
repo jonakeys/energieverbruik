@@ -1,19 +1,16 @@
-#
-# energieverbruik.py
-#
-# Jonathan van der Steege
-# januari 2022
-#
-# jonathan@jonakeys.nl
-#
+
+energieverbruik.py
+
+Jonathan van der Steege
+januari 2022
 
 
-// BESCHRIJVING SCRIPT
+## BESCHRIJVING SCRIPT
 
 Pythonscript om het energieverbruik van het vorige en huidige jaar te vergelijken. Ook kun je aan de hand van verbruik van dit jaar een schatting maken van het energieverbruik voor dit jaar.
 
 
-// INSTALLEREN
+## INSTALLEREN
 
 Benodigd:
 - python 3
@@ -24,7 +21,7 @@ Uitvoeren:
 $ python energie_verbruik.py
 
 
-// DATABESTAND 'ENERGIEDATA.CSV'
+## DATABESTAND 'ENERGIEDATA.CSV'
 Voor invoer van data wordt het bestand 'energiedata.csv' gebruikt. Indeling van de velden:
 - maand = naam van maand
 - grddg_2019, = gegevens graaddagen van de jaren 2019-2021
@@ -40,7 +37,7 @@ Voor invoer van data wordt het bestand 'energiedata.csv' gebruikt. Indeling van 
 - vrbr_wat_2022 = waterverbruik 2022 [handmatig invoer]
 
 
-// UITVOER 'ENERGIE_HUBRPI.CSV'
+## UITVOER 'ENERGIE_HUBRPI.CSV'
 Uitvoer van data naar dit bestand voor gebruik in het hub-programma voor de RPi.
 De rijen bevatten respectievelijk data voor gas, elektriciteit en water.
 - vrbr_2021 = totaalverbruik 2021
@@ -50,7 +47,7 @@ De rijen bevatten respectievelijk data voor gas, elektriciteit en water.
 - tar = tarieven (per m3 of kWh)
 
 
-// GEBRUIKEN
+## GEBRUIKEN
 In het bestand 'energiedata.csv' moet je de kolommen vrbr_gas_2021, vrbr_ele_2021 en vrbr_wat_2021 invullen met eigen data van het afgelopen jaar.
 
 Tijdens uitvoeren van het script wordt gevraagd om de maand (jan tot dec), dag van de maand, aantal dagen van de maand, verbruik gas, elektriciteit en water (van begin van de maand tot nu).
