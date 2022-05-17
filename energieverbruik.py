@@ -36,34 +36,17 @@ class Month(IntEnum):
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
 MAAND = Month.mei
-DAG_VAN_MAAND = 8
+DAG_VAN_MAAND = 17
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 12
-VERBRUIK_ELEKTRICITEIT = 31
-VERBRUIK_WATER = 2
+VERBRUIK_GAS = 19
+VERBRUIK_ELEKTRICITEIT = 63
+VERBRUIK_WATER = 4
 PRIJS_GAS = 1.63326
 PRIJS_ELEKTRICITEIT = 0.53264
 PRIJS_WATER = 1.021
 VAST_LEVERING_GAS_JAAR = 71.39
 VAST_LEVERING_ELE_JAAR = 71.39
 VAST_LEVERING_DAG = 0.19559
-
-print("Energieverbruik 2022")
-'''maand = input("Welke maand (jan=0, dec=11)? ")
-dag_van_maand = input("Welke dag? ")
-dagen_in_maand = input("Hoeveel dagen in de maand? ")
-verbruik_gas = input("Gasverbruik? ")
-verbruik_elektriciteit = input("Elektriciteitsverbruik? ")
-maand = int(maand)
-dag_van_maand = int(dag_van_maand)
-dagen_in_maand = int(dagen_in_maand)
-verbruik_gas = int(verbruik_gas)
-verbruik_elektriciteit = int(verbruik_elektriciteit)
-maand = 0
-dag_van_maand = 19
-dagen_in_maand = 31
-verbruik_gas = 128
-verbruik_elektriciteit = 95'''
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
@@ -218,11 +201,11 @@ verschil_elektriciteit = (schatting_totaal_elektriciteit -
 verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
 
 # Bereken maandbedrag
-maandbedrag = int(((schatting_totaal_gas * PRIJS_GAS
-                    + schatting_totaal_elektriciteit * PRIJS_ELEKTRICITEIT
+maandbedrag = int((((schatting_totaal_gas * PRIJS_GAS)
+                    + (schatting_totaal_elektriciteit * PRIJS_ELEKTRICITEIT)
                     + VAST_LEVERING_GAS_JAAR
                     + VAST_LEVERING_ELE_JAAR
-                    + 2 * (VAST_LEVERING_DAG * 365))/12))
+                    + (2 * (VAST_LEVERING_DAG * 365)))/12))
 
 #
 # WEERGEVEN DATA
