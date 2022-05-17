@@ -35,18 +35,15 @@ class Month(IntEnum):
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.mei
-DAG_VAN_MAAND = 8
-DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 12
-VERBRUIK_ELEKTRICITEIT = 31
-VERBRUIK_WATER = 2
+MAAND = Month.apr
+DAG_VAN_MAAND = 30
+DAGEN_IN_MAAND = 30
+VERBRUIK_GAS = 94
+VERBRUIK_ELEKTRICITEIT = 116
+VERBRUIK_WATER = 9
 PRIJS_GAS = 1.63326
 PRIJS_ELEKTRICITEIT = 0.53264
 PRIJS_WATER = 1.021
-VAST_LEVERING_GAS_JAAR = 71.39
-VAST_LEVERING_ELE_JAAR = 71.39
-VAST_LEVERING_DAG = 0.19559
 
 print("Energieverbruik 2022")
 '''maand = input("Welke maand (jan=0, dec=11)? ")
@@ -217,12 +214,6 @@ verschil_elektriciteit = (schatting_totaal_elektriciteit -
                           sum_verbruik_elektriciteit_2021)
 verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
 
-# Bereken maandbedrag
-maandbedrag = int(((schatting_totaal_gas * PRIJS_GAS
-                    + schatting_totaal_elektriciteit * PRIJS_ELEKTRICITEIT
-                    + VAST_LEVERING_GAS_JAAR
-                    + VAST_LEVERING_ELE_JAAR
-                    + 2 * (VAST_LEVERING_DAG * 365))/12))
 
 #
 # WEERGEVEN DATA
@@ -281,10 +272,8 @@ def PrintOutput():
                                              PRIJS_ELEKTRICITEIT))) +
                   ("\tWater: %d m3 (EUR %d)\n" % (verschil_water,
                                             (verschil_water * PRIJS_WATER))) +
-                  ("Bedragen\n") +
                   ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n"
-                   % (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)) +
-                  ("\tMaandbedrag: EUR %d\n") % maandbedrag)
+                   % (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)))
     # Toon uitvoer overzicht en totalen
     #print(str_overzicht)
     print(str_output)
@@ -296,26 +285,22 @@ def PrintOutput():
 
 
 def SchrijfCsvData():
-    str_csv_data = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar,maandbedr\n" +
+    str_csv_data = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar\n" +
                     str("%d" % sum_verbruik_gas_2021) +
                     str(",%d" % (schatting_totaal_gas)) +
                     str(",%d" % verschil_gas) +
                     str(",%d" % (verschil_gas * PRIJS_GAS)) +
-                    str(",%.2f" % PRIJS_GAS) +
-                    str(",0\n") +
+                    str(",%.2f\n" % PRIJS_GAS) +
                     str("%d" % sum_verbruik_elektriciteit_2021) +
                     str(",%d" % schatting_totaal_elektriciteit) +
                     str(",%d" % verschil_elektriciteit) +
                     str(",%d" % (verschil_elektriciteit * PRIJS_ELEKTRICITEIT)) +
-                    str(",%.2f" % PRIJS_ELEKTRICITEIT) +
-                    str(",0\n") +
+                    str(",%.2f\n" % PRIJS_ELEKTRICITEIT) +
                     str("%d" % sum_verbruik_water_2021) +
                     str(",%d" % schatting_totaal_water) +
                     str(",%d" % verschil_water) +
                     str(",%d" % (verschil_water * PRIJS_WATER)) +
-                    str(",%.2f" % PRIJS_WATER) +
-                    str(",0\n") +
-                    str("0,0,0,0,0,%d\n" % maandbedrag))
+                    str(",%.2f\n" % PRIJS_WATER))
 
     # Schrijf csv-data naar bestand
     f = open("energie_hubrpi.csv", "w")
