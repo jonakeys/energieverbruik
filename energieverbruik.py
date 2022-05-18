@@ -9,9 +9,9 @@
 # Jonathan van der Steege, januari 2022
 
 import pandas as pd
-import matplotlib.pyplot as plot_gas
-import matplotlib.pyplot as plot_ele
-import matplotlib.pyplot as plot_wat
+import matplotlib.pyplot as plotGas
+import matplotlib.pyplot as plotEle
+import matplotlib.pyplot as plotWat
 from enum import IntEnum
 from matplotlib import rcParams
 from multiprocessing import Process
@@ -51,73 +51,68 @@ VAST_LEVERING_DAG = 0.19559
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
 
-totaal_verbruik_gas_2021 = df['vrbr_gas_2021']
-totaal_verbruik_ele_2021 = df['vrbr_ele_2021']
-totaal_verbruik_wat_2021 = df['vrbr_wat_2021']
+totVerbrGas2021 = df['vrbr_gas_2021']
+totVerbrEle2021 = df['vrbr_ele_2021']
+totVerbrWat2021 = df['vrbr_wat_2021']
 
 #
 # BEREKENINGEN GAS
 #
 
-# Vast verbruik gas per maand
-# Bepaal aan de hand van zomerverbruik
-sum_zomerverbruik = 0
+# Vast verbruik gas per maand. Bepaal aan de hand van zomerverbruik
+sumZomerverbruik = 0
 for i in range(5, 9):
-    sum_zomerverbruik += df['vrbr_gas_2021'][i]
-vast_gas_mnd = sum_zomerverbruik / 4
-vast_gas_jr = vast_gas_mnd*12
+    sumZomerverbruik += df['vrbr_gas_2021'][i]
+vastGasMnd = sumZomerverbruik / 4
+vastGasJr = vastGasMnd*12
 
 # Bereken gemiddelde graaddagen per maand voor afgelopen drie jaar
-gemiddelde_graaddagen = ((df['grddg_2019'] + df['grddg_2020'] +
-                          df['grddg_2021']) / 3).round(2)
+gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020']
+                  + df['grddg_2021']) / 3).round(2)
 
 # Bereken percentage verbruik per maand voor graaddagen
-sum_graaddagen = 0
-for i in gemiddelde_graaddagen:
-    sum_graaddagen += i
-percentage_graaddagen = (gemiddelde_graaddagen / sum_graaddagen).round(2)
+sumGraaddagen = 0
+for i in gemGraaddagen:
+    sumGraaddagen += i
+percGraaddagen = (gemGraaddagen / sumGraaddagen).round(2)
 
 # Bereken percentage verbruik per maand voor gasverbruik 2021
-sum_verbruik_gas_2021 = 0
-for i in totaal_verbruik_gas_2021:
-    sum_verbruik_gas_2021 += i
-percentage_verbruik_gas_2021 = (totaal_verbruik_gas_2021 /
-                                sum_verbruik_gas_2021)
+sumVerbrGas2021 = 0
+for i in totVerbrGas2021:
+    sumVerbrGas2021 += i
+percVerbrGas2021 = (totVerbrGas2021 / sumVerbrGas2021)
 
 # Correctie verbruik gas 2021
-correctie_verbruik_gas_2021 = totaal_verbruik_gas_2021 - vast_gas_mnd
-sum_verbruik_gas_2021_correctie = 0
-for i in correctie_verbruik_gas_2021:
-    sum_verbruik_gas_2021_correctie += i
-percentage_verbruik_gas_2021_correctie = (correctie_verbruik_gas_2021 /
-                                          sum_verbruik_gas_2021_correctie)
+corrVerbrGas2021 = totVerbrGas2021 - vastGasMnd
+sumBerbrGas2021_corr = 0
+for i in corrVerbrGas2021:
+    sumBerbrGas2021_corr += i
+percVerbrGas2021_corr = (corrVerbrGas2021 / sumBerbrGas2021_corr)
 
 #
 # BEREKENINGEN ELEKTRICITEIT
 #
 
 # Gemiddelde verbruik elektriciteit voor een jaar
-gemiddelde_elektriciteit = df['gem_ele']
+gemEle = df['gem_ele']
 
 # Bereken percentage verbruik per maand voor elektriciteitsverbruik 2021
-sum_verbruik_elektriciteit_2021 = 0
-for i in totaal_verbruik_ele_2021:
-    sum_verbruik_elektriciteit_2021 += i
-percentage_verbruik_elektriciteit_2021 = (totaal_verbruik_ele_2021 /
-                                          sum_verbruik_elektriciteit_2021)
+sumVerbrEle2021 = 0
+for i in totVerbrEle2021:
+    sumVerbrEle2021 += i
+percVerbrEle2021 = (totVerbrEle2021 / sumVerbrEle2021)
 
 #
 # BEREKENINGEN WATER
 #
 # Gemiddelde verbruik water voor een jaar
-gemiddelde_water = df['gem_wat']
+gemWat = df['gem_wat']
 
 # Bereken percentage verbruik per maand voor waterverbruik 2021
-sum_verbruik_water_2021 = 0
-for i in totaal_verbruik_wat_2021:
-    sum_verbruik_water_2021 += i
-percentage_verbruik_water_2021 = (totaal_verbruik_wat_2021 /
-                                  sum_verbruik_water_2021)
+sumVerbrWat2021 = 0
+for i in totVerbrWat2021:
+    sumVerbrWat2021 += i
+percVerbrWat2021 = (totVerbrWat2021 / sumVerbrWat2021)
 
 #
 # BEREKENINGEN SCHATTING VERBRUIK
@@ -125,130 +120,112 @@ percentage_verbruik_water_2021 = (totaal_verbruik_wat_2021 /
 
 # Combineer graaddagen en verbruik 2021 als basis voor verwachting
 # verbruik komende jaar
-combinatie_verbruik_gas = ((percentage_graaddagen +
-                            percentage_verbruik_gas_2021_correctie) / 2)
+combiVerbrGas = ((percGraaddagen + percVerbrGas2021_corr) / 2)
 
 # Combineer gemiddeld elektriciteit en verbruik 2021 als basis voor verwachting
-combinatie_verbruik_elektriciteit = ((gemiddelde_elektriciteit +
-                                    percentage_verbruik_elektriciteit_2021) / 2)
+combiVerbrEle = ((gemEle + percVerbrEle2021) / 2)
 
 # Combineer gemiddeld waterverbruik 2021 als basis voor verwachting
-combinatie_verbruik_water = ((gemiddelde_water +
-                              percentage_verbruik_water_2021) /2)
+combiVerbrWat = ((gemWat + percVerbrWat2021) /2)
 
-percentage_maand = DAG_VAN_MAAND / DAGEN_IN_MAAND
-verbruik_gas_maand = (VERBRUIK_GAS / percentage_maand) - vast_gas_mnd
-verbruik_elektriciteit_maand = VERBRUIK_ELEKTRICITEIT / percentage_maand
-verbruik_water_maand = VERBRUIK_WATER / percentage_maand
-totaal_verbruik_gas = 0
-totaal_verbruik_elektriciteit = 0
-totaal_verbruik_water = 0
+percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
+verbrGasMnd = (VERBRUIK_GAS / percMnd) - vastGasMnd
+verbrEleMnd = VERBRUIK_ELEKTRICITEIT / percMnd
+verbrWatMnd = VERBRUIK_WATER / percMnd
+totVerbrGas = 0
+totVerbrEle = 0
+totVerbrWat = 0
 
 # Bereken schatting verbruik gas en elektriciteit voor 2022
-schatting_verbruik_gas_2022 = [0] * 12
-schatting_verbruik_elektriciteit_2022 = [0] * 12
-schatting_verbruik_water_2022 = [0] * 12
-verbruik_gas_2022 = 0
-verbruik_elektriciteit_2022 = 0
-verbruik_water_2022 = 0
+schatVerbrGas2022 = [0] * 12
+schatVerbrEle2022 = [0] * 12
+schatVerbrWat2022 = [0] * 12
+verbrGas2022 = 0
+verbrEle2022 = 0
+verbrWat2022 = 0
 
 # Als alleen eerste maand bekend is
 if MAAND == Month.jan:
-    verbruik_gas_2022 = verbruik_gas_maand / combinatie_verbruik_gas[0]
-    schatting_verbruik_gas_2022 = ((combinatie_verbruik_gas *
-                                    verbruik_gas_2022) + vast_gas_mnd).round(2)
-    verbruik_elektriciteit_2022 = (verbruik_elektriciteit_maand /
-                                   combinatie_verbruik_elektriciteit[0])
-    schatting_verbruik_elektriciteit_2022 = (combinatie_verbruik_elektriciteit *
-                                        verbruik_elektriciteit_2022).round(2)
-    verbruik_water_2022 = verbruik_water_maand / combinatie_verbruik_water[0]
-    schatting_verbruik_water_2022 = (combinatie_verbruik_water *
-                                      verbruik_water_2022).round(2)
+    verbrGas2022 = verbrGasMnd / combiVerbrGas[0]
+    schatVerbrGas2022 = ((combiVerbrGas * verbrGas2022) + vastGasMnd).round(2)
+    verbrEle2022 = (verbrEleMnd / combiVerbrEle[0])
+    schatVerbrEle2022 = (combiVerbrEle * verbrEle2022).round(2)
+    verbrWat2022 = verbrWatMnd / combiVerbrWat[0]
+    schatVerbrWat2022 = (combiVerbrWat * verbrWat2022).round(2)
 
 # Als een of meerdere maanden afgerond zijn
 else:
-    gas_mndn = 0
+    gasMndnNJr = 0
     for i in range(0, MAAND):
-        schatting_verbruik_gas_2022[i] = df['vrbr_gas_2022'][i]
-        verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
-        gas_mndn += (schatting_verbruik_gas_2022[i] /
-                     combinatie_verbruik_gas[i])
-        schatting_verbruik_elektriciteit_2022[i] = df['vrbr_ele_2022'][i]
-        verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
-        schatting_verbruik_water_2022[i] = df['vrbr_wat_2022'][i]
-        verbruik_water_2022 += schatting_verbruik_water_2022[i]
-    gas_mndn /= MAAND-1
+        schatVerbrGas2022[i] = df['vrbr_gas_2022'][i]
+        verbrGas2022 += schatVerbrGas2022[i]
+        gasMndnNJr += (schatVerbrGas2022[i] / combiVerbrGas[i])
+        schatVerbrEle2022[i] = df['vrbr_ele_2022'][i]
+        verbrEle2022 += schatVerbrEle2022[i]
+        schatVerbrWat2022[i] = df['vrbr_wat_2022'][i]
+        verbrWat2022 += schatVerbrWat2022[i]
+    gasMndnNJr /= MAAND-1
     for i in range(MAAND, 12):
         if i == MAAND:
-            schatting_verbruik_gas_2022[i] = ((verbruik_gas_maand /
-                                               combinatie_verbruik_gas[MAAND]) *
-                                              combinatie_verbruik_gas[i] +
-                                              vast_gas_mnd).round(2)
+            schatVerbrGas2022[i] = ((verbrGasMnd / combiVerbrGas[MAAND])
+                                    * combiVerbrGas[i] + vastGasMnd).round(2)
         else:
-            schatting_verbruik_gas_2022[i] = ((((verbruik_gas_maand /
-                                                 combinatie_verbruik_gas[MAAND])
-                                                + gas_mndn)/2) *
-                                              combinatie_verbruik_gas[i] +
-                                              vast_gas_mnd).round(2)
-        verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
-        schatting_verbruik_elektriciteit_2022[i] = ((verbruik_elektriciteit_maand /
-                                combinatie_verbruik_elektriciteit[MAAND]) *
-                                combinatie_verbruik_elektriciteit[i]).round(2)
-        verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
-        schatting_verbruik_water_2022[i] = ((verbruik_water_maand /
-                                             combinatie_verbruik_water[MAAND]) *
-                                        combinatie_verbruik_water[i]).round(2)
-        verbruik_water_2022 += schatting_verbruik_water_2022[i]
+            schatVerbrGas2022[i] = ((((verbrGasMnd / combiVerbrGas[MAAND])
+                                    + gasMndnNJr)/2) * combiVerbrGas[i]
+                                    + vastGasMnd).round(2)
+        verbrGas2022 += schatVerbrGas2022[i]
+        schatVerbrEle2022[i] = ((verbrEleMnd / combiVerbrEle[MAAND])
+                                * combiVerbrEle[i]).round(2)
+        verbrEle2022 += schatVerbrEle2022[i]
+        schatVerbrWat2022[i] = ((verbrWatMnd / combiVerbrWat[MAAND])
+                                * combiVerbrWat[i]).round(2)
+        verbrWat2022 += schatVerbrWat2022[i]
 
 # Schatting totaal verbruik
-schatting_totaal_gas = verbruik_gas_2022
-schatting_totaal_elektriciteit = verbruik_elektriciteit_2022
-schatting_totaal_water = verbruik_water_2022
+schatTotGas = verbrGas2022
+schatTotEle = verbrEle2022
+schatTotWat = verbrWat2022
 
 # Bereken verschil 2021 - 2022
-verschil_gas = (schatting_totaal_gas - sum_verbruik_gas_2021)
-verschil_elektriciteit = (schatting_totaal_elektriciteit -
-                          sum_verbruik_elektriciteit_2021)
-verschil_water = (schatting_totaal_water - sum_verbruik_water_2021)
+verschGas = (schatTotGas - sumVerbrGas2021)
+verschEle = (schatTotEle - sumVerbrEle2021)
+verschWat = (schatTotWat - sumVerbrWat2021)
 
 # Bereken maandbedrag
-maandbedrag = int((((schatting_totaal_gas * PRIJS_GAS)
-                    + (schatting_totaal_elektriciteit * PRIJS_ELEKTRICITEIT)
+maandbedrag = int((((schatTotGas * PRIJS_GAS)
+                    + (schatTotEle * PRIJS_ELEKTRICITEIT)
                     + VAST_LEVERING_GAS_JAAR
                     + VAST_LEVERING_ELE_JAAR
                     + (2 * (VAST_LEVERING_DAG * 365)))/12))
+
 
 #
 # WEERGEVEN DATA
 #
 def ToonOverzicht():
     # Toon overzicht, verbruik 2021 en schatting 2022
-    schema_g = {"maand": df['maand'],
-                "vrbr_g_2021": totaal_verbruik_gas_2021,
-                "vrw_g_2022": schatting_verbruik_gas_2022,
-                "vrsch_gas": schatting_verbruik_gas_2022 -
-                totaal_verbruik_gas_2021,
-                "perc": ((1 - (schatting_verbruik_gas_2022 /
-                               totaal_verbruik_gas_2021)) * -100).round(1)}
-    schema_e = {"maand": df['maand'],
-                "vrbr_e_2021": totaal_verbruik_ele_2021,
-                "vrw_e_2022": schatting_verbruik_elektriciteit_2022,
-                "vrsch_ele": (schatting_verbruik_elektriciteit_2022 -
-                              totaal_verbruik_ele_2021),
-                "perc": ((1 - (schatting_verbruik_elektriciteit_2022 /
-                               totaal_verbruik_ele_2021)) * -100).round(1)}
-    schema_w = {"maand": df['maand'],
-                "vrbr_w_2021": totaal_verbruik_wat_2021,
-                "vrw_w_2022": schatting_verbruik_water_2022,
-                "vrsch_wat": (schatting_verbruik_water_2022 -
-                              totaal_verbruik_wat_2021),
-                "perc": ((1 - (schatting_verbruik_water_2022 /
-                               totaal_verbruik_wat_2021)) * -100).round(1)}
-    overzicht_g = pd.DataFrame(schema_g)
-    overzicht_e = pd.DataFrame(schema_e)
-    overzicht_w = pd.DataFrame(schema_w)
-    str_overzicht = ("Gas\n{sch_g}\n\nElektriciteit\n{sch_e}\n\nWater\n{sch_w}\n\n".format(
-        sch_g=overzicht_g, sch_e=overzicht_e, sch_w=overzicht_w))
+    schemaG = {"maand": df['maand'],
+               "vrbr_g_2021": totVerbrGas2021,
+               "vrw_g_2022": schatVerbrGas2022,
+               "vrsch_gas": schatVerbrGas2022 - totVerbrGas2021,
+               "perc": ((1 - (schatVerbrGas2022 / totVerbrGas2021))
+                        * -100).round(1)}
+    schemaE = {"maand": df['maand'],
+               "vrbr_e_2021": totVerbrEle2021,
+               "vrw_e_2022": schatVerbrEle2022,
+               "vrsch_ele": (schatVerbrEle2022 - totVerbrEle2021),
+               "perc": ((1 - (schatVerbrEle2022 / totVerbrEle2021))
+                        * -100).round(1)}
+    schemaW = {"maand": df['maand'],
+               "vrbr_w_2021": totVerbrWat2021,
+               "vrw_w_2022": schatVerbrWat2022,
+               "vrsch_wat": (schatVerbrWat2022 - totVerbrWat2021),
+               "perc": ((1 - (schatVerbrWat2022 / totVerbrWat2021))
+                        * -100).round(1)}
+    overzichtG = pd.DataFrame(schemaG)
+    overzichtE = pd.DataFrame(schemaE)
+    overzichtW = pd.DataFrame(schemaW)
+    str_overzicht = ("Gas\n{sch_g}\n\nElektriciteit\n{sch_e}\n\nWater\n{sch_w}\n\n".format(sch_g=overzichtG, sch_e=overzichtE, sch_w=overzichtW))
     # Schrijf overzicht naar bestand
     f = open("energieverbruik_2022_overzicht.txt", "w")
     f.write(str_overzicht)
@@ -256,64 +233,58 @@ def ToonOverzicht():
 
 
 def PrintOutput():
-    str_output = ("2021\n" +
-                  ("\tVerbruik gas: %d m3\n" % sum_verbruik_gas_2021) +
-                  ("\tVerbruik elektriciteit: %d kWh\n" %
-                   sum_verbruik_elektriciteit_2021) +
-                  ("\tVerbruik water: %d m3\n" % sum_verbruik_water_2021) +
-                  "2022\n" +
-                  ("\tGeschat gas: %d m3\n" %
-                   (schatting_totaal_gas)) +
-                  ("\tGeschat elektriciteit: %d kWh\n" %
-                   schatting_totaal_elektriciteit) +
-                  ("\tGeschat water: %d m3\n" % schatting_totaal_water) +
-                  "Verschil verbruik\n" +
-                  ("\tGas: %d m3 (EUR %d)\n" %
-                   (verschil_gas, (verschil_gas * PRIJS_GAS))) +
-                  ("\tElektriciteit: %d kWh (EUR %d)\n" %
-                   (verschil_elektriciteit, (verschil_elektriciteit *
-                                             PRIJS_ELEKTRICITEIT))) +
-                  ("\tWater: %d m3 (EUR %d)\n" % (verschil_water,
-                                            (verschil_water * PRIJS_WATER))) +
-                  ("Bedragen\n") +
-                  ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n"
-                   % (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER)) +
-                  ("\tMaandbedrag: EUR %d\n") % maandbedrag)
+    strOutput = ("2021\n" +
+                 ("\tVerbruik gas: %d m3\n" % sumVerbrGas2021)
+                 + ("\tVerbruik elektriciteit: %d kWh\n" % sumVerbrEle2021)
+                 + ("\tVerbruik water: %d m3\n" % sumVerbrWat2021)
+                 + "2022\n"
+                 + ("\tGeschat gas: %d m3\n" % (schatTotGas))
+                 + ("\tGeschat elektriciteit: %d kWh\n" % schatTotEle)
+                 + ("\tGeschat water: %d m3\n" % schatTotWat)
+                 + "Verschil verbruik\n"
+                 + ("\tGas: %d m3 (EUR %d)\n" % (verschGas, (verschGas * PRIJS_GAS)))
+                 + ("\tElektriciteit: %d kWh (EUR %d)\n" %
+                    (verschEle, (verschEle * PRIJS_ELEKTRICITEIT)))
+                 + ("\tWater: %d m3 (EUR %d)\n" % (verschWat, (verschWat * PRIJS_WATER)))
+                 + ("Bedragen\n")
+                 + ("\tTarieven: [gas %.2f / m3] [ele %.2f / kWh] [wat %.2f / m3]\n"
+                   % (PRIJS_GAS, PRIJS_ELEKTRICITEIT, PRIJS_WATER))
+                 + ("\tMaandbedrag: EUR %d\n") % maandbedrag)
     # Toon uitvoer overzicht en totalen
     #print(str_overzicht)
-    print(str_output)
+    print(strOutput)
 
     # Schrijf uitvoer naar bestand
     f = open("energieverbruik_2022.txt", "w")
-    f.write(str_output)
+    f.write(strOutput)
     f.close()
 
 
 def SchrijfCsvData():
-    str_csv_data = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar,maandbedr\n" +
-                    str("%d" % sum_verbruik_gas_2021) +
-                    str(",%d" % (schatting_totaal_gas)) +
-                    str(",%d" % verschil_gas) +
-                    str(",%d" % (verschil_gas * PRIJS_GAS)) +
-                    str(",%.2f" % PRIJS_GAS) +
-                    str(",0\n") +
-                    str("%d" % sum_verbruik_elektriciteit_2021) +
-                    str(",%d" % schatting_totaal_elektriciteit) +
-                    str(",%d" % verschil_elektriciteit) +
-                    str(",%d" % (verschil_elektriciteit * PRIJS_ELEKTRICITEIT)) +
-                    str(",%.2f" % PRIJS_ELEKTRICITEIT) +
-                    str(",0\n") +
-                    str("%d" % sum_verbruik_water_2021) +
-                    str(",%d" % schatting_totaal_water) +
-                    str(",%d" % verschil_water) +
-                    str(",%d" % (verschil_water * PRIJS_WATER)) +
-                    str(",%.2f" % PRIJS_WATER) +
-                    str(",0\n") +
-                    str("0,0,0,0,0,%d\n" % maandbedrag))
+    strCsvData = ("vrbr_2021,sch_2022,vrsch_vrbr,vrsch_bedr,tar,maandbedr\n"
+                  + str("%d" % sumVerbrGas2021)
+                  + str(",%d" % (schatTotGas))
+                  + str(",%d" % verschGas)
+                  + str(",%d" % (verschGas * PRIJS_GAS))
+                  + str(",%.2f" % PRIJS_GAS)
+                  + str(",0\n")
+                  + str("%d" % sumVerbrEle2021)
+                  + str(",%d" % schatTotEle)
+                  + str(",%d" % verschEle)
+                  + str(",%d" % (verschEle * PRIJS_ELEKTRICITEIT))
+                  + str(",%.2f" % PRIJS_ELEKTRICITEIT)
+                  + str(",0\n")
+                  + str("%d" % sumVerbrWat2021)
+                  + str(",%d" % schatTotWat)
+                  + str(",%d" % verschWat)
+                  + str(",%d" % (verschWat * PRIJS_WATER))
+                  + str(",%.2f" % PRIJS_WATER)
+                  + str(",0\n")
+                  + str("0,0,0,0,0,%d\n" % maandbedrag))
 
     # Schrijf csv-data naar bestand
     f = open("energie_hubrpi.csv", "w")
-    f.write(str_csv_data)
+    f.write(strCsvData)
     f.close()
 
 
@@ -326,59 +297,59 @@ rcParams['figure.figsize'] = [7.8, 3.8]
 
 def GrafiekGas():
     # Grafiek gasverbruik
-    plot_gas.figure()
-    plot_gas.plot(maanden, schatting_verbruik_gas_2022, color='tab:orange',
-                  label="2022", linewidth=5)
-    plot_gas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021",
-                  linewidth=5)
-    #plot_gas.title("Gas", color='White')
-    #plot_gas.xlabel("maand", color='White')
-    plot_gas.ylabel("verbruik (m3)", color='White')
-    plot_gas.tick_params(colors='White')
-    plot_gas.ylim(bottom=0)
-    plot_gas.grid()
-    plot_gas.legend()
-    plot_gas.tight_layout()
-    plot_gas.savefig('gasverbruik.png', dpi=100, transparent=True)
-    #plot_gas.show()
+    plotGas.figure()
+    plotGas.plot(maanden, schatVerbrGas2022, color='tab:orange',
+                 label="2022", linewidth=5)
+    plotGas.plot(maanden, df['vrbr_gas_2021'], color='tab:blue', label="2021",
+                 linewidth=5)
+    #plotGas.title("Gas", color='White')
+    #plotGas.xlabel("maand", color='White')
+    plotGas.ylabel("verbruik (m3)", color='White')
+    plotGas.tick_params(colors='White')
+    plotGas.ylim(bottom=0)
+    plotGas.grid()
+    plotGas.legend()
+    plotGas.tight_layout()
+    plotGas.savefig('gasverbruik.png', dpi=100, transparent=True)
+    #plotGas.show()
 
 
 def GrafiekElektriciteit():
     # Grafiek elektriciteitsverbruik
-    plot_ele.figure()
-    plot_ele.plot(maanden, schatting_verbruik_elektriciteit_2022,
-                  color='tab:orange', label="2022", linewidth=5)
-    plot_ele.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021",
-                  linewidth=5)
-    #plot_ele.title("Elektriciteit", color='White')
-    #plot_ele.xlabel("maand", color='White')
-    plot_ele.ylabel("verbruik (kWh)", color='White')
-    plot_ele.tick_params(colors='White')
-    plot_ele.ylim(bottom=0)
-    plot_ele.grid()
-    plot_ele.legend()
-    plot_ele.tight_layout()
-    plot_ele.savefig('elektriciteitsverbruik.png', dpi=100, transparent=True)
-    #plot_ele.show()
+    plotEle.figure()
+    plotEle.plot(maanden, schatVerbrEle2022,
+                 color='tab:orange', label="2022", linewidth=5)
+    plotEle.plot(maanden, df['vrbr_ele_2021'], color='tab:blue', label="2021",
+                 linewidth=5)
+    #plotEle.title("Elektriciteit", color='White')
+    #plotEle.xlabel("maand", color='White')
+    plotEle.ylabel("verbruik (kWh)", color='White')
+    plotEle.tick_params(colors='White')
+    plotEle.ylim(bottom=0)
+    plotEle.grid()
+    plotEle.legend()
+    plotEle.tight_layout()
+    plotEle.savefig('elektriciteitsverbruik.png', dpi=100, transparent=True)
+    #plotEle.show()
 
 
 def GrafiekWater():
     # Grafiek waterverbruik
-    plot_wat.figure()
-    plot_wat.plot(maanden, schatting_verbruik_water_2022, color='tab:orange',
-                  label="2022", linewidth=5)
-    plot_wat.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021",
-                  linewidth=5)
-    #plot_wat.title("Water", color='White')
-    #plot_wat.xlabel("maand", color='White')
-    plot_wat.ylabel("verbruik (m3)", color='White')
-    plot_wat.tick_params(colors='White')
-    plot_wat.ylim(bottom=0)
-    plot_wat.grid()
-    plot_wat.legend()
-    plot_wat.tight_layout()
-    plot_wat.savefig('waterverbruik.png', dpi=100, transparent=True)
-    #plot_ele.show()
+    plotWat.figure()
+    plotWat.plot(maanden, schatVerbrWat2022, color='tab:orange',
+                 label="2022", linewidth=5)
+    plotWat.plot(maanden, df['vrbr_wat_2021'], color='tab:blue', label="2021",
+                 linewidth=5)
+    #plotWat.title("Water", color='White')
+    #plotWat.xlabel("maand", color='White')
+    plotWat.ylabel("verbruik (m3)", color='White')
+    plotWat.tick_params(colors='White')
+    plotWat.ylim(bottom=0)
+    plotWat.grid()
+    plotWat.legend()
+    plotWat.tight_layout()
+    plotWat.savefig('waterverbruik.png', dpi=100, transparent=True)
+    #plotEle.show()
 
 
 p1 = Process(target=ToonOverzicht)
