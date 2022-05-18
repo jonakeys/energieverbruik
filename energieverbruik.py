@@ -167,18 +167,29 @@ if MAAND == Month.jan:
 
 # Als een of meerdere maanden afgerond zijn
 else:
+    gas_mndn = 0
     for i in range(0, MAAND):
         schatting_verbruik_gas_2022[i] = df['vrbr_gas_2022'][i]
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
+        gas_mndn += (schatting_verbruik_gas_2022[i] /
+                     combinatie_verbruik_gas[i])
         schatting_verbruik_elektriciteit_2022[i] = df['vrbr_ele_2022'][i]
         verbruik_elektriciteit_2022 += schatting_verbruik_elektriciteit_2022[i]
         schatting_verbruik_water_2022[i] = df['vrbr_wat_2022'][i]
         verbruik_water_2022 += schatting_verbruik_water_2022[i]
+    gas_mndn /= MAAND-1
     for i in range(MAAND, 12):
-        schatting_verbruik_gas_2022[i] = ((verbruik_gas_maand /
-                                          combinatie_verbruik_gas[MAAND]) *
-                                          combinatie_verbruik_gas[i] +
-                                          vast_gas_mnd).round(2)
+        if i == MAAND:
+            schatting_verbruik_gas_2022[i] = ((verbruik_gas_maand /
+                                               combinatie_verbruik_gas[MAAND]) *
+                                              combinatie_verbruik_gas[i] +
+                                              vast_gas_mnd).round(2)
+        else:
+            schatting_verbruik_gas_2022[i] = ((((verbruik_gas_maand /
+                                                 combinatie_verbruik_gas[MAAND])
+                                                + gas_mndn)/2) *
+                                              combinatie_verbruik_gas[i] +
+                                              vast_gas_mnd).round(2)
         verbruik_gas_2022 += schatting_verbruik_gas_2022[i]
         schatting_verbruik_elektriciteit_2022[i] = ((verbruik_elektriciteit_maand /
                                 combinatie_verbruik_elektriciteit[MAAND]) *
