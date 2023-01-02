@@ -34,18 +34,18 @@ class Month(IntEnum):
 #
 # CONSTANTEN
 #
-HUIDIG_JAAR = 2022
+HUIDIG_JAAR = 2023
 VORIG_JAAR = HUIDIG_JAAR - 1
 
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.dec
-DAG_VAN_MAAND = 25
+MAAND = Month.jan
+DAG_VAN_MAAND = 2
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 197
-VERBRUIK_ELEKTRICITEIT = 102
-VERBRUIK_WATER = 6
+VERBRUIK_GAS = 8
+VERBRUIK_ELEKTRICITEIT = 7
+VERBRUIK_WATER = 1
 PRIJS_GAS = 1.63326
 PRIJS_ELEKTRICITEIT = 0.53264
 PRIJS_WATER = 1.021
@@ -67,7 +67,7 @@ totVerbrWatVrgJr = df['vrbr_wat_VrgJr']
 # Vast verbruik gas per maand. Bepaal aan de hand van zomerverbruik
 sumZomerverbruik = 0
 for i in range(5, 9):
-    sumZomerverbruik += df['vrbr_gas_HdgJr'][i]
+    sumZomerverbruik += df['vrbr_gas_VrgJr'][i]
 vastGasMnd = sumZomerverbruik / 4
 vastGasJr = vastGasMnd*12
 
@@ -304,8 +304,8 @@ def GrafiekGas():
     # Grafiek gasverbruik
     plotGas.figure()
     plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:orange',
-                 label="2022", linewidth=5)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2021",
+                 label="2023", linewidth=5)
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2022",
                  linewidth=5)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
@@ -323,8 +323,8 @@ def GrafiekElektriciteit():
     # Grafiek elektriciteitsverbruik
     plotEle.figure()
     plotEle.plot(maanden, schatVerbrEleHdgJr,
-                 color='tab:orange', label="2022", linewidth=5)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2021",
+                 color='tab:orange', label="2023", linewidth=5)
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2022",
                  linewidth=5)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
@@ -342,8 +342,8 @@ def GrafiekWater():
     # Grafiek waterverbruik
     plotWat.figure()
     plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:orange',
-                 label="2022", linewidth=5)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2021",
+                 label="2023", linewidth=5)
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2022",
                  linewidth=5)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
