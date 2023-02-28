@@ -1,15 +1,15 @@
-2021
-	Verbruik gas: 1738 m3
-	Verbruik elektriciteit: 1692 kWh
-	Verbruik water: 106 m3
 2022
-	Geschat gas: 1169 m3
-	Geschat elektriciteit: 1490 kWh
-	Geschat water: 93 m3
+	Verbruik gas: 1156 m3
+	Verbruik elektriciteit: 1488 kWh
+	Verbruik water: 94 m3
+2023
+	Geschat gas: 1241 m3
+	Geschat elektriciteit: 1256 kWh
+	Geschat water: 116 m3
 Verschil verbruik
-	Gas: -568 m3 (EUR -928)
-	Elektriciteit: -201 kWh (EUR -107)
-	Water: -12 m3 (EUR -12)
+	Gas: 85 m3 (EUR 140)
+	Elektriciteit: -231 kWh (EUR -123)
+	Water: 22 m3 (EUR 22)
 Bedragen
 	Tarieven: [gas 1.63 / m3] [ele 0.53 / kWh] [wat 1.02 / m3]
-	Maandbedrag: EUR 249
+	Maandbedrag: EUR 248

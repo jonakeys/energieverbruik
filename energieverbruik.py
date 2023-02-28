@@ -40,12 +40,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.jan
-DAG_VAN_MAAND = 2
-DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 8
-VERBRUIK_ELEKTRICITEIT = 7
-VERBRUIK_WATER = 1
+MAAND = Month.feb
+DAG_VAN_MAAND = 28
+DAGEN_IN_MAAND = 28
+VERBRUIK_GAS = 162
+VERBRUIK_ELEKTRICITEIT = 113
+VERBRUIK_WATER = 9
 PRIJS_GAS = 1.63326
 PRIJS_ELEKTRICITEIT = 0.53264
 PRIJS_WATER = 1.021
@@ -58,7 +58,9 @@ df = pd.read_csv('energiedata.csv')
 
 totVerbrGasVrgJr = df['vrbr_gas_VrgJr']
 totVerbrEleVrgJr = df['vrbr_ele_VrgJr']
+totVerbrEleVrgJr2 = df['vrbr_ele_VrgJr2']
 totVerbrWatVrgJr = df['vrbr_wat_VrgJr']
+totVerbrWatVrgJr2 = df['vrbr_wat_VrgJr2']
 
 #
 # BEREKENINGEN GAS
@@ -106,6 +108,10 @@ sumVerbrEleVrgJr = 0
 for i in totVerbrEleVrgJr:
     sumVerbrEleVrgJr += i
 percVerbrEleVrgJr = (totVerbrEleVrgJr / sumVerbrEleVrgJr)
+sumVerbrEleVrgJr2 = 0
+for i in totVerbrEleVrgJr2:
+    sumVerbrEleVrgJr2 += i
+percVerbrEleVrgJr2 = (totVerbrEleVrgJr2 / sumVerbrEleVrgJr)
 
 #
 # BEREKENINGEN WATER
@@ -118,6 +124,10 @@ sumVerbrWatVrgJr = 0
 for i in totVerbrWatVrgJr:
     sumVerbrWatVrgJr += i
 percVerbrWatVrgJr = (totVerbrWatVrgJr / sumVerbrWatVrgJr)
+sumVerbrWatVrgJr2 = 0
+for i in totVerbrWatVrgJr2:
+    sumVerbrWatVrgJr2 += i
+percVerbrWatVrgJr2 = (totVerbrWatVrgJr2 / sumVerbrWatVrgJr2)
 
 #
 # BEREKENINGEN SCHATTING VERBRUIK
@@ -128,10 +138,10 @@ percVerbrWatVrgJr = (totVerbrWatVrgJr / sumVerbrWatVrgJr)
 combiVerbrGas = ((percGraaddagen + percVerbrGasVrgJr_corr) / 2)
 
 # Combineer gemiddeld elektriciteit en verbruik VrgJr als basis voor verwachting
-combiVerbrEle = ((gemEle + percVerbrEleVrgJr) / 2)
+combiVerbrEle = ((gemEle + percVerbrEleVrgJr + percVerbrEleVrgJr2) / 3)
 
 # Combineer gemiddeld waterverbruik VrgJr als basis voor verwachting
-combiVerbrWat = ((gemWat + percVerbrWatVrgJr) /2)
+combiVerbrWat = ((gemWat + percVerbrWatVrgJr + percVerbrWatVrgJr2) / 3)
 
 percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
 verbrGasMnd = (VERBRUIK_GAS / percMnd) - vastGasMnd
@@ -169,7 +179,7 @@ else:
         verbrEleHdgJr += schatVerbrEleHdgJr[i]
         schatVerbrWatHdgJr[i] = df['vrbr_wat_HdgJr'][i]
         verbrWatHdgJr += schatVerbrWatHdgJr[i]
-    gasMndnNJr /= MAAND-1
+    gasMndnNJr /= (MAAND-1 + 1)
     for i in range(MAAND, 12):
         if i == MAAND:
             schatVerbrGasHdgJr[i] = ((verbrGasMnd / combiVerbrGas[MAAND])
