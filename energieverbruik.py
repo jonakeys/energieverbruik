@@ -40,18 +40,17 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.feb
-DAG_VAN_MAAND = 28
-DAGEN_IN_MAAND = 28
-VERBRUIK_GAS = 162
-VERBRUIK_ELEKTRICITEIT = 113
-VERBRUIK_WATER = 9
-PRIJS_GAS = 1.63326
-PRIJS_ELEKTRICITEIT = 0.53264
+MAAND = Month.mrt
+DAG_VAN_MAAND = 21
+DAGEN_IN_MAAND = 31
+VERBRUIK_GAS = 124
+VERBRUIK_ELEKTRICITEIT = 84
+VERBRUIK_WATER = 6
+PRIJS_GAS = 1.39006
+PRIJS_ELEKTRICITEIT = 0.39802
 PRIJS_WATER = 1.021
-VAST_LEVERING_GAS_JAAR = 71.39
-VAST_LEVERING_ELE_JAAR = 71.39
-VAST_LEVERING_DAG = 0.19559
+VAST_LEVERING_GAS_JAAR = 83.49
+VAST_LEVERING_ELE_JAAR = 83.49
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
@@ -210,8 +209,7 @@ verschWat = (schatTotWat - sumVerbrWatVrgJr)
 maandbedrag = int((((schatTotGas * PRIJS_GAS)
                     + (schatTotEle * PRIJS_ELEKTRICITEIT)
                     + VAST_LEVERING_GAS_JAAR
-                    + VAST_LEVERING_ELE_JAAR
-                    + (2 * (VAST_LEVERING_DAG * 365)))/12))
+                    + VAST_LEVERING_ELE_JAAR)/12))
 
 
 #
