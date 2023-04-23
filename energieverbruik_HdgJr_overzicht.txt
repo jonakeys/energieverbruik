@@ -2,44 +2,44 @@ Gas
         maand  vrbr_g_VrgJr  vrw_g_HdgJr  vrsch_gas  perc
 0     januari           205       208.00       3.00   1.5
 1    februari           175       162.00     -13.00  -7.4
-2       maart           133       148.58      15.58  11.7
-3       april            94       101.37       7.37   7.8
-4         mei            31        56.33      25.33  81.7
-5        juni            20        29.71       9.71  48.6
-6        juli            19        24.03       5.03  26.5
-7    augustus            16        22.37       6.37  39.8
-8   september            20        34.85      14.85  74.3
-9     oktober            60        77.47      17.47  29.1
-10   november           152       159.06       7.06   4.6
-11   december           231       218.06     -12.94  -5.6
+2       maart           133       163.00      30.00  22.6
+3       april            94        93.91      -0.09  -0.1
+4         mei            31        56.98      25.98  83.8
+5        juni            20        29.90       9.90  49.5
+6        juli            19        24.12       5.12  26.9
+7    augustus            16        22.43       6.43  40.2
+8   september            20        35.13      15.13  75.7
+9     oktober            60        78.48      18.48  30.8
+10   november           152       161.48       9.48   6.2
+11   december           231       221.50      -9.50  -4.1
 
 Elektriciteit
         maand  vrbr_e_VrgJr  vrw_e_HdgJr  vrsch_ele  perc
 0     januari           155       130.00     -25.00 -16.1
 1    februari           126       113.00     -13.00 -10.3
-2       maart           135       117.71     -17.29 -12.8
-3       april           116        99.68     -16.32 -14.1
-4         mei           117       103.72     -13.28 -11.4
-5        juni           126        99.02     -26.98 -21.4
-6        juli           123        99.16     -23.84 -19.4
-7    augustus           139        97.54     -41.46 -29.8
-8   september            89        85.52      -3.48  -3.9
-9     oktober           116        98.97     -17.03 -14.7
-10   november           122       100.31     -21.69 -17.8
-11   december           124       112.00     -12.00  -9.7
+2       maart           135       126.00      -9.00  -6.7
+3       april           116       120.00       4.00   3.4
+4         mei           117       124.85       7.85   6.7
+5        juni           126       119.20      -6.80  -5.4
+6        juli           123       119.37      -3.63  -3.0
+7    augustus           139       117.42     -21.58 -15.5
+8   september            89       102.95      13.95  15.7
+9     oktober           116       119.14       3.14   2.7
+10   november           122       120.75      -1.25  -1.0
+11   december           124       134.83      10.83   8.7
 
 Water
         maand  vrbr_w_VrgJr  vrw_w_HdgJr  vrsch_wat  perc
 0     januari             9         8.00      -1.00 -11.1
 1    februari             7         9.00       2.00  28.6
-2       maart             9        10.55       1.55  17.2
-3       april             9        10.44       1.44  16.0
-4         mei             8        10.50       2.50  31.2
-5        juni             7         9.97       2.97  42.4
-6        juli             9        10.55       1.55  17.2
-7    augustus             7         9.33       2.33  33.3
-8   september             4         7.58       3.58  89.5
-9     oktober             9        10.17       1.17  13.0
-10   november             8        10.02       2.02  25.2
-11   december             8        10.12       2.12  26.5
+2       maart             9         9.00       0.00  -0.0
+3       april             9         5.22      -3.78 -42.0
+4         mei             8         5.25      -2.75 -34.4
+5        juni             7         4.98      -2.02 -28.9
+6        juli             9         5.27      -3.73 -41.4
+7    augustus             7         4.66      -2.34 -33.4
+8   september             4         3.79      -0.21  -5.2
+9     oktober             9         5.08      -3.92 -43.6
+10   november             8         5.01      -2.99 -37.4
+11   december             8         5.06      -2.94 -36.8
 
