@@ -15,7 +15,7 @@ import matplotlib.pyplot as plotWat
 from enum import IntEnum
 from matplotlib import rcParams
 from multiprocessing import Process
-
+from matplotlib import *
 
 class Month(IntEnum):
     jan = 0
@@ -41,11 +41,11 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
 MAAND = Month.apr
-DAG_VAN_MAAND = 23
+DAG_VAN_MAAND = 30
 DAGEN_IN_MAAND = 30
-VERBRUIK_GAS = 72
-VERBRUIK_ELEKTRICITEIT = 92
-VERBRUIK_WATER = 4
+VERBRUIK_GAS = 94
+VERBRUIK_ELEKTRICITEIT = 122
+VERBRUIK_WATER = 6
 PRIJS_GAS = 1.39006
 PRIJS_ELEKTRICITEIT = 0.39802
 PRIJS_WATER = 1.021
@@ -306,7 +306,8 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
            "okt", "nov", "dec"]
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 3.8]
-
+rcParams['font.family'] = ['sans-serif']
+rcParams['font.sans-serif'] = ['Red Hat Text VF']
 
 def GrafiekGas():
     # Grafiek gasverbruik

@@ -3,13 +3,13 @@
 	Verbruik elektriciteit: 1488 kWh
 	Verbruik water: 94 m3
 2023
-	Geschat gas: 1256 m3
-	Geschat elektriciteit: 1447 kWh
-	Geschat water: 70 m3
+	Geschat gas: 1257 m3
+	Geschat elektriciteit: 1465 kWh
+	Geschat water: 76 m3
 Verschil verbruik
-	Gas: 100 m3 (EUR 140)
-	Elektriciteit: -40 kWh (EUR -16)
-	Water: -23 m3 (EUR -24)
+	Gas: 101 m3 (EUR 140)
+	Elektriciteit: -22 kWh (EUR -8)
+	Water: -17 m3 (EUR -17)
 Bedragen
 	Tarieven: [gas 1.39 / m3] [ele 0.40 / kWh] [wat 1.02 / m3]
-	Maandbedrag: EUR 207
+	Maandbedrag: EUR 208
