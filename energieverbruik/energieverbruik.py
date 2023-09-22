@@ -40,12 +40,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.mei
-DAG_VAN_MAAND = 31
-DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 39
-VERBRUIK_ELEKTRICITEIT = 130
-VERBRUIK_WATER = 8
+MAAND = Month.sep
+DAG_VAN_MAAND = 22
+DAGEN_IN_MAAND = 30
+VERBRUIK_GAS = 13
+VERBRUIK_ELEKTRICITEIT = 86
+VERBRUIK_WATER = 5.5
 PRIJS_GAS = 1.39006
 PRIJS_ELEKTRICITEIT = 0.39802
 PRIJS_WATER = 1.021
@@ -307,7 +307,7 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 3.8]
 rcParams['font.family'] = ['sans-serif']
-rcParams['font.sans-serif'] = ['Red Hat Text VF']
+rcParams['font.sans-serif'] = ['Montserrat']
 
 def GrafiekGas():
     # Grafiek gasverbruik
