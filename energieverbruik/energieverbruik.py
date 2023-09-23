@@ -312,10 +312,12 @@ rcParams['font.sans-serif'] = ['Montserrat']
 def GrafiekGas():
     # Grafiek gasverbruik
     plotGas.figure()
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="2021",
+                 linewidth=5, alpha=0.4)
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2022",
+                 linewidth=5, alpha=0.7)
     plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:orange',
                  label="2023", linewidth=5)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2022",
-                 linewidth=5)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
     plotGas.ylabel("verbruik (m3)", color='White')
@@ -331,10 +333,12 @@ def GrafiekGas():
 def GrafiekElektriciteit():
     # Grafiek elektriciteitsverbruik
     plotEle.figure()
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="2021",
+                 linewidth=5, alpha=0.4)
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2022",
+                 linewidth=5, alpha=0.7)
     plotEle.plot(maanden, schatVerbrEleHdgJr,
                  color='tab:orange', label="2023", linewidth=5)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2022",
-                 linewidth=5)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
     plotEle.ylabel("verbruik (kWh)", color='White')
@@ -350,10 +354,12 @@ def GrafiekElektriciteit():
 def GrafiekWater():
     # Grafiek waterverbruik
     plotWat.figure()
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="2021",
+                 linewidth=5, alpha=0.4)
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2022",
+                 linewidth=5, alpha=0.7)
     plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:orange',
                  label="2023", linewidth=5)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2022",
-                 linewidth=5)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
     plotWat.ylabel("verbruik (m3)", color='White')
