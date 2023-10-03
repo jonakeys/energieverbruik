@@ -319,7 +319,7 @@ def SchrijfCsvData():
     f.write(strCsvData)
     f.close()
 
-
+rcParams['backend'] = 'Agg'
 # Toon grafieken
 maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
            "okt", "nov", "dec"]
@@ -409,3 +409,21 @@ p3.join()
 p4.join()
 p5.join()
 p6.join()
+
+def schrijfCsvStats():
+    uitvoer = "g,g-1,g-2,e,e-1,e-2,w,w-1,w-2\n"
+    for i in range (0, 12):
+        uitvoer += (str("%d" % schatVerbrGasHdgJr[i]) + ","
+                    + str("%d" % totVerbrGasVrgJr[i]) + ","
+                    + str("%d" % totVerbrGasVrgJr2[i]) + ","
+                    + str("%d" % schatVerbrEleHdgJr[i]) + ","
+                    + str("%d" % totVerbrEleVrgJr[i]) + ","
+                    + str("%d" % totVerbrEleVrgJr2[i]) + ","
+                    + str("%d" % schatVerbrWatHdgJr[i]) + ","
+                    + str("%d" % totVerbrWatVrgJr[i]) + ","
+                    + str("%d" % totVerbrWatVrgJr2[i]) + "\n")
+    f = open("energie-stats.csv", "w")
+    f.write(uitvoer)
+    f.close()
+
+schrijfCsvStats()
