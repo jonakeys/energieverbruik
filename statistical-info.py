@@ -2,68 +2,104 @@ import pandas as pd
 from numpy import *
 df = pd.read_csv('energie-stats.csv')
 
-gasHdg = df['g']
-gasVrgJr = df['g-1']
-gasVrgJr2 = df['g-2']
+gasDitJaar = df['g']
+gasDitJaarMin1 = df['g-1']
+gasDitJaarMin2 = df['g-2']
 
-eleHdg = df['e']
-eleVrgJr = df['e-1']
-eleVrgJr2 = df['e-2']
+eleDitJaar = df['e']
+eleDitJaarMin1 = df['e-1']
+eleDitJaarMin2 = df['e-2']
 
-watHdg = df['w']
-watVrgJr = df['w-1']
-watVrgJr2 = df['w-2']
+watDitJaar = df['w']
+watDitJaarMin1 = df['w-1']
+watDitJaarMin2 = df['w-2']
 
-gasHdgStd = round(std(gasHdg), 1)
-gasVrgJrStd = round(std(gasVrgJr), 1)
-gasVrgJr2Std = round(std(gasVrgJr2), 1)
-gasHdgGem = round(gasHdg.mean(), 1)
-gasVrgJrGem = round(gasVrgJr.mean(), 1)
-gasVrgJr2Gem = round(gasVrgJr2.mean(), 1)
-gasHdgMed = round(gasHdg.median(), 1)
-gasVrgJrMed = round(gasVrgJr.median(), 1)
-gasVrgJr2Med = round(gasVrgJr2.median(), 1)
+gasDitJaarStd = round(std(gasDitJaar), 1)
+gasDitJaarMin1Std = round(std(gasDitJaarMin1), 1)
+gasDitJaarMin2Std = round(std(gasDitJaarMin2), 1)
+gasDitJaarGem = round(gasDitJaar.mean(), 1)
+gasDitJaarMin1Gem = round(gasDitJaarMin1.mean(), 1)
+gasDitJaarMin2Gem = round(gasDitJaarMin2.mean(), 1)
+gasDitJaarMed = round(gasDitJaar.median(), 1)
+gasDitJaarMin1Med = round(gasDitJaarMin1.median(), 1)
+gasDitJaarMin2Med = round(gasDitJaarMin2.median(), 1)
 
-eleVrgJrStd = round(std(eleVrgJr), 1)
-eleHdgStd = round(std(eleHdg), 1)
-eleVrgJr2Std = round(std(eleVrgJr2), 1)
-eleHdgGem = round(eleHdg.mean(), 1)
-eleVrgJrGem = round(eleVrgJr.mean(), 1)
-eleVrgJr2Gem = round(eleVrgJr2.mean(), 1)
-eleHdgMed = round(eleHdg.median(), 1)
-eleVrgJrMed = round(eleVrgJr.median(), 1)
-eleVrgJr2Med = round(eleVrgJr2.median(), 1)
+eleDitJaarMin1Std = round(std(eleDitJaarMin1), 1)
+eleDitJaarStd = round(std(eleDitJaar), 1)
+eleDitJaarMin2Std = round(std(eleDitJaarMin2), 1)
+eleDitJaarGem = round(eleDitJaar.mean(), 1)
+eleDitJaarMin1Gem = round(eleDitJaarMin1.mean(), 1)
+eleDitJaarMin2Gem = round(eleDitJaarMin2.mean(), 1)
+eleDitJaarMed = round(eleDitJaar.median(), 1)
+eleDitJaarMin1Med = round(eleDitJaarMin1.median(), 1)
+eleDitJaarMin2Med = round(eleDitJaarMin2.median(), 1)
 
-watHdgStd = round(std(watHdg), 1)
-watVrgJrStd = round(std(watVrgJr), 1)
-watVrgJr2Std = round(std(watVrgJr2), 1)
-watHdgGem = round(watHdg.mean(), 1)
-watVrgJrGem = round(watVrgJr.mean(), 1)
-watVrgJr2Gem = round(watVrgJr2.mean(), 1)
-watHdgMed = round(watHdg.median(), 1)
-watVrgJrMed = round(watVrgJr.median(), 1)
-watVrgJr2Med = round(watVrgJr2.median(), 1)
+watDitJaarStd = round(std(watDitJaar), 1)
+watDitJaarMin1Std = round(std(watDitJaarMin1), 1)
+watDitJaarMin2Std = round(std(watDitJaarMin2), 1)
+watDitJaarGem = round(watDitJaar.mean(), 1)
+watDitJaarMin1Gem = round(watDitJaarMin1.mean(), 1)
+watDitJaarMin2Gem = round(watDitJaarMin2.mean(), 1)
+watDitJaarMed = round(watDitJaar.median(), 1)
+watDitJaarMin1Med = round(watDitJaarMin1.median(), 1)
+watDitJaarMin2Med = round(watDitJaarMin2.median(), 1)
 
-def toonData(soort, dat1, dat2, dat3):
-    print("\t", soort, "\t",
-          dat1, " (", round(dat1-dat2, 1), ")\t",
-          dat2, " (", round(dat2-dat3, 1), ")\t",
-          dat3)
+def toon(jrStd, jrmin1Std, jrmin2Std, jrGem, jrmin1Gem, jrmin2Gem,
+         jrMed, jrmin1Med, jrmin2Med):
+    print("\t2023\t", jrStd, " (", round(jrStd-jrmin2Std, 1), ")\t",
+          jrGem, " (", round(jrGem-jrmin2Gem, 1), ")\t",
+          jrMed, " (", round(jrMed-jrmin2Med, 1), ")", sep="")
+    print("\t2022\t", jrmin1Std, " (", round(jrmin1Std-jrmin2Std, 1), ")\t",
+          jrmin1Gem, " (", round(jrmin1Gem-jrmin2Gem, 1), ")\t",
+          jrmin1Med, " (", round(jrmin1Med-jrmin2Med, 1), ")", sep="")
+    print("\t2021\t", jrmin2Std, "\t\t", jrmin2Gem, "\t\t", jrmin2Med, sep="")
 
-def printJaren():
-    print("\t\t\t2023\t\t2022\t\t2021")
+print("GAS (m3)\tStdDev\t\tAvg\t\tMed")
+toon(gasDitJaarStd, gasDitJaarMin1Std, gasDitJaarMin2Std,
+     gasDitJaarGem, gasDitJaarMin1Gem, gasDitJaarMin2Gem,
+     gasDitJaarMed, gasDitJaarMin1Med, gasDitJaarMin2Med)
+print("ELEKTRICITEIT (kWh)")
+toon(eleDitJaarStd, eleDitJaarMin1Std, eleDitJaarMin2Std,
+     eleDitJaarGem, eleDitJaarMin1Gem, eleDitJaarMin2Gem,
+     eleDitJaarMed, eleDitJaarMin1Med, eleDitJaarMin2Med)
+print("WATER (m3)")
+toon(watDitJaarStd, watDitJaarMin1Std, watDitJaarMin2Std,
+     watDitJaarGem, watDitJaarMin1Gem, watDitJaarMin2Gem,
+     watDitJaarMed, watDitJaarMin1Med, watDitJaarMin2Med)
 
-#printJaren()
-print("Gas")
-toonData("StdDev", gasHdgStd, gasVrgJrStd, gasVrgJr2Std)
-toonData("Gem\t", gasHdgGem, gasVrgJrGem, gasVrgJr2Gem)
-toonData("Med\t", gasHdgMed, gasVrgJrMed, gasVrgJr2Med)
-print("\nEle")
-toonData("StdDev", eleHdgStd, eleVrgJrStd, eleVrgJr2Std)
-toonData("Gem\t", eleHdgGem, eleVrgJrGem, eleVrgJr2Gem)
-toonData("Med\t", eleHdgMed, eleVrgJrMed, eleVrgJr2Med)
-print("\nWat")
-toonData("StdDev", watHdgStd, watVrgJrStd, watVrgJr2Std)
-toonData("Gem\t", watHdgGem, watVrgJrGem, watVrgJr2Gem)
-toonData("Med\t", watHdgMed, watVrgJrMed, watVrgJr2Med)
-   
+def schrijfCsvData():
+    strCsvData = ("gStd,gStdDiff,gGem,gGemDiff,gMed,gMedDiff,"
+                  + "eStd,eStdDiff,eGem,eGemDiff,eMed,eMedDiff,"
+                  + "wStd,wStdDiff,wGem,wGemDiff,wMed,wMedDiff\n"
+                  + str("%.1f," % gasDitJaarStd) + str("%.1f," % round(gasDitJaarStd-gasDitJaarMin2Std, 1))
+                  + str("%.1f," % gasDitJaarGem) + str("%.1f," % round(gasDitJaarGem-gasDitJaarMin2Gem, 1))
+                  + str("%.1f," % gasDitJaarMed) + str("%.1f," % round(gasDitJaarMed-gasDitJaarMin2Med, 1))
+                  + str("%.1f," % eleDitJaarStd) + str("%.1f," % round(eleDitJaarStd-eleDitJaarMin2Std, 1))
+                  + str("%.1f," % eleDitJaarGem) + str("%.1f," % round(eleDitJaarGem-eleDitJaarMin2Gem, 1))
+                  + str("%.1f," % eleDitJaarMed) + str("%.1f," % round(eleDitJaarMed-eleDitJaarMin2Med, 1))
+                  + str("%.1f," % watDitJaarStd) + str("%.1f," % round(watDitJaarStd-watDitJaarMin2Std, 1))
+                  + str("%.1f," % watDitJaarGem) + str("%.1f," % round(watDitJaarGem-watDitJaarMin2Gem, 1))
+                  + str("%.1f," % watDitJaarMed) + str("%.1f\n" % round(watDitJaarMed-watDitJaarMin2Med, 1))
+                  + str("%.1f," % gasDitJaarMin1Std) + str("%.1f," % round(gasDitJaarMin1Std-gasDitJaarMin2Std, 1))
+                  + str("%.1f," % gasDitJaarMin1Gem) + str("%.1f," % round(gasDitJaarMin1Gem-gasDitJaarMin2Gem, 1))
+                  + str("%.1f," % gasDitJaarMin1Med) + str("%.1f," % round(gasDitJaarMin1Med-gasDitJaarMin2Med, 1))
+                  + str("%.1f," % eleDitJaarMin1Std) + str("%.1f," % round(eleDitJaarMin1Std-eleDitJaarMin2Std, 1))
+                  + str("%.1f," % eleDitJaarMin1Gem) + str("%.1f," % round(eleDitJaarMin1Gem-eleDitJaarMin2Gem, 1))
+                  + str("%.1f," % eleDitJaarMin1Med) + str("%.1f," % round(eleDitJaarMin1Med-eleDitJaarMin2Med, 1))
+                  + str("%.1f," % watDitJaarMin1Std) + str("%.1f," % round(watDitJaarMin1Std-watDitJaarMin2Std, 1))
+                  + str("%.1f," % watDitJaarMin1Gem) + str("%.1f," % round(watDitJaarMin1Gem-watDitJaarMin2Gem, 1))
+                  + str("%.1f," % watDitJaarMin1Med) + str("%.1f\n" % round(watDitJaarMin1Med-watDitJaarMin2Med, 1))
+                  + str("%.1f," % gasDitJaarMin2Std) + "0.0,"
+                  + str("%.1f," % gasDitJaarMin2Gem) + "0,0,"
+                  + str("%.1f," % gasDitJaarMin2Med) + "0.0,"
+                  + str("%.1f," % eleDitJaarMin2Std) + "0.0,"
+                  + str("%.1f," % eleDitJaarMin2Gem) + "0,0,"
+                  + str("%.1f," % eleDitJaarMin2Med) + "0.0,"
+                  + str("%.1f," % watDitJaarMin2Std) + "0.0,"
+                  + str("%.1f," % watDitJaarMin2Gem) + "0,0,"
+                  + str("%.1f," % watDitJaarMin2Med) + "0.0\n")
+    f = open("stats-energiedata.csv", "w")
+    f.write(strCsvData)
+    f.close()
+
+schrijfCsvData()

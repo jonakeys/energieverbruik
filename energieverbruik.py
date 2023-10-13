@@ -40,12 +40,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.sep
-DAG_VAN_MAAND = 30
-DAGEN_IN_MAAND = 30
-VERBRUIK_GAS = 19
-VERBRUIK_ELEKTRICITEIT = 123
-VERBRUIK_WATER = 9
+MAAND = Month.okt
+DAG_VAN_MAAND = 12
+DAGEN_IN_MAAND = 31
+VERBRUIK_GAS = 11
+VERBRUIK_ELEKTRICITEIT = 50
+VERBRUIK_WATER = 3
 PRIJS_GAS = 1.39006
 PRIJS_ELEKTRICITEIT = 0.39802
 PRIJS_WATER = 1.021
@@ -332,17 +332,17 @@ def GrafiekGas():
     # Grafiek gasverbruik
     plotGas.figure()
     plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="2021",
-                 linewidth=5, alpha=0.2)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2022",
-                 linewidth=5, alpha=0.7)
-    plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:orange',
-                 label="2023", linewidth=5)
+                 linewidth=5, alpha=0.2, marker='o', ms=10)
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:orange', label="2022",
+                 linewidth=5, alpha=0.7, marker='o', ms=10)
+    plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:red',
+                 label="2023", linewidth=5, marker='o', ms=10)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
     plotGas.ylabel("verbruik (m3)", color='White')
     plotGas.tick_params(colors='White')
     plotGas.ylim(bottom=0)
-    plotGas.grid()
+    plotGas.grid(color='Gray')
     plotGas.legend()
     plotGas.tight_layout()
     plotGas.savefig('gasverbruik.png', dpi=100, transparent=True)
@@ -353,17 +353,17 @@ def GrafiekElektriciteit():
     # Grafiek elektriciteitsverbruik
     plotEle.figure()
     plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="2021",
-                 linewidth=5, alpha=0.2)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2022",
-                 linewidth=5, alpha=0.7)
+                 linewidth=5, alpha=0.2, marker='o', ms=10)
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:orange', label="2022",
+                 linewidth=5, alpha=0.7, marker='o', ms=10)
     plotEle.plot(maanden, schatVerbrEleHdgJr,
-                 color='tab:orange', label="2023", linewidth=5)
+                 color='tab:red', label="2023", linewidth=5, marker='o', ms=10)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
     plotEle.ylabel("verbruik (kWh)", color='White')
     plotEle.tick_params(colors='White')
     plotEle.ylim(bottom=0)
-    plotEle.grid()
+    plotEle.grid(color='Gray')
     plotEle.legend()
     plotEle.tight_layout()
     plotEle.savefig('elektriciteitsverbruik.png', dpi=100, transparent=True)
@@ -374,17 +374,17 @@ def GrafiekWater():
     # Grafiek waterverbruik
     plotWat.figure()
     plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="2021",
-                 linewidth=5, alpha=0.2)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2022",
-                 linewidth=5, alpha=0.7)
-    plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:orange',
-                 label="2023", linewidth=5)
+                 linewidth=5, alpha=0.2, marker='o', ms=10)
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:orange', label="2022",
+                 linewidth=5, alpha=0.7, marker='o', ms=10)
+    plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:red',
+                 label="2023", linewidth=5, marker='o', ms=10)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
     plotWat.ylabel("verbruik (m3)", color='White')
     plotWat.tick_params(colors='White')
     plotWat.ylim(bottom=0)
-    plotWat.grid()
+    plotWat.grid(color='Gray')
     plotWat.legend()
     plotWat.tight_layout()
     plotWat.savefig('waterverbruik.png', dpi=100, transparent=True)
