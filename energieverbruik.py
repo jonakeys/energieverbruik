@@ -41,11 +41,11 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
 MAAND = Month.okt
-DAG_VAN_MAAND = 12
+DAG_VAN_MAAND = 31
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 11
-VERBRUIK_ELEKTRICITEIT = 50
-VERBRUIK_WATER = 3
+VERBRUIK_GAS = 76
+VERBRUIK_ELEKTRICITEIT = 135
+VERBRUIK_WATER = 8
 PRIJS_GAS = 1.39006
 PRIJS_ELEKTRICITEIT = 0.39802
 PRIJS_WATER = 1.021
@@ -81,26 +81,28 @@ gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020']
 sumGraaddagen = 0
 for i in gemGraaddagen:
     sumGraaddagen += i
-    percGraaddagen = (gemGraaddagen / sumGraaddagen).round(2)
+percGraaddagen = (gemGraaddagen / sumGraaddagen).round(2)
 
 # Bereken percentage verbruik per maand voor gasverbruik vorig jaar
 sumVerbrGasVrgJr = 0
 for i in totVerbrGasVrgJr:
     sumVerbrGasVrgJr += i
-    percVerbrGasVrgJr = (totVerbrGasVrgJr / sumVerbrGasVrgJr)
+percVerbrGasVrgJr = (totVerbrGasVrgJr / sumVerbrGasVrgJr)
 
 # Correctie verbruik gas vorig jaar
 corrVerbrGasVrgJr = totVerbrGasVrgJr - vastGasMnd
 sumVerbrGasVrgJr_corr = 0
 for i in corrVerbrGasVrgJr:
     sumVerbrGasVrgJr_corr += i
-    percVerbrGasVrgJr_corr = (corrVerbrGasVrgJr / sumVerbrGasVrgJr_corr)
+#percVerbrGasVrgJr_corr = (corrVerbrGasVrgJr / sumVerbrGasVrgJr_corr)
+percVerbrGasVrgJr = (totVerbrGasVrgJr / sumVerbrGasVrgJr_corr)
 
 corrVerbrGasVrgJr2 = totVerbrGasVrgJr2 - vastGasMnd
 sumVerbrGasVrgJr2_corr = 0
 for i in corrVerbrGasVrgJr2:
     sumVerbrGasVrgJr2_corr += i
-    percVerbrGasVrgJr2_corr = (corrVerbrGasVrgJr2 / sumVerbrGasVrgJr2_corr)
+#percVerbrGasVrgJr2_corr = (corrVerbrGasVrgJr2 / sumVerbrGasVrgJr2_corr)
+percVerbrGasVrgJr2 = (corrVerbrGasVrgJr2 / sumVerbrGasVrgJr2_corr)
 
 #
 # BEREKENINGEN ELEKTRICITEIT
@@ -143,7 +145,7 @@ for i in totVerbrWatVrgJr2:
 
 # Combineer graaddagen en verbruik vorig jaar als basis voor verwachting
 # verbruik komende jaar
-combiVerbrGas = ((percGraaddagen + percVerbrGasVrgJr_corr + percVerbrGasVrgJr2_corr) / 3)
+combiVerbrGas = ((percGraaddagen + percVerbrGasVrgJr + percVerbrGasVrgJr2) / 3)
 
 # Combineer gemiddeld elektriciteit en verbruik VrgJr als basis voor verwachting
 combiVerbrEle = ((gemEle + percVerbrEleVrgJr + percVerbrEleVrgJr2) / 3)
@@ -203,9 +205,8 @@ else:
             schatVerbrWatHdgJr[i] = ((verbrWatMnd / combiVerbrWat[MAAND])
                                      * combiVerbrWat[i]).round(2)
         else:
-            schatVerbrGasHdgJr[i] = ((((verbrGasMnd / combiVerbrGas[MAAND])
-                                       + gasMndnNJr)/2) * combiVerbrGas[i]
-                                     + vastGasMnd).round(2)
+            schatVerbrGasHdgJr[i] = (((((verbrGasMnd / combiVerbrGas[MAAND])
+                                       + gasMndnNJr)/2) + vastGasMnd) * combiVerbrGas[i]).round(2)
             schatVerbrEleHdgJr[i] = ((((verbrEleMnd / combiVerbrEle[MAAND])
                                        + eleMndnNJr)/2) * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
