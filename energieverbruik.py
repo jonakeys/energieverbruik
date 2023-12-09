@@ -40,11 +40,11 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.nov
-DAG_VAN_MAAND = 11
-DAGEN_IN_MAAND = 30
-VERBRUIK_GAS = 50
-VERBRUIK_ELEKTRICITEIT = 52
+MAAND = Month.dec
+DAG_VAN_MAAND = 9
+DAGEN_IN_MAAND = 31
+VERBRUIK_GAS = 81
+VERBRUIK_ELEKTRICITEIT = 39
 VERBRUIK_WATER = 3
 PRIJS_GAS = 1.39006
 PRIJS_ELEKTRICITEIT = 0.39802
@@ -211,9 +211,9 @@ else:
                                        + eleMndnNJr)/2) * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
                                        + watMndnNJr)/2)* combiVerbrWat[i]).round(2)
-            verbrGasHdgJr += schatVerbrGasHdgJr[i]
-            verbrEleHdgJr += schatVerbrEleHdgJr[i]
-            verbrWatHdgJr += schatVerbrWatHdgJr[i]
+        verbrGasHdgJr += schatVerbrGasHdgJr[i]
+        verbrEleHdgJr += schatVerbrEleHdgJr[i]
+        verbrWatHdgJr += schatVerbrWatHdgJr[i]
 
 # Schatting totaal verbruik
 schatTotGas = verbrGasHdgJr
