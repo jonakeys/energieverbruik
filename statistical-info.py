@@ -90,13 +90,13 @@ def schrijfCsvData():
                   + str("%.1f," % watDitJaarMin1Gem) + str("%.1f," % round(watDitJaarMin1Gem-watDitJaarMin2Gem, 1))
                   + str("%.1f," % watDitJaarMin1Med) + str("%.1f\n" % round(watDitJaarMin1Med-watDitJaarMin2Med, 1))
                   + str("%.1f," % gasDitJaarMin2Std) + "0.0,"
-                  + str("%.1f," % gasDitJaarMin2Gem) + "0,0,"
+                  + str("%.1f," % gasDitJaarMin2Gem) + "0.0,"
                   + str("%.1f," % gasDitJaarMin2Med) + "0.0,"
                   + str("%.1f," % eleDitJaarMin2Std) + "0.0,"
-                  + str("%.1f," % eleDitJaarMin2Gem) + "0,0,"
+                  + str("%.1f," % eleDitJaarMin2Gem) + "0.0,"
                   + str("%.1f," % eleDitJaarMin2Med) + "0.0,"
                   + str("%.1f," % watDitJaarMin2Std) + "0.0,"
-                  + str("%.1f," % watDitJaarMin2Gem) + "0,0,"
+                  + str("%.1f," % watDitJaarMin2Gem) + "0.0,"
                   + str("%.1f," % watDitJaarMin2Med) + "0.0\n")
     f = open("stats-energiedata.csv", "w")
     f.write(strCsvData)
