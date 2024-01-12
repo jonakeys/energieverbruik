@@ -34,18 +34,18 @@ class Month(IntEnum):
 #
 # CONSTANTEN
 #
-HUIDIG_JAAR = 2023
+HUIDIG_JAAR = 2024
 VORIG_JAAR = HUIDIG_JAAR - 1
 
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.dec
-DAG_VAN_MAAND = 15
+MAAND = Month.jan
+DAG_VAN_MAAND = 12
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 124
-VERBRUIK_ELEKTRICITEIT = 68
-VERBRUIK_WATER = 4
+VERBRUIK_GAS = 101
+VERBRUIK_ELEKTRICITEIT = 48
+VERBRUIK_WATER = 3
 PRIJS_GAS = 1.39006
 PRIJS_ELEKTRICITEIT = 0.39802
 PRIJS_WATER = 1.021
@@ -57,10 +57,17 @@ df = pd.read_csv('energiedata.csv')
 
 totVerbrGasVrgJr = df['vrbr_gas_VrgJr']
 totVerbrGasVrgJr2 = df['vrbr_gas_VrgJr2']
+totVerbrGasVrgJr3 = df['vrbr_gas_VrgJr3']
 totVerbrEleVrgJr = df['vrbr_ele_VrgJr']
 totVerbrEleVrgJr2 = df['vrbr_ele_VrgJr2']
+totVerbrEleVrgJr3 = df['vrbr_ele_VrgJr3']
 totVerbrWatVrgJr = df['vrbr_wat_VrgJr']
 totVerbrWatVrgJr2 = df['vrbr_wat_VrgJr2']
+totVerbrWatVrgJr3 = df['vrbr_wat_VrgJr3']
+
+totVerbrGasVrgJr2 = (totVerbrGasVrgJr2 + totVerbrGasVrgJr3) / 2
+totVerbrEleVrgJr2 = (totVerbrEleVrgJr2 + totVerbrEleVrgJr3) / 2
+totVerbrWatVrgJr2 = (totVerbrWatVrgJr2 + totVerbrWatVrgJr3) / 2
 
 #
 # BEREKENINGEN GAS
@@ -73,9 +80,10 @@ for i in range(5, 9):
     vastGasMnd = sumZomerverbruik / 4
     vastGasJr = vastGasMnd*12
 
-# Bereken gemiddelde graaddagen per maand voor afgelopen vier jaar
+# Bereken gemiddelde graaddagen per maand voor afgelopen vijf jaar
 gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020']
-                  + df['grddg_2021'] + df['grddg_2022']) / 4).round(2)
+                  + df['grddg_2021'] + df['grddg_2022'] + df['grddg_2023'])
+                 / 5).round(2)
 
 # Bereken percentage verbruik per maand voor graaddagen
 sumGraaddagen = 0
@@ -94,14 +102,14 @@ corrVerbrGasVrgJr = totVerbrGasVrgJr - vastGasMnd
 sumVerbrGasVrgJr_corr = 0
 for i in corrVerbrGasVrgJr:
     sumVerbrGasVrgJr_corr += i
-#percVerbrGasVrgJr_corr = (corrVerbrGasVrgJr / sumVerbrGasVrgJr_corr)
+    #percVerbrGasVrgJr_corr = (corrVerbrGasVrgJr / sumVerbrGasVrgJr_corr)
 percVerbrGasVrgJr = (totVerbrGasVrgJr / sumVerbrGasVrgJr_corr)
 
 corrVerbrGasVrgJr2 = totVerbrGasVrgJr2 - vastGasMnd
 sumVerbrGasVrgJr2_corr = 0
 for i in corrVerbrGasVrgJr2:
     sumVerbrGasVrgJr2_corr += i
-#percVerbrGasVrgJr2_corr = (corrVerbrGasVrgJr2 / sumVerbrGasVrgJr2_corr)
+    #percVerbrGasVrgJr2_corr = (corrVerbrGasVrgJr2 / sumVerbrGasVrgJr2_corr)
 percVerbrGasVrgJr2 = (corrVerbrGasVrgJr2 / sumVerbrGasVrgJr2_corr)
 
 #
@@ -115,12 +123,12 @@ gemEle = df['gem_ele']
 sumVerbrEleVrgJr = 0
 for i in totVerbrEleVrgJr:
     sumVerbrEleVrgJr += i
-    percVerbrEleVrgJr = (totVerbrEleVrgJr / sumVerbrEleVrgJr)
+percVerbrEleVrgJr = (totVerbrEleVrgJr / sumVerbrEleVrgJr)
 
 sumVerbrEleVrgJr2 = 0
 for i in totVerbrEleVrgJr2:
     sumVerbrEleVrgJr2 += i
-    percVerbrEleVrgJr2 = (totVerbrEleVrgJr2 / sumVerbrEleVrgJr)
+percVerbrEleVrgJr2 = (totVerbrEleVrgJr2 / sumVerbrEleVrgJr)
 
 #
 # BEREKENINGEN WATER
@@ -132,25 +140,25 @@ gemWat = df['gem_wat']
 sumVerbrWatVrgJr = 0
 for i in totVerbrWatVrgJr:
     sumVerbrWatVrgJr += i
-    percVerbrWatVrgJr = (totVerbrWatVrgJr / sumVerbrWatVrgJr)
+percVerbrWatVrgJr = (totVerbrWatVrgJr / sumVerbrWatVrgJr)
     
 sumVerbrWatVrgJr2 = 0
 for i in totVerbrWatVrgJr2:
     sumVerbrWatVrgJr2 += i
-    percVerbrWatVrgJr2 = (totVerbrWatVrgJr2 / sumVerbrWatVrgJr2)
+percVerbrWatVrgJr2 = (totVerbrWatVrgJr2 / sumVerbrWatVrgJr2)
 
 #
 # BEREKENINGEN SCHATTING VERBRUIK
 #
 
-# Combineer graaddagen en verbruik vorig jaar als basis voor verwachting
+# Combineer graaddagen en verbruik vorige jaren als basis voor verwachting
 # verbruik komende jaar
 combiVerbrGas = ((percGraaddagen + percVerbrGasVrgJr + percVerbrGasVrgJr2) / 3)
 
-# Combineer gemiddeld elektriciteit en verbruik VrgJr als basis voor verwachting
+# Combineer gemiddeld elektriciteit en verbruik vorige jaren als basis voor verwachting
 combiVerbrEle = ((gemEle + percVerbrEleVrgJr + percVerbrEleVrgJr2) / 3)
 
-# Combineer gemiddeld waterverbruik VrgJr als basis voor verwachting
+# Combineer gemiddeld waterverbruik en verbruik vorige jaren als basis voor verwachting
 combiVerbrWat = ((gemWat + percVerbrWatVrgJr + percVerbrWatVrgJr2) / 3)
 
 percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
@@ -168,6 +176,9 @@ schatVerbrWatHdgJr = [0] * 12
 verbrGasHdgJr = 0
 verbrEleHdgJr = 0
 verbrWatHdgJr = 0
+sumSchatGas = 0
+sumSchatEle = 0
+sumSchatWat = 0
 
 # Als alleen eerste maand bekend is
 if MAAND == Month.jan:
@@ -177,6 +188,10 @@ if MAAND == Month.jan:
     schatVerbrEleHdgJr = (combiVerbrEle * verbrEleHdgJr).round(2)
     verbrWatHdgJr = verbrWatMnd / combiVerbrWat[0]
     schatVerbrWatHdgJr = (combiVerbrWat * verbrWatHdgJr).round(2)
+    for i in range (0, 12):
+        sumSchatGas += schatVerbrGasHdgJr[i]
+        sumSchatEle += schatVerbrEleHdgJr[i]
+        sumSchatWat += schatVerbrWatHdgJr[i]
 
 # Als een of meerdere maanden afgerond zijn
 else:
@@ -193,9 +208,9 @@ else:
         schatVerbrWatHdgJr[i] = df['vrbr_wat_HdgJr'][i]
         verbrWatHdgJr += schatVerbrWatHdgJr[i]
         watMndnNJr += (schatVerbrWatHdgJr[i] / combiVerbrWat[i])
-    gasMndnNJr /= (MAAND-1 + 1)
-    eleMndnNJr /= (MAAND-1 + 1)
-    watMndnNJr /= (MAAND-1 + 1)
+        gasMndnNJr /= (MAAND-1 + 1)
+        eleMndnNJr /= (MAAND-1 + 1)
+        watMndnNJr /= (MAAND-1 + 1)
     for i in range(MAAND, 12):
         if i == MAAND:
             schatVerbrGasHdgJr[i] = ((verbrGasMnd / combiVerbrGas[MAAND])
@@ -206,19 +221,19 @@ else:
                                      * combiVerbrWat[i]).round(2)
         else:
             schatVerbrGasHdgJr[i] = (((((verbrGasMnd / combiVerbrGas[MAAND])
-                                       + gasMndnNJr)/2) + vastGasMnd) * combiVerbrGas[i]).round(2)
+                                        + gasMndnNJr)/2) + vastGasMnd) * combiVerbrGas[i]).round(2)
             schatVerbrEleHdgJr[i] = ((((verbrEleMnd / combiVerbrEle[MAAND])
                                        + eleMndnNJr)/2) * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
                                        + watMndnNJr)/2)* combiVerbrWat[i]).round(2)
-        verbrGasHdgJr += schatVerbrGasHdgJr[i]
-        verbrEleHdgJr += schatVerbrEleHdgJr[i]
-        verbrWatHdgJr += schatVerbrWatHdgJr[i]
+            verbrGasHdgJr += schatVerbrGasHdgJr[i]
+            verbrEleHdgJr += schatVerbrEleHdgJr[i]
+            verbrWatHdgJr += schatVerbrWatHdgJr[i]
 
 # Schatting totaal verbruik
-schatTotGas = verbrGasHdgJr
-schatTotEle = verbrEleHdgJr
-schatTotWat = verbrWatHdgJr
+schatTotGas = sumSchatGas
+schatTotEle = sumSchatEle
+schatTotWat = sumSchatWat
 
 # Bereken verschil vorig jaar : huidig jaar
 verschGas = (schatTotGas - sumVerbrGasVrgJr)
@@ -332,12 +347,12 @@ rcParams['font.sans-serif'] = ['Montserrat']
 def GrafiekGas():
     # Grafiek gasverbruik
     plotGas.figure()
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="2021",
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:orange', label="2022",
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:orange', label="2023",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:red',
-                 label="2023", linewidth=5, marker='o', ms=10)
+                 label="2024", linewidth=5, marker='o', ms=10)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
     plotGas.ylabel("verbruik (m3)", color='White')
@@ -353,12 +368,12 @@ def GrafiekGas():
 def GrafiekElektriciteit():
     # Grafiek elektriciteitsverbruik
     plotEle.figure()
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="2021",
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:orange', label="2022",
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:orange', label="2023",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotEle.plot(maanden, schatVerbrEleHdgJr,
-                 color='tab:red', label="2023", linewidth=5, marker='o', ms=10)
+                 color='tab:red', label="2024", linewidth=5, marker='o', ms=10)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
     plotEle.ylabel("verbruik (kWh)", color='White')
@@ -374,12 +389,12 @@ def GrafiekElektriciteit():
 def GrafiekWater():
     # Grafiek waterverbruik
     plotWat.figure()
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="2021",
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:orange', label="2022",
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:orange', label="2023",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:red',
-                 label="2023", linewidth=5, marker='o', ms=10)
+                 label="2024", linewidth=5, marker='o', ms=10)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
     plotWat.ylabel("verbruik (m3)", color='White')
@@ -423,8 +438,8 @@ def schrijfCsvStats():
                     + str("%d" % schatVerbrWatHdgJr[i]) + ","
                     + str("%d" % totVerbrWatVrgJr[i]) + ","
                     + str("%d" % totVerbrWatVrgJr2[i]) + "\n")
-    f = open("energie-stats.csv", "w")
-    f.write(uitvoer)
-    f.close()
+        f = open("energie-stats.csv", "w")
+        f.write(uitvoer)
+        f.close()
 
 schrijfCsvStats()
