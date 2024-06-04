@@ -40,17 +40,17 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.jan
-DAG_VAN_MAAND = 12
+MAAND = Month.mei
+DAG_VAN_MAAND = 31
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 101
-VERBRUIK_ELEKTRICITEIT = 48
-VERBRUIK_WATER = 3
-PRIJS_GAS = 1.39006
-PRIJS_ELEKTRICITEIT = 0.39802
+VERBRUIK_GAS = 28
+VERBRUIK_ELEKTRICITEIT = 121
+VERBRUIK_WATER = 9
+PRIJS_GAS = 1.2469
+PRIJS_ELEKTRICITEIT = 0.2569
 PRIJS_WATER = 1.021
-VAST_LEVERING_GAS_JAAR = 83.49
-VAST_LEVERING_ELE_JAAR = 83.49
+VAST_LEVERING_GAS_JAAR = 90
+VAST_LEVERING_ELE_JAAR = 90
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
@@ -128,7 +128,7 @@ percVerbrEleVrgJr = (totVerbrEleVrgJr / sumVerbrEleVrgJr)
 sumVerbrEleVrgJr2 = 0
 for i in totVerbrEleVrgJr2:
     sumVerbrEleVrgJr2 += i
-percVerbrEleVrgJr2 = (totVerbrEleVrgJr2 / sumVerbrEleVrgJr)
+percVerbrEleVrgJr2 = (totVerbrEleVrgJr2 / sumVerbrEleVrgJr2)
 
 #
 # BEREKENINGEN WATER
@@ -153,13 +153,13 @@ percVerbrWatVrgJr2 = (totVerbrWatVrgJr2 / sumVerbrWatVrgJr2)
 
 # Combineer graaddagen en verbruik vorige jaren als basis voor verwachting
 # verbruik komende jaar
-combiVerbrGas = ((percGraaddagen + percVerbrGasVrgJr + percVerbrGasVrgJr2) / 3)
+combiVerbrGas = ((percGraaddagen + (3 * percVerbrGasVrgJr) + (2 * percVerbrGasVrgJr2)) / 6)
 
 # Combineer gemiddeld elektriciteit en verbruik vorige jaren als basis voor verwachting
-combiVerbrEle = ((gemEle + percVerbrEleVrgJr + percVerbrEleVrgJr2) / 3)
+combiVerbrEle = ((gemEle + (3 * percVerbrEleVrgJr) + (2 * percVerbrEleVrgJr2)) / 6)
 
 # Combineer gemiddeld waterverbruik en verbruik vorige jaren als basis voor verwachting
-combiVerbrWat = ((gemWat + percVerbrWatVrgJr + percVerbrWatVrgJr2) / 3)
+combiVerbrWat = ((gemWat + (3 * percVerbrWatVrgJr) + (2 * percVerbrWatVrgJr2)) / 6)
 
 percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
 verbrGasMnd = (VERBRUIK_GAS / percMnd) - vastGasMnd
@@ -184,7 +184,7 @@ sumSchatWat = 0
 if MAAND == Month.jan:
     verbrGasHdgJr = verbrGasMnd / combiVerbrGas[0]
     schatVerbrGasHdgJr = ((combiVerbrGas * verbrGasHdgJr) + vastGasMnd).round(2)
-    verbrEleHdgJr = (verbrEleMnd / combiVerbrEle[0])
+    verbrEleHdgJr = verbrEleMnd / combiVerbrEle[0]
     schatVerbrEleHdgJr = (combiVerbrEle * verbrEleHdgJr).round(2)
     verbrWatHdgJr = verbrWatMnd / combiVerbrWat[0]
     schatVerbrWatHdgJr = (combiVerbrWat * verbrWatHdgJr).round(2)
@@ -200,17 +200,17 @@ else:
     watMndnNJr = 0
     for i in range(0, MAAND):
         schatVerbrGasHdgJr[i] = df['vrbr_gas_HdgJr'][i]
-        verbrGasHdgJr += schatVerbrGasHdgJr[i]
+        sumSchatGas += schatVerbrGasHdgJr[i]
         gasMndnNJr += (schatVerbrGasHdgJr[i] / combiVerbrGas[i])
         schatVerbrEleHdgJr[i] = df['vrbr_ele_HdgJr'][i]
-        verbrEleHdgJr += schatVerbrEleHdgJr[i]
+        sumSchatEle += schatVerbrEleHdgJr[i]
         eleMndnNJr += (schatVerbrEleHdgJr[i] / combiVerbrEle[i])
         schatVerbrWatHdgJr[i] = df['vrbr_wat_HdgJr'][i]
-        verbrWatHdgJr += schatVerbrWatHdgJr[i]
+        sumSchatWat += schatVerbrWatHdgJr[i]
         watMndnNJr += (schatVerbrWatHdgJr[i] / combiVerbrWat[i])
-        gasMndnNJr /= (MAAND-1 + 1)
-        eleMndnNJr /= (MAAND-1 + 1)
-        watMndnNJr /= (MAAND-1 + 1)
+    gasMndnNJr /= (MAAND-1 + 1)
+    eleMndnNJr /= (MAAND-1 + 1)
+    watMndnNJr /= (MAAND-1 + 1)
     for i in range(MAAND, 12):
         if i == MAAND:
             schatVerbrGasHdgJr[i] = ((verbrGasMnd / combiVerbrGas[MAAND])
@@ -226,9 +226,9 @@ else:
                                        + eleMndnNJr)/2) * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
                                        + watMndnNJr)/2)* combiVerbrWat[i]).round(2)
-            verbrGasHdgJr += schatVerbrGasHdgJr[i]
-            verbrEleHdgJr += schatVerbrEleHdgJr[i]
-            verbrWatHdgJr += schatVerbrWatHdgJr[i]
+        sumSchatGas += schatVerbrGasHdgJr[i]
+        sumSchatEle += schatVerbrEleHdgJr[i]
+        sumSchatWat += schatVerbrWatHdgJr[i]
 
 # Schatting totaal verbruik
 schatTotGas = sumSchatGas
@@ -342,16 +342,16 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 3.8]
 rcParams['font.family'] = ['sans-serif']
-rcParams['font.sans-serif'] = ['Montserrat']
+rcParams['font.sans-serif'] = ['Liberation Sans']
 
 def GrafiekGas():
     # Grafiek gasverbruik
     plotGas.figure()
     plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:orange', label="2023",
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2023",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
-    plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:red',
+    plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:orange',
                  label="2024", linewidth=5, marker='o', ms=10)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
@@ -370,10 +370,10 @@ def GrafiekElektriciteit():
     plotEle.figure()
     plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:orange', label="2023",
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2023",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotEle.plot(maanden, schatVerbrEleHdgJr,
-                 color='tab:red', label="2024", linewidth=5, marker='o', ms=10)
+                 color='tab:orange', label="2024", linewidth=5, marker='o', ms=10)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
     plotEle.ylabel("verbruik (kWh)", color='White')
@@ -391,9 +391,9 @@ def GrafiekWater():
     plotWat.figure()
     plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:orange', label="2023",
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2023",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
-    plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:red',
+    plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:orange',
                  label="2024", linewidth=5, marker='o', ms=10)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
