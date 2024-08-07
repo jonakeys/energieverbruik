@@ -43,7 +43,7 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 MAAND = Month.aug
 DAG_VAN_MAAND = 7
 DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 4
+VERBRUIK_GAS = 5
 VERBRUIK_ELEKTRICITEIT = 30
 VERBRUIK_WATER = 2
 PRIJS_GAS = 1.2469
@@ -75,9 +75,9 @@ totVerbrWatVrgJr2 = (totVerbrWatVrgJr2 + totVerbrWatVrgJr3) / 2
 
 # Vast verbruik gas per maand. Bepaal aan de hand van zomerverbruik
 sumZomerverbruik = 0
-for i in range(5, 9):
+for i in range(6, 9):
     sumZomerverbruik += df['vrbr_gas_VrgJr'][i]
-vastGasMnd = sumZomerverbruik / 4
+vastGasMnd = sumZomerverbruik / 3
 vastGasJr = vastGasMnd*12
 
 # Bereken gemiddelde graaddagen per maand voor afgelopen vijf jaar
@@ -163,6 +163,8 @@ combiVerbrWat = ((gemWat + (3 * percVerbrWatVrgJr) + (2 * percVerbrWatVrgJr2)) /
 
 percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
 verbrGasMnd = (VERBRUIK_GAS / percMnd) - vastGasMnd
+if verbrGasMnd < 0:
+    verbrGasMnd = 0
 verbrEleMnd = VERBRUIK_ELEKTRICITEIT / percMnd
 verbrWatMnd = VERBRUIK_WATER / percMnd
 totVerbrGas = 0
@@ -221,13 +223,12 @@ else:
                                      * combiVerbrWat[i]).round(2)
         else:
             schatVerbrGasHdgJr[i] = (((((verbrGasMnd / combiVerbrGas[MAAND])
-                                        + gasMndnNJr)/2) * combiVerbrGas[i]) + vastGasMnd).round(2)
+                                        + (2 * gasMndnNJr))/3) * combiVerbrGas[i])
+                                     + vastGasMnd).round(2)
             schatVerbrEleHdgJr[i] = ((((verbrEleMnd / combiVerbrEle[MAAND])
-                                       + eleMndnNJr)/2) * combiVerbrEle[i]).round(2)
+                                       + (2 * eleMndnNJr))/3) * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
-                                       + watMndnNJr)/2)* combiVerbrWat[i]).round(2)
-        if schatVerbrGasHdgJr[i] < vastGasMnd:
-            schatVerbrGasHdgJr[i] = vastGasMnd
+                                       + (2 * watMndnNJr))/3)* combiVerbrWat[i]).round(2)
         sumSchatGas += schatVerbrGasHdgJr[i]
         sumSchatEle += schatVerbrEleHdgJr[i]
         sumSchatWat += schatVerbrWatHdgJr[i]
