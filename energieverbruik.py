@@ -40,12 +40,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.jun
-DAG_VAN_MAAND = 30
-DAGEN_IN_MAAND = 30
-VERBRUIK_GAS = 29
-VERBRUIK_ELEKTRICITEIT = 110
-VERBRUIK_WATER = 9
+MAAND = Month.aug
+DAG_VAN_MAAND = 7
+DAGEN_IN_MAAND = 31
+VERBRUIK_GAS = 4
+VERBRUIK_ELEKTRICITEIT = 30
+VERBRUIK_WATER = 2
 PRIJS_GAS = 1.2469
 PRIJS_ELEKTRICITEIT = 0.2569
 PRIJS_WATER = 1.021
@@ -77,8 +77,8 @@ totVerbrWatVrgJr2 = (totVerbrWatVrgJr2 + totVerbrWatVrgJr3) / 2
 sumZomerverbruik = 0
 for i in range(5, 9):
     sumZomerverbruik += df['vrbr_gas_VrgJr'][i]
-    vastGasMnd = sumZomerverbruik / 4
-    vastGasJr = vastGasMnd*12
+vastGasMnd = sumZomerverbruik / 4
+vastGasJr = vastGasMnd*12
 
 # Bereken gemiddelde graaddagen per maand voor afgelopen vijf jaar
 gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020']
@@ -208,24 +208,26 @@ else:
         schatVerbrWatHdgJr[i] = df['vrbr_wat_HdgJr'][i]
         sumSchatWat += schatVerbrWatHdgJr[i]
         watMndnNJr += (schatVerbrWatHdgJr[i] / combiVerbrWat[i])
-    gasMndnNJr /= (MAAND-1 + 1)
-    eleMndnNJr /= (MAAND-1 + 1)
-    watMndnNJr /= (MAAND-1 + 1)
+    gasMndnNJr /= MAAND
+    eleMndnNJr /= MAAND
+    watMndnNJr /= MAAND
     for i in range(MAAND, 12):
         if i == MAAND:
-            schatVerbrGasHdgJr[i] = ((verbrGasMnd / combiVerbrGas[MAAND])
-                                     * combiVerbrGas[i] + vastGasMnd).round(2)
+            schatVerbrGasHdgJr[i] = (((verbrGasMnd / combiVerbrGas[MAAND])
+                                     * combiVerbrGas[i]) + vastGasMnd).round(2)
             schatVerbrEleHdgJr[i] = ((verbrEleMnd / combiVerbrEle[MAAND])
                                      * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((verbrWatMnd / combiVerbrWat[MAAND])
                                      * combiVerbrWat[i]).round(2)
         else:
             schatVerbrGasHdgJr[i] = (((((verbrGasMnd / combiVerbrGas[MAAND])
-                                        + gasMndnNJr)/2) + vastGasMnd) * combiVerbrGas[i]).round(2)
+                                        + gasMndnNJr)/2) * combiVerbrGas[i]) + vastGasMnd).round(2)
             schatVerbrEleHdgJr[i] = ((((verbrEleMnd / combiVerbrEle[MAAND])
                                        + eleMndnNJr)/2) * combiVerbrEle[i]).round(2)
             schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
                                        + watMndnNJr)/2)* combiVerbrWat[i]).round(2)
+        if schatVerbrGasHdgJr[i] < vastGasMnd:
+            schatVerbrGasHdgJr[i] = vastGasMnd
         sumSchatGas += schatVerbrGasHdgJr[i]
         sumSchatEle += schatVerbrEleHdgJr[i]
         sumSchatWat += schatVerbrWatHdgJr[i]
