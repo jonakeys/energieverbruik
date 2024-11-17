@@ -1,5 +1,5 @@
 #
-# energie_verbruik.py
+# energieverbruik.py
 #
 # Programma om verbruik van energie (gas + elektriciteit + water) te meten en
 # een schatting te maken voor het verdere verloop van het jaar.
@@ -12,24 +12,28 @@ import pandas as pd
 import matplotlib.pyplot as plotGas
 import matplotlib.pyplot as plotEle
 import matplotlib.pyplot as plotWat
-from enum import IntEnum
+from enum import Enum
 from matplotlib import rcParams
 from multiprocessing import Process
 from matplotlib import *
 
-class Month(IntEnum):
-    jan = 0
-    feb = 1
-    mrt = 2
-    apr = 3
-    mei = 4
-    jun = 5
-    jul = 6
-    aug = 7
-    sep = 8
-    okt = 9
-    nov = 10
-    dec = 11
+class Month(Enum):
+    jan = 0, 31
+    feb = 1, 28
+    mrt = 2, 31
+    apr = 3, 30
+    mei = 4, 31
+    jun = 5, 30
+    jul = 6, 31
+    aug = 7, 31
+    sep = 8, 30
+    okt = 9, 31
+    nov = 10, 30
+    dec = 11, 31
+
+    def __init__(self, rank, days):
+        self.rank = rank
+        self.days = days
 
 #
 # CONSTANTEN
@@ -40,12 +44,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.aug
-DAG_VAN_MAAND = 7
-DAGEN_IN_MAAND = 31
-VERBRUIK_GAS = 5
-VERBRUIK_ELEKTRICITEIT = 30
-VERBRUIK_WATER = 2
+MAAND = Month.nov
+DAG_VAN_MAAND = 12
+DAGEN_IN_MAAND = MAAND.days 
+VERBRUIK_GAS = 60
+VERBRUIK_ELEKTRICITEIT = 47
+VERBRUIK_WATER = 4.28
 PRIJS_GAS = 1.2469
 PRIJS_ELEKTRICITEIT = 0.2569
 PRIJS_WATER = 1.021
@@ -200,7 +204,7 @@ else:
     gasMndnNJr = 0
     eleMndnNJr = 0
     watMndnNJr = 0
-    for i in range(0, MAAND):
+    for i in range(0, MAAND.rank):
         schatVerbrGasHdgJr[i] = df['vrbr_gas_HdgJr'][i]
         sumSchatGas += schatVerbrGasHdgJr[i]
         gasMndnNJr += (schatVerbrGasHdgJr[i] / combiVerbrGas[i])
@@ -210,24 +214,24 @@ else:
         schatVerbrWatHdgJr[i] = df['vrbr_wat_HdgJr'][i]
         sumSchatWat += schatVerbrWatHdgJr[i]
         watMndnNJr += (schatVerbrWatHdgJr[i] / combiVerbrWat[i])
-    gasMndnNJr /= MAAND
-    eleMndnNJr /= MAAND
-    watMndnNJr /= MAAND
-    for i in range(MAAND, 12):
-        if i == MAAND:
-            schatVerbrGasHdgJr[i] = (((verbrGasMnd / combiVerbrGas[MAAND])
+    gasMndnNJr /= MAAND.rank
+    eleMndnNJr /= MAAND.rank
+    watMndnNJr /= MAAND.rank
+    for i in range(MAAND.rank, 12):
+        if i == MAAND.rank:
+            schatVerbrGasHdgJr[i] = (((verbrGasMnd / combiVerbrGas[MAAND.rank])
                                      * combiVerbrGas[i]) + vastGasMnd).round(2)
-            schatVerbrEleHdgJr[i] = ((verbrEleMnd / combiVerbrEle[MAAND])
+            schatVerbrEleHdgJr[i] = ((verbrEleMnd / combiVerbrEle[MAAND.rank])
                                      * combiVerbrEle[i]).round(2)
-            schatVerbrWatHdgJr[i] = ((verbrWatMnd / combiVerbrWat[MAAND])
+            schatVerbrWatHdgJr[i] = ((verbrWatMnd / combiVerbrWat[MAAND.rank])
                                      * combiVerbrWat[i]).round(2)
         else:
-            schatVerbrGasHdgJr[i] = (((((verbrGasMnd / combiVerbrGas[MAAND])
+            schatVerbrGasHdgJr[i] = (((((verbrGasMnd / combiVerbrGas[MAAND.rank])
                                         + (2 * gasMndnNJr))/3) * combiVerbrGas[i])
                                      + vastGasMnd).round(2)
-            schatVerbrEleHdgJr[i] = ((((verbrEleMnd / combiVerbrEle[MAAND])
+            schatVerbrEleHdgJr[i] = ((((verbrEleMnd / combiVerbrEle[MAAND.rank])
                                        + (2 * eleMndnNJr))/3) * combiVerbrEle[i]).round(2)
-            schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND])
+            schatVerbrWatHdgJr[i] = ((((verbrWatMnd / combiVerbrWat[MAAND.rank])
                                        + (2 * watMndnNJr))/3)* combiVerbrWat[i]).round(2)
         sumSchatGas += schatVerbrGasHdgJr[i]
         sumSchatEle += schatVerbrEleHdgJr[i]
@@ -358,8 +362,8 @@ def GrafiekGas():
                  label="2024", linewidth=5, marker='o', ms=10)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
-    plotGas.ylabel("verbruik (m3)", color='White')
-    plotGas.tick_params(colors='White')
+    plotGas.ylabel("verbruik (m3)", color='Black')
+    plotGas.tick_params(colors='Black')
     plotGas.ylim(bottom=0)
     plotGas.grid(color='Gray')
     plotGas.legend()
@@ -379,8 +383,8 @@ def GrafiekElektriciteit():
                  color='tab:orange', label="2024", linewidth=5, marker='o', ms=10)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
-    plotEle.ylabel("verbruik (kWh)", color='White')
-    plotEle.tick_params(colors='White')
+    plotEle.ylabel("verbruik (kWh)", color='Black')
+    plotEle.tick_params(colors='Black')
     plotEle.ylim(bottom=0)
     plotEle.grid(color='Gray')
     plotEle.legend()
@@ -400,8 +404,8 @@ def GrafiekWater():
                  label="2024", linewidth=5, marker='o', ms=10)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
-    plotWat.ylabel("verbruik (m3)", color='White')
-    plotWat.tick_params(colors='White')
+    plotWat.ylabel("verbruik (m3)", color='Black')
+    plotWat.tick_params(colors='Black')
     plotWat.ylim(bottom=0)
     plotWat.grid(color='Gray')
     plotWat.legend()
