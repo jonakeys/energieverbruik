@@ -44,12 +44,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.nov
-DAG_VAN_MAAND = 12
+MAAND = Month.dec
+DAG_VAN_MAAND = 27
 DAGEN_IN_MAAND = MAAND.days 
-VERBRUIK_GAS = 60
-VERBRUIK_ELEKTRICITEIT = 47
-VERBRUIK_WATER = 4.28
+VERBRUIK_GAS = 174
+VERBRUIK_ELEKTRICITEIT = 102
+VERBRUIK_WATER = 7.62
 PRIJS_GAS = 1.2469
 PRIJS_ELEKTRICITEIT = 0.2569
 PRIJS_WATER = 1.021
@@ -85,15 +85,14 @@ vastGasMnd = sumZomerverbruik / 3
 vastGasJr = vastGasMnd*12
 
 # Bereken gemiddelde graaddagen per maand voor afgelopen vijf jaar
-gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020']
-                  + df['grddg_2021'] + df['grddg_2022'] + df['grddg_2023'])
-                 / 5).round(2)
+gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020'] + df['grddg_2021']
+                  + df['grddg_2022'] + df['grddg_2023']) / 5).round(2)
 
 # Bereken percentage verbruik per maand voor graaddagen
 sumGraaddagen = 0
 for i in gemGraaddagen:
     sumGraaddagen += i
-percGraaddagen = (gemGraaddagen / sumGraaddagen).round(2)
+percGraaddagen = (gemGraaddagen / sumGraaddagen)
 
 # Bereken percentage verbruik per maand voor gasverbruik vorig jaar
 sumVerbrGasVrgJr = 0

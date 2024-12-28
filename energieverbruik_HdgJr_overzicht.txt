@@ -10,8 +10,8 @@ Gas
 7    augustus            16        17.00       1.00   6.2
 8   september            19        30.00      11.00  57.9
 9     oktober            76        79.00       3.00   3.9
-10   november           176       150.00     -26.00 -14.8
-11   december           226       263.46      37.46  16.6
+10   november           176       173.00      -3.00  -1.7
+11   december           226       199.78     -26.22 -11.6
 
 Elektriciteit
         maand  vrbr_e_VrgJr  vrw_e_HdgJr  vrsch_ele  perc
@@ -25,8 +25,8 @@ Elektriciteit
 7    augustus            98       109.00      11.00  11.2
 8   september           123       118.00      -5.00  -4.1
 9     oktober           135       111.00     -24.00 -17.8
-10   november           141       117.50     -23.50 -16.7
-11   december           140       127.92     -12.08  -8.6
+10   november           141       120.00     -21.00 -14.9
+11   december           140       117.11     -22.89 -16.3
 
 Water
         maand  vrbr_w_VrgJr  vrw_w_HdgJr  vrsch_wat  perc
@@ -40,6 +40,6 @@ Water
 7    augustus             6         8.00       2.00  33.3
 8   september             9         9.00       0.00  -0.0
 9     oktober             8         9.12       1.12  14.0
-10   november             9        10.70       1.70  18.9
-11   december             9        10.06       1.06  11.8
+10   november             9         9.08       0.08   0.9
+11   december             9         8.75      -0.25  -2.8
 
