@@ -38,18 +38,18 @@ class Month(Enum):
 #
 # CONSTANTEN
 #
-HUIDIG_JAAR = 2024
+HUIDIG_JAAR = 2025
 VORIG_JAAR = HUIDIG_JAAR - 1
 
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.dec
-DAG_VAN_MAAND = 27
+MAAND = Month.jan
+DAG_VAN_MAAND = 5
 DAGEN_IN_MAAND = MAAND.days 
-VERBRUIK_GAS = 174
-VERBRUIK_ELEKTRICITEIT = 102
-VERBRUIK_WATER = 7.62
+VERBRUIK_GAS = 40
+VERBRUIK_ELEKTRICITEIT = 24
+VERBRUIK_WATER = 1.5
 PRIJS_GAS = 1.2469
 PRIJS_ELEKTRICITEIT = 0.2569
 PRIJS_WATER = 1.021
@@ -62,16 +62,19 @@ df = pd.read_csv('energiedata.csv')
 totVerbrGasVrgJr = df['vrbr_gas_VrgJr']
 totVerbrGasVrgJr2 = df['vrbr_gas_VrgJr2']
 totVerbrGasVrgJr3 = df['vrbr_gas_VrgJr3']
+totVerbrGasVrgJr4 = df['vrbr_gas_VrgJr4']
 totVerbrEleVrgJr = df['vrbr_ele_VrgJr']
 totVerbrEleVrgJr2 = df['vrbr_ele_VrgJr2']
 totVerbrEleVrgJr3 = df['vrbr_ele_VrgJr3']
+totVerbrEleVrgJr4 = df['vrbr_ele_VrgJr4']
 totVerbrWatVrgJr = df['vrbr_wat_VrgJr']
 totVerbrWatVrgJr2 = df['vrbr_wat_VrgJr2']
 totVerbrWatVrgJr3 = df['vrbr_wat_VrgJr3']
+totVerbrWatVrgJr4 = df['vrbr_wat_VrgJr4']
 
-totVerbrGasVrgJr2 = (totVerbrGasVrgJr2 + totVerbrGasVrgJr3) / 2
-totVerbrEleVrgJr2 = (totVerbrEleVrgJr2 + totVerbrEleVrgJr3) / 2
-totVerbrWatVrgJr2 = (totVerbrWatVrgJr2 + totVerbrWatVrgJr3) / 2
+totVerbrGasVrgJr2 = (totVerbrGasVrgJr2 + totVerbrGasVrgJr3 + totVerbrGasVrgJr4) / 3
+totVerbrEleVrgJr2 = (totVerbrEleVrgJr2 + totVerbrEleVrgJr3 + totVerbrEleVrgJr4) / 3
+totVerbrWatVrgJr2 = (totVerbrWatVrgJr2 + totVerbrWatVrgJr3 + totVerbrWatVrgJr4) / 3
 
 #
 # BEREKENINGEN GAS
@@ -86,7 +89,7 @@ vastGasJr = vastGasMnd*12
 
 # Bereken gemiddelde graaddagen per maand voor afgelopen vijf jaar
 gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020'] + df['grddg_2021']
-                  + df['grddg_2022'] + df['grddg_2023']) / 5).round(2)
+                  + df['grddg_2022'] + df['grddg_2023'] + df['grddg_2024']) / 6).round(2)
 
 # Bereken percentage verbruik per maand voor graaddagen
 sumGraaddagen = 0
@@ -355,10 +358,10 @@ def GrafiekGas():
     plotGas.figure()
     plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2023",
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2024",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotGas.plot(maanden, schatVerbrGasHdgJr, color='tab:orange',
-                 label="2024", linewidth=5, marker='o', ms=10)
+                 label="2025", linewidth=5, marker='o', ms=10)
     #plotGas.title("Gas", color='White')
     #plotGas.xlabel("maand", color='White')
     plotGas.ylabel("verbruik (m3)", color='Black')
@@ -376,10 +379,10 @@ def GrafiekElektriciteit():
     plotEle.figure()
     plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2023",
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2024",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotEle.plot(maanden, schatVerbrEleHdgJr,
-                 color='tab:orange', label="2024", linewidth=5, marker='o', ms=10)
+                 color='tab:orange', label="2025", linewidth=5, marker='o', ms=10)
     #plotEle.title("Elektriciteit", color='White')
     #plotEle.xlabel("maand", color='White')
     plotEle.ylabel("verbruik (kWh)", color='Black')
@@ -397,10 +400,10 @@ def GrafiekWater():
     plotWat.figure()
     plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2023",
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2024",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotWat.plot(maanden, schatVerbrWatHdgJr, color='tab:orange',
-                 label="2024", linewidth=5, marker='o', ms=10)
+                 label="2025", linewidth=5, marker='o', ms=10)
     #plotWat.title("Water", color='White')
     #plotWat.xlabel("maand", color='White')
     plotWat.ylabel("verbruik (m3)", color='Black')

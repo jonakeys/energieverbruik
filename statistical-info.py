@@ -46,13 +46,13 @@ watDitJaarMin2Med = round(watDitJaarMin2.median(), 1)
 
 def toon(jrStd, jrmin1Std, jrmin2Std, jrGem, jrmin1Gem, jrmin2Gem,
          jrMed, jrmin1Med, jrmin2Med):
-    print("\t   2024\t", jrStd, " (", round(jrStd-jrmin2Std, 1), ")\t",
+    print("\t   2025\t", jrStd, " (", round(jrStd-jrmin2Std, 1), ")\t",
           jrGem, " (", round(jrGem-jrmin2Gem, 1), ")\t",
           jrMed, " (", round(jrMed-jrmin2Med, 1), ")", sep="")
-    print("\t   2023\t", jrmin1Std, " (", round(jrmin1Std-jrmin2Std, 1), ")\t",
+    print("\t   2024\t", jrmin1Std, " (", round(jrmin1Std-jrmin2Std, 1), ")\t",
           jrmin1Gem, " (", round(jrmin1Gem-jrmin2Gem, 1), ")\t",
           jrmin1Med, " (", round(jrmin1Med-jrmin2Med, 1), ")", sep="")
-    print("\t<= 2022\t", jrmin2Std, "\t\t", jrmin2Gem, "\t\t", jrmin2Med, sep="")
+    print("\t<= 2023\t", jrmin2Std, "\t\t", jrmin2Gem, "\t\t", jrmin2Med, sep="")
 
 print("GAS (m3)\tStdDev\t\tAvg\t\tMed")
 toon(gasDitJaarStd, gasDitJaarMin1Std, gasDitJaarMin2Std,
