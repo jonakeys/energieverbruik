@@ -44,17 +44,18 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.jan
-DAG_VAN_MAAND = 5
+MAAND = Month.jul
+DAG_VAN_MAAND = 31
 DAGEN_IN_MAAND = MAAND.days 
-VERBRUIK_GAS = 40
-VERBRUIK_ELEKTRICITEIT = 24
-VERBRUIK_WATER = 1.5
-PRIJS_GAS = 1.2469
-PRIJS_ELEKTRICITEIT = 0.2569
+VERBRUIK_GAS = 22
+VERBRUIK_ELEKTRICITEIT = 115
+VERBRUIK_WATER = 9.3
+PRIJS_GAS = 1.20840
+PRIJS_ELEKTRICITEIT = 0.28926
 PRIJS_WATER = 1.021
-VAST_LEVERING_GAS_JAAR = 90
-VAST_LEVERING_ELE_JAAR = 90
+VAST_LEVERING_GAS_JAAR = 555.9315
+VAST_LEVERING_ELE_JAAR = 350.2942
+VERMINDERING_JAAR = 635.19
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
@@ -253,7 +254,8 @@ verschWat = (schatTotWat - sumVerbrWatVrgJr)
 maandbedrag = int((((schatTotGas * PRIJS_GAS)
                     + (schatTotEle * PRIJS_ELEKTRICITEIT)
                     + VAST_LEVERING_GAS_JAAR
-                    + VAST_LEVERING_ELE_JAAR)/12))
+                    + VAST_LEVERING_ELE_JAAR
+                    - VERMINDERING_JAAR)/12))
 
 
 #
@@ -351,7 +353,7 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 3.8]
 rcParams['font.family'] = ['sans-serif']
-rcParams['font.sans-serif'] = ['Liberation Sans']
+rcParams['font.sans-serif'] = ['Tahoma']
 
 def GrafiekGas():
     # Grafiek gasverbruik
@@ -366,7 +368,7 @@ def GrafiekGas():
     #plotGas.xlabel("maand", color='White')
     plotGas.ylabel("verbruik (m3)", color='Black')
     plotGas.tick_params(colors='Black')
-    plotGas.ylim(bottom=0)
+    #plotGas.ylim(bottom=0)
     plotGas.grid(color='Gray')
     plotGas.legend()
     plotGas.tight_layout()
@@ -387,7 +389,7 @@ def GrafiekElektriciteit():
     #plotEle.xlabel("maand", color='White')
     plotEle.ylabel("verbruik (kWh)", color='Black')
     plotEle.tick_params(colors='Black')
-    plotEle.ylim(bottom=0)
+    #plotEle.ylim(bottom=0)
     plotEle.grid(color='Gray')
     plotEle.legend()
     plotEle.tight_layout()
@@ -408,7 +410,7 @@ def GrafiekWater():
     #plotWat.xlabel("maand", color='White')
     plotWat.ylabel("verbruik (m3)", color='Black')
     plotWat.tick_params(colors='Black')
-    plotWat.ylim(bottom=0)
+    #plotWat.ylim(bottom=0)
     plotWat.grid(color='Gray')
     plotWat.legend()
     plotWat.tight_layout()
