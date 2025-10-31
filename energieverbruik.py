@@ -44,12 +44,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.jul
+MAAND = Month.okt
 DAG_VAN_MAAND = 31
 DAGEN_IN_MAAND = MAAND.days 
-VERBRUIK_GAS = 22
-VERBRUIK_ELEKTRICITEIT = 115
-VERBRUIK_WATER = 9.3
+VERBRUIK_GAS = 65
+VERBRUIK_ELEKTRICITEIT = 114
+VERBRUIK_WATER = 10.4
 PRIJS_GAS = 1.20840
 PRIJS_ELEKTRICITEIT = 0.28926
 PRIJS_WATER = 1.021
@@ -160,13 +160,13 @@ percVerbrWatVrgJr2 = (totVerbrWatVrgJr2 / sumVerbrWatVrgJr2)
 
 # Combineer graaddagen en verbruik vorige jaren als basis voor verwachting
 # verbruik komende jaar
-combiVerbrGas = ((percGraaddagen + (3 * percVerbrGasVrgJr) + (2 * percVerbrGasVrgJr2)) / 6)
+combiVerbrGas = ((percGraaddagen + (3 * percVerbrGasVrgJr) + (1 * percVerbrGasVrgJr2)) / 5)
 
 # Combineer gemiddeld elektriciteit en verbruik vorige jaren als basis voor verwachting
-combiVerbrEle = ((gemEle + (3 * percVerbrEleVrgJr) + (2 * percVerbrEleVrgJr2)) / 6)
+combiVerbrEle = ((gemEle + (3 * percVerbrEleVrgJr) + (1 * percVerbrEleVrgJr2)) / 5)
 
 # Combineer gemiddeld waterverbruik en verbruik vorige jaren als basis voor verwachting
-combiVerbrWat = ((gemWat + (3 * percVerbrWatVrgJr) + (2 * percVerbrWatVrgJr2)) / 6)
+combiVerbrWat = ((gemWat + (3 * percVerbrWatVrgJr) + (1 * percVerbrWatVrgJr2)) / 5)
 
 percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
 verbrGasMnd = (VERBRUIK_GAS / percMnd) - vastGasMnd
@@ -353,7 +353,7 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 3.8]
 rcParams['font.family'] = ['sans-serif']
-rcParams['font.sans-serif'] = ['Tahoma']
+rcParams['font.sans-serif'] = ['Nokia Sans']
 
 def GrafiekGas():
     # Grafiek gasverbruik

@@ -6,12 +6,12 @@ Gas
 3       april            87        67.00     -20.00 -23.0
 4         mei            28        34.00       6.00  21.4
 5        juni            29        27.00      -2.00  -6.9
-6        juli            23        23.33       0.33   1.4
-7    augustus            17        29.27      12.27  72.2
-8   september            30        36.96       6.96  23.2
-9     oktober            79        72.07      -6.93  -8.8
-10   november           173       133.50     -39.50 -22.8
-11   december           197       160.74     -36.26 -18.4
+6        juli            23        22.00      -1.00  -4.3
+7    augustus            17        21.00       4.00  23.5
+8   september            30        27.00      -3.00 -10.0
+9     oktober            79        65.00     -14.00 -17.7
+10   november           173       177.05       4.05   2.3
+11   december           197       209.30      12.30   6.2
 
 Elektriciteit
         maand  vrbr_e_VrgJr  vrw_e_HdgJr  vrsch_ele  perc
@@ -21,12 +21,12 @@ Elektriciteit
 3       april           119       109.00     -10.00  -8.4
 4         mei           121       123.00       2.00   1.7
 5        juni           110       120.00      10.00   9.1
-6        juli           117       115.00      -2.00  -1.7
-7    augustus           109       101.94      -7.06  -6.5
-8   september           118       104.78     -13.22 -11.2
-9     oktober           111       108.37      -2.63  -2.4
-10   november           120       113.88      -6.12  -5.1
-11   december           114       116.15       2.15   1.9
+6        juli           117       116.00      -1.00  -0.9
+7    augustus           109       101.00      -8.00  -7.3
+8   september           118       107.00     -11.00  -9.3
+9     oktober           111       114.00       3.00   2.7
+10   november           120       116.37      -3.63  -3.0
+11   december           114       117.80       3.80   3.3
 
 Water
         maand  vrbr_w_VrgJr  vrw_w_HdgJr  vrsch_wat  perc
@@ -37,9 +37,9 @@ Water
 4         mei          9.00         9.40       0.40   4.4
 5        juni          9.00        10.00       1.00  11.1
 6        juli          9.00         9.30       0.30   3.3
-7    augustus          8.00         8.44       0.44   5.5
-8   september          9.00         8.78      -0.22  -2.4
-9     oktober          9.12         9.53       0.41   4.5
-10   november          9.08         9.58       0.50   5.5
-11   december          8.80         9.49       0.69   7.8
+7    augustus          8.00         8.50       0.50   6.2
+8   september          9.00         8.50      -0.50  -5.6
+9     oktober          9.12        10.40       1.28  14.0
+10   november          9.08         9.85       0.77   8.5
+11   december          8.80         9.73       0.93  10.6
 
