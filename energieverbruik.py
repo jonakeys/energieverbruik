@@ -298,7 +298,7 @@ def toon_overzicht():
         f"Elektriciteit\n{overzicht_e}\n\n"\
         f"Water\n{overzicht_w}\n\n"
     # Schrijf overzicht naar bestand
-    f = open("energieverbruik_hdg_jr_overzicht.txt", "w")
+    f = open("energieverbruik_HdgJr_overzicht.txt", "w")
     f.write(str_overzicht)
     f.close()
 
@@ -328,7 +328,7 @@ def print_output():
     print(strOutput)
 
     # Schrijf uitvoer naar bestand
-    f = open("energieverbruik_hdg_jr.txt", "w")
+    f = open("energieverbruik_HdgJr.txt", "w")
     f.write(strOutput)
     f.close()
 
