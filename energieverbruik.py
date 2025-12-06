@@ -43,12 +43,12 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.OKT
-DAG_VAN_MAAND = 31
+MAAND = Month.DEC
+DAG_VAN_MAAND = 6
 DAGEN_IN_MAAND = MAAND.days
-VERBRUIK_GAS = 65
-VERBRUIK_ELEKTRICITEIT = 114
-VERBRUIK_WATER = 10.4
+VERBRUIK_GAS = 31
+VERBRUIK_ELEKTRICITEIT = 24
+VERBRUIK_WATER = 1.9
 PRIJS_GAS = 1.20840
 PRIJS_ELEKTRICITEIT = 0.28926
 PRIJS_WATER = 1.021
@@ -202,7 +202,7 @@ if MAAND == Month.JAN:
 else:
     GAS_MNDN_N_JR = 0
     ELE_MNDN_N_JR = 0
-    WAWAT_MNDN_N_JR = 0
+    WAT_MNDN_N_JR = 0
     PERC_GAS_HDG_JR = 0
     PERC_ELE_HDG_JR = 0
     PERC_WAT_HDG_JR = 0
@@ -217,11 +217,11 @@ else:
         PERC_ELE_HDG_JR += schatVerbrEle_HDG_JR[i]/df['vrbr_ele_VrgJr'][i]
         schatVerbrWat_HDG_JR[i] = df['vrbr_wat_HdgJr'][i]
         SUM_SCHAT_WAT += schatVerbrWat_HDG_JR[i]
-        WAWAT_MNDN_N_JR += (schatVerbrWat_HDG_JR[i] / combiVerbrWat[i])
+        WAT_MNDN_N_JR += (schatVerbrWat_HDG_JR[i] / combiVerbrWat[i])
         PERC_WAT_HDG_JR += schatVerbrWat_HDG_JR[i]/df['vrbr_wat_VrgJr'][i]
     GAS_MNDN_N_JR /= MAAND.rank
     ELE_MNDN_N_JR /= MAAND.rank
-    WAWAT_MNDN_N_JR /= MAAND.rank
+    WAT_MNDN_N_JR /= MAAND.rank
     PERC_GAS_HDG_JR = PERC_GAS_HDG_JR / MAAND.rank
     PERC_ELE_HDG_JR = PERC_ELE_HDG_JR / MAAND.rank
     PERC_WAT_HDG_JR = PERC_WAT_HDG_JR / MAAND.rank
@@ -235,16 +235,16 @@ else:
                                      * combiVerbrWat[i]).round(2)
         else:
             schatVerbrGas_HDG_JR[i] = ((((((
-                (VERBR_GASMnd / combiVerbrGas[MAAND.rank]) + (2 * GAS_MNDN_N_JR)) / 3)
+                (VERBR_GASMnd / combiVerbrGas[MAAND.rank]) + GAS_MNDN_N_JR) / 2)
                     * combiVerbrGas[i]) + vastGasMnd)
                     + (df['vrbr_gas_VrgJr'][i] * PERC_GAS_HDG_JR)) / 2).round(2)
             schatVerbrEle_HDG_JR[i] = ((((((
                 (VERBR_ELEMnd / combiVerbrEle[MAAND.rank]) + PERC_ELE_HDG_JR)
-                    + (2 * ELE_MNDN_N_JR))/3) * combiVerbrEle[i])
-                    + (df['vrbr_ele_VrgJr'][i] * PERC_ELE_HDG_JR))/2).round(2)
+                    + ELE_MNDN_N_JR)/2) * combiVerbrEle[i])
+                    + (df['vrbr_ele_VrgJr'][i] * PERC_ELE_HDG_JR)) / 2).round(2)
             schatVerbrWat_HDG_JR[i] = ((((((
                 (VERBR_WATMnd / combiVerbrWat[MAAND.rank]) + PERC_WAT_HDG_JR)
-                    + (2 * WAWAT_MNDN_N_JR))/3)* combiVerbrWat[i])
+                    + WAT_MNDN_N_JR)/2)* combiVerbrWat[i])
                     + (df['vrbr_wat_VrgJr'][i] * PERC_WAT_HDG_JR)) / 2).round(2)
         SUM_SCHAT_GAS += schatVerbrGas_HDG_JR[i]
         SUM_SCHAT_ELE += schatVerbrEle_HDG_JR[i]
