@@ -38,6 +38,7 @@ def toon_uitvoer():
           )
 
 def main():
+    print("[hint] Bereken graaddagen hier: https://www.mindergas.nl/degree_days_calculation")
     vraag_invoer()
     bereken_verhouding()
     toon_uitvoer()
