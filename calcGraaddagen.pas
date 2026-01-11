@@ -13,7 +13,7 @@ VAR
   verschilInPerc: real;
 
 BEGIN
-  unix.fpSystem('clear');
+  //unix.fpSystem('clear');
   writeLn('[hint] Bereken graaddagen hier: https://www.mindergas.nl/degree_days_calculation');
   write('Graaddagen vorig jaar? ');
   readLn(input, graaddagenVorig);
@@ -24,7 +24,7 @@ BEGIN
   write('Verbruik nu (m3)? ');
   readLn(input, verbruikNu);
 
-  ratioGraaddagen := graaddagenVorig / graaddagenNu;
+  ratioGraaddagen := graaddagenNu / graaddagenVorig;
   verwachtVerbruik := verbruikVorig * ratioGraaddagen;
   verschilVerbruik := verbruikNu / verwachtVerbruik * 100;
   verschilInPerc := 0 - (100 - verschilVerbruik);

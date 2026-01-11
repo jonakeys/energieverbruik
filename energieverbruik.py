@@ -37,18 +37,18 @@ class Month(Enum):
 #
 # CONSTANTEN
 #
-HUIDIG_JAAR = 2025
+HUIDIG_JAAR = 2026
 VORIG_JAAR = HUIDIG_JAAR - 1
 
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.DEC
-DAG_VAN_MAAND = 6
+MAAND = Month.JAN
+DAG_VAN_MAAND = 10
 DAGEN_IN_MAAND = MAAND.days
-VERBRUIK_GAS = 31
-VERBRUIK_ELEKTRICITEIT = 24
-VERBRUIK_WATER = 1.9
+VERBRUIK_GAS = 83
+VERBRUIK_ELEKTRICITEIT = 38
+VERBRUIK_WATER = 2.1
 PRIJS_GAS = 1.20840
 PRIJS_ELEKTRICITEIT = 0.28926
 PRIJS_WATER = 1.021
@@ -63,18 +63,21 @@ TOT_VEBR_GAS_VRG_JR = df['vrbr_gas_VrgJr']
 TOT_VEBR_GAS_VRG_JR2 = df['vrbr_gas_VrgJr2']
 TOT_VEBR_GAS_VRG_JR3 = df['vrbr_gas_VrgJr3']
 TOT_VEBR_GAS_VRG_JR4 = df['vrbr_gas_VrgJr4']
+TOT_VEBR_GAS_VRG_JR5 = df['vrbr_gas_VrgJr5']
 TOT_VEBR_ELE_VRG_JR = df['vrbr_ele_VrgJr']
 TOT_VEBR_ELE_VRG_JR2 = df['vrbr_ele_VrgJr2']
 TOT_VEBR_ELE_VRG_JR3 = df['vrbr_ele_VrgJr3']
 TOT_VEBR_ELE_VRG_JR4 = df['vrbr_ele_VrgJr4']
+TOT_VEBR_ELE_VRG_JR5 = df['vrbr_ele_VrgJr5']
 TOT_VEBR_WAT_VRG_JR = df['vrbr_wat_VrgJr']
 TOT_VEBR_WAT_VRG_JR2 = df['vrbr_wat_VrgJr2']
 TOT_VEBR_WAT_VRG_JR3 = df['vrbr_wat_VrgJr3']
 TOT_VEBR_WAT_VRG_JR4 = df['vrbr_wat_VrgJr4']
+TOT_VEBR_WAT_VRG_JR5 = df['vrbr_wat_VrgJr5']
 
-TOT_VEBR_GAS_VRG_JR2 = (TOT_VEBR_GAS_VRG_JR2 + TOT_VEBR_GAS_VRG_JR3 + TOT_VEBR_GAS_VRG_JR4) / 3
-TOT_VEBR_ELE_VRG_JR2 = (TOT_VEBR_ELE_VRG_JR2 + TOT_VEBR_ELE_VRG_JR3 + TOT_VEBR_ELE_VRG_JR4) / 3
-TOT_VEBR_WAT_VRG_JR2 = (TOT_VEBR_WAT_VRG_JR2 + TOT_VEBR_WAT_VRG_JR3 + TOT_VEBR_WAT_VRG_JR4) / 3
+TOT_VEBR_GAS_VRG_JR2 = (TOT_VEBR_GAS_VRG_JR2 + TOT_VEBR_GAS_VRG_JR3 + TOT_VEBR_GAS_VRG_JR4 + TOT_VEBR_GAS_VRG_JR5) / 4
+TOT_VEBR_ELE_VRG_JR2 = (TOT_VEBR_ELE_VRG_JR2 + TOT_VEBR_ELE_VRG_JR3 + TOT_VEBR_ELE_VRG_JR4 + TOT_VEBR_GAS_VRG_JR5) / 4
+TOT_VEBR_WAT_VRG_JR2 = (TOT_VEBR_WAT_VRG_JR2 + TOT_VEBR_WAT_VRG_JR3 + TOT_VEBR_WAT_VRG_JR4 + TOT_VEBR_GAS_VRG_JR5) / 4
 
 #
 # BEREKENINGEN GAS
@@ -87,9 +90,10 @@ for i in range(6, 9):
 vastGasMnd = SUM_ZOMERVERBRUIK / 3
 vastGasJr = vastGasMnd*12
 
-# Bereken gemiddelde graaddagen per maand voor afgelopen vijf jaar
+# Bereken gemiddelde graaddagen per maand voor afgelopen jaar
 gemGraaddagen = ((df['grddg_2019'] + df['grddg_2020'] + df['grddg_2021']
-                  + df['grddg_2022'] + df['grddg_2023'] + df['grddg_2024']) / 6).round(2)
+                  + df['grddg_2022'] + df['grddg_2023'] + df['grddg_2024']
+                  + df['grddg_2025']) / 7).round(2)
 
 # Bereken percentage verbruik per maand voor graaddagen
 SUM_GRAADDAGEN = 0
@@ -355,17 +359,17 @@ maanden = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep",
 rcParams['axes.edgecolor'] = 'White'
 rcParams['figure.figsize'] = [7.8, 3.8]
 rcParams['font.family'] = ['sans-serif']
-rcParams['font.sans-serif'] = ['Nokia Sans']
+rcParams['font.sans-serif'] = ['HP Simplified']
 
 def grafiek_gas():
     # Grafiek gasverbruik
     plotGas.figure()
     plotGas.plot(maanden, df['vrbr_gas_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label="2024",
+    plotGas.plot(maanden, df['vrbr_gas_VrgJr'], color='tab:blue', label=f"{VORIG_JAAR}",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotGas.plot(maanden, schatVerbrGas_HDG_JR, color='tab:orange',
-                 label="2025", linewidth=5, marker='o', ms=10)
+                 label=f"{HUIDIG_JAAR}", linewidth=5, marker='o', ms=10)
     plotGas.ylabel("verbruik (m3)", color='Black')
     plotGas.tick_params(colors='Black')
     plotGas.grid(color='Gray')
@@ -379,10 +383,10 @@ def grafiek_elektriciteit():
     plotEle.figure()
     plotEle.plot(maanden, df['vrbr_ele_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label="2024",
+    plotEle.plot(maanden, df['vrbr_ele_VrgJr'], color='tab:blue', label=f"{VORIG_JAAR}",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotEle.plot(maanden, schatVerbrEle_HDG_JR,
-                 color='tab:orange', label="2025", linewidth=5, marker='o', ms=10)
+                 color='tab:orange', label=f"{HUIDIG_JAAR}", linewidth=5, marker='o', ms=10)
     plotEle.ylabel("verbruik (kWh)", color='Black')
     plotEle.tick_params(colors='Black')
     plotEle.grid(color='Gray')
@@ -396,10 +400,10 @@ def grafiek_water():
     plotWat.figure()
     plotWat.plot(maanden, df['vrbr_wat_VrgJr2'], color='tab:cyan', label="Eerder",
                  linewidth=5, alpha=0.2, marker='o', ms=10)
-    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label="2024",
+    plotWat.plot(maanden, df['vrbr_wat_VrgJr'], color='tab:blue', label=f"{VORIG_JAAR}",
                  linewidth=5, alpha=0.7, marker='o', ms=10)
     plotWat.plot(maanden, schatVerbrWat_HDG_JR, color='tab:orange',
-                 label="2025", linewidth=5, marker='o', ms=10)
+                 label=f"{HUIDIG_JAAR}", linewidth=5, marker='o', ms=10)
     plotWat.ylabel("verbruik (m3)", color='Black')
     plotWat.tick_params(colors='Black')
     plotWat.grid(color='Gray')

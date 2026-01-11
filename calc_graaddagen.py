@@ -26,7 +26,7 @@ def bereken_verhouding():
     global ratio_graaddagen
     global verwacht_verbruik
     global verschil_verbruik
-    ratio_graaddagen = graaddagen_vorig / graaddagen_nu
+    ratio_graaddagen = graaddagen_nu / graaddagen_vorig
     verwacht_verbruik = verbruik_vorig * ratio_graaddagen
     verschil_verbruik = verbruik_nu / verwacht_verbruik * 100
 
