@@ -43,41 +43,41 @@ VORIG_JAAR = HUIDIG_JAAR - 1
 #
 # INVOEREN GEGEVENS HUIDIGE JAAR
 #
-MAAND = Month.JAN
-DAG_VAN_MAAND = 10
+MAAND = Month.JUN
+DAG_VAN_MAAND = 14
 DAGEN_IN_MAAND = MAAND.days
-VERBRUIK_GAS = 83
-VERBRUIK_ELEKTRICITEIT = 38
-VERBRUIK_WATER = 2.1
-PRIJS_GAS = 1.20840
-PRIJS_ELEKTRICITEIT = 0.28926
+VERBRUIK_GAS = 13
+VERBRUIK_ELEKTRICITEIT = 61
+VERBRUIK_WATER = 4.6
+PRIJS_GAS = 1.2084
+PRIJS_ELEKTRICITEIT = 0.2704
 PRIJS_WATER = 1.021
-VAST_LEVERING_GAS_JAAR = 555.9315
-VAST_LEVERING_ELE_JAAR = 350.2942
-VERMINDERING_JAAR = 635.19
+VAST_LEVERING_GAS_JAAR = 350.2905
+VAST_LEVERING_ELE_JAAR = -79.205
+VERMINDERING_JAAR = 0
 
 # Inlezen data graaddagen, verbruik voorgaande jaar en afgeronde maanden
 df = pd.read_csv('energiedata.csv')
 
-TOT_VEBR_GAS_VRG_JR = df['vrbr_gas_VrgJr']
-TOT_VEBR_GAS_VRG_JR2 = df['vrbr_gas_VrgJr2']
-TOT_VEBR_GAS_VRG_JR3 = df['vrbr_gas_VrgJr3']
-TOT_VEBR_GAS_VRG_JR4 = df['vrbr_gas_VrgJr4']
-TOT_VEBR_GAS_VRG_JR5 = df['vrbr_gas_VrgJr5']
-TOT_VEBR_ELE_VRG_JR = df['vrbr_ele_VrgJr']
-TOT_VEBR_ELE_VRG_JR2 = df['vrbr_ele_VrgJr2']
-TOT_VEBR_ELE_VRG_JR3 = df['vrbr_ele_VrgJr3']
-TOT_VEBR_ELE_VRG_JR4 = df['vrbr_ele_VrgJr4']
-TOT_VEBR_ELE_VRG_JR5 = df['vrbr_ele_VrgJr5']
-TOT_VEBR_WAT_VRG_JR = df['vrbr_wat_VrgJr']
-TOT_VEBR_WAT_VRG_JR2 = df['vrbr_wat_VrgJr2']
-TOT_VEBR_WAT_VRG_JR3 = df['vrbr_wat_VrgJr3']
-TOT_VEBR_WAT_VRG_JR4 = df['vrbr_wat_VrgJr4']
-TOT_VEBR_WAT_VRG_JR5 = df['vrbr_wat_VrgJr5']
+TOT_VERBR_GAS_VRG_JR = df['vrbr_gas_VrgJr']
+TOT_VERBR_GAS_VRG_JR2 = df['vrbr_gas_VrgJr2']
+TOT_VERBR_GAS_VRG_JR3 = df['vrbr_gas_VrgJr3']
+TOT_VERBR_GAS_VRG_JR4 = df['vrbr_gas_VrgJr4']
+TOT_VERBR_GAS_VRG_JR5 = df['vrbr_gas_VrgJr5']
+TOT_VERBR_ELE_VRG_JR = df['vrbr_ele_VrgJr']
+TOT_VERBR_ELE_VRG_JR2 = df['vrbr_ele_VrgJr2']
+TOT_VERBR_ELE_VRG_JR3 = df['vrbr_ele_VrgJr3']
+TOT_VERBR_ELE_VRG_JR4 = df['vrbr_ele_VrgJr4']
+TOT_VERBR_ELE_VRG_JR5 = df['vrbr_ele_VrgJr5']
+TOT_VERBR_WAT_VRG_JR = df['vrbr_wat_VrgJr']
+TOT_VERBR_WAT_VRG_JR2 = df['vrbr_wat_VrgJr2']
+TOT_VERBR_WAT_VRG_JR3 = df['vrbr_wat_VrgJr3']
+TOT_VERBR_WAT_VRG_JR4 = df['vrbr_wat_VrgJr4']
+TOT_VERBR_WAT_VRG_JR5 = df['vrbr_wat_VrgJr5']
 
-TOT_VEBR_GAS_VRG_JR2 = (TOT_VEBR_GAS_VRG_JR2 + TOT_VEBR_GAS_VRG_JR3 + TOT_VEBR_GAS_VRG_JR4 + TOT_VEBR_GAS_VRG_JR5) / 4
-TOT_VEBR_ELE_VRG_JR2 = (TOT_VEBR_ELE_VRG_JR2 + TOT_VEBR_ELE_VRG_JR3 + TOT_VEBR_ELE_VRG_JR4 + TOT_VEBR_GAS_VRG_JR5) / 4
-TOT_VEBR_WAT_VRG_JR2 = (TOT_VEBR_WAT_VRG_JR2 + TOT_VEBR_WAT_VRG_JR3 + TOT_VEBR_WAT_VRG_JR4 + TOT_VEBR_GAS_VRG_JR5) / 4
+TOT_VERBR_GAS_VRG_JR2 = (TOT_VERBR_GAS_VRG_JR2 + TOT_VERBR_GAS_VRG_JR3 + TOT_VERBR_GAS_VRG_JR4 + TOT_VERBR_GAS_VRG_JR5) / 4
+TOT_VERBR_ELE_VRG_JR2 = (TOT_VERBR_ELE_VRG_JR2 + TOT_VERBR_ELE_VRG_JR3 + TOT_VERBR_ELE_VRG_JR4 + TOT_VERBR_GAS_VRG_JR5) / 4
+TOT_VERBR_WAT_VRG_JR2 = (TOT_VERBR_WAT_VRG_JR2 + TOT_VERBR_WAT_VRG_JR3 + TOT_VERBR_WAT_VRG_JR4 + TOT_VERBR_WAT_VRG_JR5) / 4
 
 #
 # BEREKENINGEN GAS
@@ -103,18 +103,18 @@ percGraaddagen = gemGraaddagen / SUM_GRAADDAGEN
 
 # Bereken percentage verbruik per maand voor gasverbruik vorig jaar
 SUM_VERBR_GAS_VRG_JR = 0
-for i in TOT_VEBR_GAS_VRG_JR:
+for i in TOT_VERBR_GAS_VRG_JR:
     SUM_VERBR_GAS_VRG_JR += i
-percVerbrGasVrgJr = TOT_VEBR_GAS_VRG_JR / SUM_VERBR_GAS_VRG_JR
+percVerbrGasVrgJr = TOT_VERBR_GAS_VRG_JR / SUM_VERBR_GAS_VRG_JR
 
 # Correctie verbruik gas vorig jaar
-corrVerbrGasVrgJr = TOT_VEBR_GAS_VRG_JR - vastGasMnd
+corrVerbrGasVrgJr = TOT_VERBR_GAS_VRG_JR - vastGasMnd
 SUM_VERBR_GAS_VRG_JR_CORR = 0
 for i in corrVerbrGasVrgJr:
     SUM_VERBR_GAS_VRG_JR_CORR += i
-percVerbrGasVrgJr = TOT_VEBR_GAS_VRG_JR / SUM_VERBR_GAS_VRG_JR_CORR
+percVerbrGasVrgJr = TOT_VERBR_GAS_VRG_JR / SUM_VERBR_GAS_VRG_JR_CORR
 
-corrVerbrGasVrgJr2 = TOT_VEBR_GAS_VRG_JR2 - vastGasMnd
+corrVerbrGasVrgJr2 = TOT_VERBR_GAS_VRG_JR2 - vastGasMnd
 SUM_VERBR_GAS_VRG_JR2_CORR = 0
 for i in corrVerbrGasVrgJr2:
     SUM_VERBR_GAS_VRG_JR2_CORR += i
@@ -129,14 +129,14 @@ gemEle = df['gem_ele']
 
 # Bereken percentage verbruik per maand voor elektriciteitsverbruik vorig jaar
 SUM_VERBR_ELE_VRG_JR = 0
-for i in TOT_VEBR_ELE_VRG_JR:
+for i in TOT_VERBR_ELE_VRG_JR:
     SUM_VERBR_ELE_VRG_JR += i
-percVerbrEleVrgJr = TOT_VEBR_ELE_VRG_JR / SUM_VERBR_ELE_VRG_JR
+percVerbrEleVrgJr = TOT_VERBR_ELE_VRG_JR / SUM_VERBR_ELE_VRG_JR
 
 SUM_VERBR_ELE_VRG_JR2 = 0
-for i in TOT_VEBR_ELE_VRG_JR2:
+for i in TOT_VERBR_ELE_VRG_JR2:
     SUM_VERBR_ELE_VRG_JR2 += i
-percVerbrEleVrgJr2 = TOT_VEBR_ELE_VRG_JR2 / SUM_VERBR_ELE_VRG_JR2
+percVerbrEleVrgJr2 = TOT_VERBR_ELE_VRG_JR2 / SUM_VERBR_ELE_VRG_JR2
 
 #
 # BEREKENINGEN WATER
@@ -146,14 +146,14 @@ gemWat = df['gem_wat']
 
 # Bereken percentage verbruik per maand voor waterverbruik vorig jaar
 SUM_VERBR_WAT_VRG_JR = 0
-for i in TOT_VEBR_WAT_VRG_JR:
+for i in TOT_VERBR_WAT_VRG_JR:
     SUM_VERBR_WAT_VRG_JR += i
-percVerbrWatVrgJr = TOT_VEBR_WAT_VRG_JR / SUM_VERBR_WAT_VRG_JR
+percVerbrWatVrgJr = TOT_VERBR_WAT_VRG_JR / SUM_VERBR_WAT_VRG_JR
 
 SUM_VERBR_WAT_VRG_JR2 = 0
-for i in TOT_VEBR_WAT_VRG_JR2:
+for i in TOT_VERBR_WAT_VRG_JR2:
     SUM_VERBR_WAT_VRG_JR2 += i
-percVerbrWatVrgJr2 = TOT_VEBR_WAT_VRG_JR2 / SUM_VERBR_WAT_VRG_JR2
+percVerbrWatVrgJr2 = TOT_VERBR_WAT_VRG_JR2 / SUM_VERBR_WAT_VRG_JR2
 
 #
 # BEREKENINGEN SCHATTING VERBRUIK
@@ -161,22 +161,24 @@ percVerbrWatVrgJr2 = TOT_VEBR_WAT_VRG_JR2 / SUM_VERBR_WAT_VRG_JR2
 
 # Combineer graaddagen en verbruik vorige jaren als basis voor verwachting
 # verbruik komende jaar
-combiVerbrGas = (percGraaddagen + (3 * percVerbrGasVrgJr) + (1 * percVerbrGasVrgJr2)) / 5
+combiVerbrGas = (percGraaddagen + (1 * percVerbrGasVrgJr) + (1 * percVerbrGasVrgJr2)) / 3
 
 # Combineer gemiddeld elektriciteit en verbruik vorige jaren als basis voor verwachting
-combiVerbrEle = (gemEle + (3 * percVerbrEleVrgJr) + (1 * percVerbrEleVrgJr2)) / 5
+#combiVerbrEle = (gemEle + (3 * percVerbrEleVrgJr) + (1 * percVerbrEleVrgJr2)) / 5
+combiVerbrEle = ((1 * percVerbrEleVrgJr) + (1 * percVerbrEleVrgJr2)) / 2
 
 # Combineer gemiddeld waterverbruik en verbruik vorige jaren als basis voor verwachting
-combiVerbrWat = (gemWat + (3 * percVerbrWatVrgJr) + (1 * percVerbrWatVrgJr2)) / 5
+#combiVerbrWat = (gemWat + (3 * percVerbrWatVrgJr) + (1 * percVerbrWatVrgJr2)) / 5
+combiVerbrWat = ((1 * percVerbrWatVrgJr) + (1 * percVerbrWatVrgJr2)) / 2
 
 percMnd = DAG_VAN_MAAND / DAGEN_IN_MAAND
 VERBR_GASMnd = (VERBRUIK_GAS / percMnd) - vastGasMnd
 VERBR_GASMnd = max(VERBR_GASMnd, 0)
 VERBR_ELEMnd = VERBRUIK_ELEKTRICITEIT / percMnd
 VERBR_WATMnd = VERBRUIK_WATER / percMnd
-TOT_VEBR_GAS = 0
-TOT_VEBR_ELE = 0
-TOT_VEBR_WAT = 0
+TOT_VERBR_GAS = 0
+TOT_VERBR_ELE = 0
+TOT_VERBR_WAT = 0
 
 # Bereken schatting verbruik gas en elektriciteit voor huidig jaar
 schatVerbrGas_HDG_JR = [0] * 12
@@ -278,22 +280,22 @@ MAANDBEDRAG = int((((schatTotGas * PRIJS_GAS)
 def toon_overzicht():
     # Toon overzicht, verbruik vorig jaar en schatting huidig jaar
     schema_g = {"maand": df['maand'],
-               "vrbr_g_VrgJr": TOT_VEBR_GAS_VRG_JR,
+               "vrbr_g_VrgJr": TOT_VERBR_GAS_VRG_JR,
                "vrw_g_hdg_jr": schatVerbrGas_HDG_JR,
-               "vrsch_gas": schatVerbrGas_HDG_JR - TOT_VEBR_GAS_VRG_JR,
-               "perc": ((1 - (schatVerbrGas_HDG_JR / TOT_VEBR_GAS_VRG_JR))
+               "vrsch_gas": schatVerbrGas_HDG_JR - TOT_VERBR_GAS_VRG_JR,
+               "perc": ((1 - (schatVerbrGas_HDG_JR / TOT_VERBR_GAS_VRG_JR))
                         * -100).round(1)}
     schema_e = {"maand": df['maand'],
-               "vrbr_e_VrgJr": TOT_VEBR_ELE_VRG_JR,
+               "vrbr_e_VrgJr": TOT_VERBR_ELE_VRG_JR,
                "vrw_e_hdg_jr": schatVerbrEle_HDG_JR,
-               "vrsch_ele": (schatVerbrEle_HDG_JR - TOT_VEBR_ELE_VRG_JR),
-               "perc": ((1 - (schatVerbrEle_HDG_JR / TOT_VEBR_ELE_VRG_JR))
+               "vrsch_ele": (schatVerbrEle_HDG_JR - TOT_VERBR_ELE_VRG_JR),
+               "perc": ((1 - (schatVerbrEle_HDG_JR / TOT_VERBR_ELE_VRG_JR))
                         * -100).round(1)}
     schema_w = {"maand": df['maand'],
-               "vrbr_w_VrgJr": TOT_VEBR_WAT_VRG_JR,
+               "vrbr_w_VrgJr": TOT_VERBR_WAT_VRG_JR,
                "vrw_w_hdg_jr": schatVerbrWat_HDG_JR,
-               "vrsch_wat": (schatVerbrWat_HDG_JR - TOT_VEBR_WAT_VRG_JR),
-               "perc": ((1 - (schatVerbrWat_HDG_JR / TOT_VEBR_WAT_VRG_JR))
+               "vrsch_wat": (schatVerbrWat_HDG_JR - TOT_VERBR_WAT_VRG_JR),
+               "perc": ((1 - (schatVerbrWat_HDG_JR / TOT_VERBR_WAT_VRG_JR))
                         * -100).round(1)}
     overzicht_g = pd.DataFrame(schema_g)
     overzicht_e = pd.DataFrame(schema_e)
@@ -434,11 +436,11 @@ p6.join()
 def schrijfCsvStats():
     uitvoer = "g,g-1,g-2,e,e-1,e-2,w,w-1,w-2\n"
     for i in range (0, 12):
-        uitvoer += f"{schatVerbrGas_HDG_JR[i]:.0f},{TOT_VEBR_GAS_VRG_JR[i]:.0f},"\
-                    f"{TOT_VEBR_GAS_VRG_JR2[i]:.0f},{schatVerbrEle_HDG_JR[i]:.0f},"\
-                    f"{TOT_VEBR_ELE_VRG_JR[i]:.0f},{TOT_VEBR_ELE_VRG_JR2[i]:.0f},"\
-                    f"{schatVerbrWat_HDG_JR[i]:.0f},{TOT_VEBR_WAT_VRG_JR[i]:.0f},"\
-                    f"{TOT_VEBR_WAT_VRG_JR2[i]:.0f}\n"
+        uitvoer += f"{schatVerbrGas_HDG_JR[i]:.0f},{TOT_VERBR_GAS_VRG_JR[i]:.0f},"\
+                    f"{TOT_VERBR_GAS_VRG_JR2[i]:.0f},{schatVerbrEle_HDG_JR[i]:.0f},"\
+                    f"{TOT_VERBR_ELE_VRG_JR[i]:.0f},{TOT_VERBR_ELE_VRG_JR2[i]:.0f},"\
+                    f"{schatVerbrWat_HDG_JR[i]:.0f},{TOT_VERBR_WAT_VRG_JR[i]:.0f},"\
+                    f"{TOT_VERBR_WAT_VRG_JR2[i]:.0f}\n"
         f = open("energie-stats.csv", "w")
         f.write(uitvoer)
         f.close()

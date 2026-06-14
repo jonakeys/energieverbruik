@@ -1,0 +1,15 @@
+2024
+	Verbruik gas: 1233 m3
+	Verbruik elektriciteit: 1420 kWh
+	Verbruik water: 109 m3
+2025
+	Geschat gas: 1085 m3
+	Geschat elektriciteit: 1358 kWh
+	Geschat water: 113 m3
+Verschil verbruik
+	Gas: -148 m3 (EUR -179)
+	Elektriciteit: -62 kWh (EUR -18)
+	Water: 4 m3 (EUR 4)
+Bedragen
+	Tarieven: [gas 1.21 / m3] [ele 0.29 / kWh] [wat 1.02 / m3]
+	Maandbedrag: EUR 164
